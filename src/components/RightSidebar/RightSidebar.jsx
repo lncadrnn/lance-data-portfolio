@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { ThemeContext } from '../../App'
 import { 
   FiSettings,
@@ -8,36 +9,102 @@ import {
   FiChevronUp
 } from 'react-icons/fi'
 import { 
-  FaJs, 
-  FaPython, 
-  FaReact, 
-  FaDatabase,
-  FaChartBar,
   FaGithub,
   FaLinkedin,
   FaMedium,
   FaWhatsapp,
   FaFacebook,
-  FaEnvelope
+  FaEnvelope,
+  FaFileExcel,
+  FaChartBar,
+  FaDatabase
 } from 'react-icons/fa'
 import { 
-  SiTypescript
+  SiMysql,
+  SiPython
 } from 'react-icons/si'
 import './RightSidebar.css'
+
+// Styled Components
+const scroll = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+`
+
+const SkillSection = styled.section`
+  background: var(--bg-tertiary) !important;
+  border-radius: 20px;
+  padding: 24px;
+  overflow: hidden;
+`
+
+const SkillsCarousel = styled.div`
+  overflow: hidden;
+  position: relative;
+  padding: 8px 0;
+  margin: 0 -24px;
+`
+
+const SkillsScroll = styled.div`
+  display: flex;
+  gap: 24px;
+  animation: ${scroll} 20s linear infinite;
+  padding: 0 24px;
+  width: fit-content;
+  
+  &:hover {
+    animation-play-state: paused;
+  }
+`
+
+const SkillIconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+`
+
+const SkillIcon = styled.div`
+  width: 64px;
+  height: 64px;
+  background: var(--bg-secondary);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.1) translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+`
+
+const SkillName = styled.span`
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  width: 64px;
+  font-weight: 500;
+  word-break: break-word;
+`
 
 const RightSidebar = () => {
   const { darkMode } = useContext(ThemeContext)
   const [expandedExpertise, setExpandedExpertise] = useState(null)
 
   const skills = [
-    { icon: <FaJs />, name: 'JavaScript', color: '#f7df1e' },
-    { icon: <SiTypescript />, name: 'TypeScript', color: '#3178c6' },
-    { icon: <FaPython />, name: 'Python', color: '#3776ab' },
-    { icon: <FaReact />, name: 'React', color: '#61dafb' },
+    { icon: <FaFileExcel />, name: 'Excel', color: '#217346' },
+    { icon: <SiMysql />, name: 'SQL', color: '#00758f' },
     { icon: <FaChartBar />, name: 'Power BI', color: '#f2c811' },
-    { icon: <FaDatabase />, name: 'Tableau', color: '#e97627' },
-    { icon: <FaDatabase />, name: 'MySQL', color: '#4479a1' },
-    { icon: <FaDatabase />, name: 'PostgreSQL', color: '#336791' },
+    { icon: <SiPython />, name: 'Python', color: '#3776ab' },
   ]
 
   const expertise = [
@@ -87,24 +154,24 @@ const RightSidebar = () => {
   return (
     <aside className={`right-sidebar ${darkMode ? 'dark' : 'light'}`}>
       {/* Skill Set */}
-      <section className="skill-section">
+      <SkillSection>
         <div className="section-header">
           <FiSettings />
           <h3>Skill Set</h3>
         </div>
-        <div className="skills-grid">
-          {skills.map((skill, index) => (
-            <div 
-              key={index} 
-              className="skill-icon" 
-              title={skill.name}
-              style={{ color: skill.color }}
-            >
-              {skill.icon}
-            </div>
-          ))}
-        </div>
-      </section>
+        <SkillsCarousel>
+          <SkillsScroll>
+            {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
+              <SkillIconWrapper key={index}>
+                <SkillIcon style={{ color: skill.color }}>
+                  {skill.icon}
+                </SkillIcon>
+                <SkillName>{skill.name}</SkillName>
+              </SkillIconWrapper>
+            ))}
+          </SkillsScroll>
+        </SkillsCarousel>
+      </SkillSection>
 
       {/* Expertise */}
       <section className="expertise-section">
