@@ -13,8 +13,8 @@
   --text-primary: #ffffff;
   --text-secondary: #8b949e;
   --text-muted: #6e7681;
-  --accent-color: #22c55e;
-  --accent-hover: #16a34a;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
   --border-color: #30363d;
 }
 
@@ -35,8 +35,8 @@ body {
   --text-primary: #1a1a2e;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
-  --accent-color: #22c55e;
-  --accent-hover: #16a34a;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
   --border-color: #e2e8f0;
 }
 
