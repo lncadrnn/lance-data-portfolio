@@ -10,6 +10,7 @@ import {
   FiChevronRight
 } from 'react-icons/fi'
 import './MainContent.css'
+import bannerImage from '../../assets/images/banner.jpg'
 
 const MainContent = () => {
   const { darkMode } = useContext(ThemeContext)
@@ -31,10 +32,10 @@ const MainContent = () => {
   }, [])
 
   const careerStats = [
-    { icon: <FiClock />, value: '2', label: 'Experience', unit: 'years', color: '#3b82f6' },
-    { icon: <FiAward />, value: '20', label: 'Certificates', unit: '', color: '#f59e0b' },
-    { icon: <FiGitPullRequest />, value: '16', label: 'Projects', unit: '', color: '#10b981' },
-    { icon: <FiCode />, value: '20', label: 'Technologies', unit: '', color: '#06b6d4' },
+    { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
+    { icon: <FiAward />, value: '0', label: 'Certificates', unit: '', color: '#f59e0b' },
+    { icon: <FiGitPullRequest />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
+    { icon: <FiCode />, value: '0', label: 'Technologies', unit: '', color: '#06b6d4' },
   ]
 
   const featuredProjects = []
@@ -58,7 +59,7 @@ const MainContent = () => {
         <div className="hero-banner">
           <div className="hero-overlay"></div>
           <img 
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" 
+            src={bannerImage} 
             alt="Data Analytics Banner" 
             className="hero-image"
           />
