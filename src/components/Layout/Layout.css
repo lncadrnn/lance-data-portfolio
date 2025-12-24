@@ -8,6 +8,20 @@
   margin: 0 auto;
 }
 
+.layout.construction-mode {
+  grid-template-columns: 260px 1fr;
+}
+
+.main-area {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 40px);
+}
+
+.main-area.full-width {
+  grid-column: span 1;
+}
+
 @media (max-width: 1200px) {
   .layout {
     grid-template-columns: 240px 1fr;

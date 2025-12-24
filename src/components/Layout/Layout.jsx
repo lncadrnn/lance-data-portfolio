@@ -1,20 +1,26 @@
 import { useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import Sidebar from '../Sidebar/Sidebar'
-import MainContent from '../MainContent/MainContent'
 import RightSidebar from '../RightSidebar/RightSidebar'
 import './Layout.css'
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const { darkMode } = useContext(ThemeContext)
+  const location = useLocation()
+  
+  // Check if we're on the home page (show full layout) or under construction pages
+  const isHomePage = location.pathname === '/'
   
   console.log('Layout is rendering, darkMode:', darkMode)
 
   return (
-    <div className={`layout ${darkMode ? 'dark' : 'light'}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isHomePage ? 'construction-mode' : ''}`}>
       <Sidebar />
-      <MainContent />
-      <RightSidebar />
+      <div className={`main-area ${!isHomePage ? 'full-width' : ''}`}>
+        {children}
+      </div>
+      {isHomePage && <RightSidebar />}
     </div>
   )
 }

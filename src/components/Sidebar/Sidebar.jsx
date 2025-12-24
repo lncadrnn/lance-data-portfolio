@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
+import { NavLink } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import { 
   FiHome, 
@@ -18,14 +19,13 @@ import resumePdf from '../../assets/resume/Lance Adrian Acal - Data.pdf'
 
 const Sidebar = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
-  const [activeNav, setActiveNav] = useState('home')
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: <FiHome /> },
-    { id: 'about', label: 'About', icon: <FiUser /> },
-    { id: 'achievements', label: 'Achievements', icon: <FiAward /> },
-    { id: 'projects', label: 'Projects', icon: <FiFolder /> },
-    { id: 'blogs', label: 'Blogs', icon: <FiFileText /> },
+    { id: 'home', label: 'Home', icon: <FiHome />, path: '/' },
+    { id: 'about', label: 'About', icon: <FiUser />, path: '/about' },
+    { id: 'achievements', label: 'Achievements', icon: <FiAward />, path: '/achievements' },
+    { id: 'projects', label: 'Projects', icon: <FiFolder />, path: '/projects' },
+    { id: 'blogs', label: 'Blogs', icon: <FiFileText />, path: '/blogs' },
   ]
 
   return (
@@ -51,14 +51,14 @@ const Sidebar = () => {
         {/* Navigation */}
         <nav className="navigation">
           {navItems.map((item) => (
-            <button
+            <NavLink
               key={item.id}
-              className={`nav-item ${activeNav === item.id ? 'active' : ''}`}
-              onClick={() => setActiveNav(item.id)}
+              to={item.path}
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
             >
               <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
-            </button>
+            </NavLink>
           ))}
         </nav>
 

@@ -1,5 +1,8 @@
 import { useState, createContext } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
+import MainContent from './components/MainContent/MainContent'
+import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import './App.css'
 
 export const ThemeContext = createContext()
@@ -15,9 +18,19 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
-      <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-        <Layout />
-      </div>
+      <Router>
+        <div className={`app ${darkMode ? 'dark' : 'light'}`}>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<MainContent />} />
+              <Route path="/about" element={<UnderConstruction pageName="About Me" />} />
+              <Route path="/achievements" element={<UnderConstruction pageName="Achievements" />} />
+              <Route path="/projects" element={<UnderConstruction pageName="Projects" />} />
+              <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />
+            </Routes>
+          </Layout>
+        </div>
+      </Router>
     </ThemeContext.Provider>
   )
 }
