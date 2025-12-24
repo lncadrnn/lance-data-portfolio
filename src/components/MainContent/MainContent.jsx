@@ -37,26 +37,7 @@ const MainContent = () => {
     { icon: <FiCode />, value: '20', label: 'Technologies', unit: '', color: '#06b6d4' },
   ]
 
-  const featuredProjects = [
-    {
-      id: 1,
-      title: 'Data Analysis Dashboard',
-      image: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=Project+1',
-      description: 'Interactive dashboard for sales analytics'
-    },
-    {
-      id: 2,
-      title: 'Machine Learning Model',
-      image: 'https://via.placeholder.com/400x250/10b981/ffffff?text=Project+2',
-      description: 'Predictive model for customer churn'
-    },
-    {
-      id: 3,
-      title: 'Data Visualization',
-      image: 'https://via.placeholder.com/400x250/f59e0b/ffffff?text=Project+3',
-      description: 'Visual storytelling with data'
-    },
-  ]
+  const featuredProjects = []
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
@@ -119,26 +100,34 @@ const MainContent = () => {
         </div>
         <div className="featured-carousel">
           <div className="carousel-container">
-            {featuredProjects.map((project, index) => (
-              <div 
-                key={project.id} 
-                className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
-                style={{ transform: `translateX(${(index - currentSlide) * 105}%)` }}
-              >
-                <img src={project.image} alt={project.title} />
-                <div className="carousel-overlay">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
+            {featuredProjects.length === 0 ? (
+              <div className="featured-empty"></div>
+            ) : (
+              featuredProjects.map((project, index) => (
+                <div 
+                  key={project.id} 
+                  className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
+                  style={{ transform: `translateX(${(index - currentSlide) * 105}%)` }}
+                >
+                  <img src={project.image} alt={project.title} />
+                  <div className="carousel-overlay">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
-          <button className="carousel-btn prev" onClick={prevSlide}>
-            <FiChevronLeft />
-          </button>
-          <button className="carousel-btn next" onClick={nextSlide}>
-            <FiChevronRight />
-          </button>
+          {featuredProjects.length > 0 && (
+            <>
+              <button className="carousel-btn prev" onClick={prevSlide}>
+                <FiChevronLeft />
+              </button>
+              <button className="carousel-btn next" onClick={nextSlide}>
+                <FiChevronRight />
+              </button>
+            </>
+          )}
         </div>
       </section>
     </main>

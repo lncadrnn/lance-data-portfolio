@@ -11,8 +11,6 @@ import {
 import { 
   FaGithub,
   FaLinkedin,
-  FaMedium,
-  FaWhatsapp,
   FaFacebook,
   FaEnvelope,
   FaFileExcel,
@@ -155,8 +153,6 @@ const RightSidebar = () => {
     { icon: <FaEnvelope />, url: '#', name: 'Gmail' },
     { icon: <FaGithub />, url: '#', name: 'GitHub' },
     { icon: <FaLinkedin />, url: '#', name: 'LinkedIn' },
-    { icon: <FaMedium />, url: '#', name: 'Medium' },
-    { icon: <FaWhatsapp />, url: '#', name: 'WhatsApp' },
   ]
 
   const toggleExpertise = (id) => {
@@ -241,7 +237,7 @@ const RightSidebar = () => {
           ))}
         </div>
         <p className="contact-text">
-          Let's build something great together — feel free to connect with me through any of the platforms above.
+          Let's build something great together! feel free to connect with me
         </p>
       </section>
     </aside>
