@@ -105,9 +105,9 @@ Update the `featuredProjects` array in `src/components/MainContent/MainContent.j
 ### Career Stats
 Modify the `careerStats` array in `MainContent.jsx` to update your statistics.
 
-## 📝 License
+## 🙏 Credits & Inspiration
 
-This project is open source and available under the [MIT License](LICENSE).
+Layout design inspired by [Mark John Allen Nizal](https://github.com/marknizal)'s portfolio. Check out his amazing work!
 
 ## 🤝 Contact
 
