@@ -96,15 +96,27 @@ const SkillName = styled.span`
   word-break: break-word;
 `
 
+const SkillImg = styled.img`
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+`
+
+// Import icons from assets
+import excelIcon from '../../assets/icons/microsoft-excel.svg'
+import mysqlIcon from '../../assets/icons/mysql.svg'
+import powerbiIcon from '../../assets/icons/powerbi.svg'
+import pythonIcon from '../../assets/icons/python.svg'
+
 const RightSidebar = () => {
   const { darkMode } = useContext(ThemeContext)
   const [expandedExpertise, setExpandedExpertise] = useState(null)
 
   const skills = [
-    { icon: <FaFileExcel />, name: 'Excel', color: '#217346' },
-    { icon: <SiMysql />, name: 'SQL', color: '#00758f' },
-    { icon: <FaChartBar />, name: 'Power BI', color: '#f2c811' },
-    { icon: <SiPython />, name: 'Python', color: '#3776ab' },
+    { icon: excelIcon, name: 'Excel' },
+    { icon: mysqlIcon, name: 'SQL' },
+    { icon: powerbiIcon, name: 'Power BI' },
+    { icon: pythonIcon, name: 'Python' },
   ]
 
   const expertise = [
@@ -163,8 +175,8 @@ const RightSidebar = () => {
           <SkillsScroll>
             {[...skills, ...skills, ...skills, ...skills].map((skill, index) => (
               <SkillIconWrapper key={index}>
-                <SkillIcon style={{ color: skill.color }}>
-                  {skill.icon}
+                <SkillIcon>
+                  <SkillImg src={skill.icon} alt={skill.name} />
                 </SkillIcon>
                 <SkillName>{skill.name}</SkillName>
               </SkillIconWrapper>

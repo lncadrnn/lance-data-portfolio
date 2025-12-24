@@ -12,6 +12,10 @@ import {
 } from 'react-icons/fi'
 import './Sidebar.css'
 
+// Import assets
+import profilePic from '../../assets/profile/profile.png'
+import resumePdf from '../../assets/resume/Lance Adrian Acal - Data.pdf'
+
 const Sidebar = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
   const [activeNav, setActiveNav] = useState('home')
@@ -31,20 +35,17 @@ const Sidebar = () => {
         <div className="profile-section">
           <div className="profile-image">
             <img 
-              src="/profile-placeholder.jpg" 
-              alt="Profile" 
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/100x100/1a1a2e/ffffff?text=Photo'
-              }}
+              src={profilePic} 
+              alt="Lance Adrian D. Acal" 
             />
           </div>
-          <h2 className="profile-name">Your Name Here</h2>
+          <h2 className="profile-name">Lance Adrian D. Acal</h2>
           <p className="profile-title">Data Analyst / Scientist</p>
           
-          <button className="resume-btn">
+          <a href={resumePdf} download className="resume-btn">
             <FiDownload />
             <span>Resume</span>
-          </button>
+          </a>
         </div>
 
         {/* Navigation */}
