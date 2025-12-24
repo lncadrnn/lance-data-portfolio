@@ -2,6 +2,8 @@
 
 A modern, responsive personal portfolio website built with React and Vite, showcasing data analytics and data scientist skills, projects, and professional achievements.
 
+🌐 **Live Demo:** [lanceadrianacal.vercel.app](https://lanceadrianacal.vercel.app)
+
 ![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=flat-square&logo=react)
 ![Vite](https://img.shields.io/badge/Vite-5.0.10-646CFF?style=flat-square&logo=vite)
 ![Ant Design](https://img.shields.io/badge/Ant%20Design-6.1.2-0170FE?style=flat-square&logo=antdesign)
