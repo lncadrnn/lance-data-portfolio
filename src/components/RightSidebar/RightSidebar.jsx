@@ -4,7 +4,8 @@ import { ThemeContext } from '../../App'
 import { 
   FiSettings,
   FiUsers,
-  FiMail
+  FiMail,
+  FiBook
 } from 'react-icons/fi'
 import { 
   FaGithub,
@@ -12,7 +13,9 @@ import {
   FaFacebook,
   FaEnvelope,
   FaChartBar,
-  FaDatabase
+  FaCogs,
+  FaSearch,
+  FaRegLightbulb
 } from 'react-icons/fa'
 import { 
   SiMysql,
@@ -121,28 +124,28 @@ const RightSidebar = () => {
 
   const expertise = [
     { 
-      id: 'data-analysis',
-      title: 'Data Analysis', 
-      icon: <FaChartBar />,
+      id: 'analytical-thinking',
+      title: 'Improve Analytical Thinking', 
+      icon: <FaCogs />,
       color: '#3b82f6'
     },
     { 
-      id: 'visualization',
-      title: 'Data Visualization', 
-      icon: <FaChartBar />,
+      id: 'sql-py',
+      title: 'Strengthen SQL / Python', 
+      icon: <FaSearch />,
       color: '#8b5cf6'
     },
     { 
-      id: 'database',
-      title: 'Database Management', 
-      icon: <FaDatabase />,
-      color: '#f59e0b'
+      id: 'better-dashboards',
+      title: 'Build Better Dashboards', 
+      icon: <FaChartBar />,
+      color: '#10b981'
     },
     { 
-      id: 'ml',
-      title: 'Machine Learning', 
-      icon: <FiSettings />,
-      color: '#10b981'
+      id: 'storytelling',
+      title: 'Improve Data Storytelling', 
+      icon: <FaRegLightbulb />,
+      color: '#f59e0b'
     },
   ]
 
@@ -179,8 +182,8 @@ const RightSidebar = () => {
       {/* Expertise */}
       <section className="expertise-section">
         <div className="section-header">
-          <FiUsers />
-          <h3>Expertise</h3>
+          <FiBook />
+          <h3>What I'm Learning</h3>
         </div>
         <div className="expertise-list">
           {expertise.map((item) => (
