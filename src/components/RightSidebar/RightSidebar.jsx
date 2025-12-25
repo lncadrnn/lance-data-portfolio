@@ -1,12 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { ThemeContext } from '../../App'
 import { 
   FiSettings,
   FiUsers,
-  FiMail,
-  FiChevronDown,
-  FiChevronUp
+  FiMail
 } from 'react-icons/fi'
 import { 
   FaGithub,
@@ -110,7 +108,6 @@ import seabornIcon from '../../assets/icons/seaborn.svg'
 
 const RightSidebar = () => {
   const { darkMode } = useContext(ThemeContext)
-  const [expandedExpertise, setExpandedExpertise] = useState(null)
 
   const skills = [
     { icon: excelIcon, name: 'Excel' },
@@ -127,42 +124,35 @@ const RightSidebar = () => {
       id: 'data-analysis',
       title: 'Data Analysis', 
       icon: <FaChartBar />,
-      color: '#3b82f6',
-      skills: ['Python', 'SQL', 'Excel', 'Statistics']
+      color: '#3b82f6'
     },
     { 
       id: 'visualization',
       title: 'Data Visualization', 
       icon: <FaChartBar />,
-      color: '#8b5cf6',
-      skills: ['Power BI', 'Tableau', 'Matplotlib', 'Seaborn']
+      color: '#8b5cf6'
     },
     { 
       id: 'database',
       title: 'Database Management', 
       icon: <FaDatabase />,
-      color: '#f59e0b',
-      skills: ['MySQL', 'PostgreSQL', 'MongoDB', 'ETL']
+      color: '#f59e0b'
     },
     { 
       id: 'ml',
       title: 'Machine Learning', 
       icon: <FiSettings />,
-      color: '#10b981',
-      skills: ['Scikit-learn', 'TensorFlow', 'Pandas', 'NumPy']
+      color: '#10b981'
     },
   ]
 
   const socialLinks = [
-    { icon: <FaFacebook />, url: '#', name: 'Facebook' },
-    { icon: <FaEnvelope />, url: '#', name: 'Gmail' },
-    { icon: <FaGithub />, url: '#', name: 'GitHub' },
-    { icon: <FaLinkedin />, url: '#', name: 'LinkedIn' },
+    { icon: <FaFacebook />, url: 'https://facebook.com/lanceadrian.acal', name: 'Facebook' },
+    { icon: <FaEnvelope />, url: 'mailto:lanceadrn.acal@gmail.com', name: 'Gmail' },
+    { icon: <FaGithub />, url: 'https://github.com/lncadrnn', name: 'GitHub' },
+    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/lncadrnn', name: 'LinkedIn' },
   ]
 
-  const toggleExpertise = (id) => {
-    setExpandedExpertise(expandedExpertise === id ? null : id)
-  }
 
   return (
     <aside className={`right-sidebar ${darkMode ? 'dark' : 'light'}`}>
@@ -195,27 +185,14 @@ const RightSidebar = () => {
         <div className="expertise-list">
           {expertise.map((item) => (
             <div key={item.id} className="expertise-item">
-              <button 
-                className="expertise-header"
-                onClick={() => toggleExpertise(item.id)}
-              >
+              <div className="expertise-header-static">
                 <div className="expertise-title">
                   <span className="expertise-icon" style={{ color: item.color }}>
                     {item.icon}
                   </span>
                   <span>{item.title}</span>
                 </div>
-                {expandedExpertise === item.id ? <FiChevronUp /> : <FiChevronDown />}
-              </button>
-              {expandedExpertise === item.id && (
-                <div className="expertise-content">
-                  <div className="expertise-skills">
-                    {item.skills.map((skill, idx) => (
-                      <span key={idx} className="expertise-skill-tag">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
