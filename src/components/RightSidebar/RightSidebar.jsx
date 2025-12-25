@@ -13,7 +13,6 @@ import {
   FaLinkedin,
   FaFacebook,
   FaEnvelope,
-  FaFileExcel,
   FaChartBar,
   FaDatabase
 } from 'react-icons/fa'
@@ -105,6 +104,9 @@ import excelIcon from '../../assets/icons/microsoft-excel.svg'
 import mysqlIcon from '../../assets/icons/mysql.svg'
 import powerbiIcon from '../../assets/icons/powerbi.svg'
 import pythonIcon from '../../assets/icons/python.svg'
+import pandasIcon from '../../assets/icons/pandas.svg'
+import matplotlibIcon from '../../assets/icons/matplotlib.svg'
+import seabornIcon from '../../assets/icons/seaborn.svg'
 
 const RightSidebar = () => {
   const { darkMode } = useContext(ThemeContext)
@@ -115,6 +117,9 @@ const RightSidebar = () => {
     { icon: mysqlIcon, name: 'SQL' },
     { icon: powerbiIcon, name: 'Power BI' },
     { icon: pythonIcon, name: 'Python' },
+    { icon: pandasIcon, name: 'Pandas' },
+    { icon: matplotlibIcon, name: 'Matplotlib' },
+    { icon: seabornIcon, name: 'Seaborn' },
   ]
 
   const expertise = [

@@ -35,7 +35,7 @@ const MainContent = () => {
     { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
     { icon: <FiAward />, value: '0', label: 'Certificates', unit: '', color: '#f59e0b' },
     { icon: <FiGitPullRequest />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
-    { icon: <FiCode />, value: '0', label: 'Technologies', unit: '', color: '#06b6d4' },
+    { icon: <FiCode />, value: '0', label: 'Case Studies', unit: '', color: '#06b6d4' },
   ]
 
   const featuredProjects = []
