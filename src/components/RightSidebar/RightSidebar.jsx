@@ -108,6 +108,7 @@ import pythonIcon from '../../assets/icons/python.svg'
 import pandasIcon from '../../assets/icons/pandas.svg'
 import matplotlibIcon from '../../assets/icons/matplotlib.svg'
 import seabornIcon from '../../assets/icons/seaborn.svg'
+import gitIcon from '../../assets/icons/git.svg'
 
 const RightSidebar = () => {
   const { darkMode } = useContext(ThemeContext)
@@ -120,6 +121,7 @@ const RightSidebar = () => {
     { icon: pandasIcon, name: 'Pandas' },
     { icon: matplotlibIcon, name: 'Matplotlib' },
     { icon: seabornIcon, name: 'Seaborn' },
+    { icon: gitIcon, name: 'Git' },
   ]
 
   const expertise = [
