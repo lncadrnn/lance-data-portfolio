@@ -1,11 +1,12 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { ThemeContext } from '../../App'
 import { 
   FiCalendar, 
   FiClock, 
   FiAward, 
-  FiGitPullRequest,
-  FiCode,
+  FiFolder,
+  FiBriefcase,
+  FiBarChart2,
   FiChevronLeft,
   FiChevronRight
 } from 'react-icons/fi'
@@ -17,13 +18,20 @@ const MainContent = () => {
   const [greeting, setGreeting] = useState('')
   const [currentDate, setCurrentDate] = useState('')
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [displayedText, setDisplayedText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
+  const fullTextRef = useRef('')
 
   useEffect(() => {
     // Set greeting based on time of day
     const hour = new Date().getHours()
-    if (hour < 12) setGreeting('Good morning!')
-    else if (hour < 18) setGreeting('Good afternoon!')
-    else setGreeting('Good evening!')
+    let greetingText = ''
+    if (hour < 12) greetingText = 'Good morning!'
+    else if (hour < 18) greetingText = 'Good afternoon!'
+    else greetingText = 'Good evening!'
+    
+    setGreeting(greetingText)
+    fullTextRef.current = `Hey there, ${greetingText}`
 
     // Set formatted date
     const date = new Date()
@@ -31,11 +39,32 @@ const MainContent = () => {
     setCurrentDate(date.toLocaleDateString('en-US', options))
   }, [])
 
+  // Typing animation effect
+  useEffect(() => {
+    if (!fullTextRef.current) return
+    
+    let currentIndex = 0
+    setDisplayedText('')
+    setIsTyping(true)
+    
+    const typingInterval = setInterval(() => {
+      if (currentIndex < fullTextRef.current.length) {
+        setDisplayedText(fullTextRef.current.slice(0, currentIndex + 1))
+        currentIndex++
+      } else {
+        setIsTyping(false)
+        clearInterval(typingInterval)
+      }
+    }, 80)
+    
+    return () => clearInterval(typingInterval)
+  }, [greeting])
+
   const careerStats = [
     { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
     { icon: <FiAward />, value: '0', label: 'Certificates', unit: '', color: '#f59e0b' },
-    { icon: <FiGitPullRequest />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
-    { icon: <FiCode />, value: '0', label: 'Case Studies', unit: '', color: '#06b6d4' },
+    { icon: <FiFolder />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
+    { icon: <FiBriefcase />, value: '0', label: 'Case Studies', unit: '', color: '#06b6d4' },
   ]
 
   const featuredProjects = []
@@ -64,7 +93,10 @@ const MainContent = () => {
             className="hero-image"
           />
           <div className="hero-content">
-            <h1>Hey there, {greeting}</h1>
+            <h1>
+              {displayedText}
+              <span className={`typing-cursor ${!isTyping ? 'blink' : ''}`}>|</span>
+            </h1>
           </div>
         </div>
       </section>
@@ -72,7 +104,7 @@ const MainContent = () => {
       {/* Career Stats */}
       <section className="stats-section">
         <div className="section-header">
-          <FiGitPullRequest />
+          <FiBarChart2 />
           <h2>Career Stats</h2>
         </div>
         <div className="stats-grid">

@@ -54,6 +54,28 @@
   font-size: 1.8rem;
   font-weight: 600;
   color: white;
+  display: flex;
+  align-items: center;
+}
+
+/* Typing Cursor Animation */
+.typing-cursor {
+  font-weight: 400;
+  margin-left: 2px;
+  color: white;
+}
+
+.typing-cursor.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Stats Section */

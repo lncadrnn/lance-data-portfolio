@@ -5,7 +5,8 @@ import {
   FiSettings,
   FiUsers,
   FiMail,
-  FiBook
+  FiBook,
+  FiGitPullRequest
 } from 'react-icons/fi'
 import { 
   FaGithub,
@@ -132,22 +133,22 @@ const RightSidebar = () => {
       color: '#3b82f6'
     },
     { 
-      id: 'sql-py',
-      title: 'Strengthen SQL / Python', 
-      icon: <FaSearch />,
-      color: '#8b5cf6'
+      id: 'storytelling',
+      title: 'Enhance Data Storytelling', 
+      icon: <FaRegLightbulb />,
+      color: '#f59e0b'
     },
     { 
       id: 'better-dashboards',
-      title: 'Build Better Dashboards', 
+      title: 'Create Better Dashboards', 
       icon: <FaChartBar />,
       color: '#10b981'
     },
     { 
-      id: 'storytelling',
-      title: 'Improve Data Storytelling', 
-      icon: <FaRegLightbulb />,
-      color: '#f59e0b'
+      id: 'sql-py',
+      title: 'Strengthen SQL / Python', 
+      icon: <FaSearch />,
+      color: '#06b6d4'
     },
   ]
 
@@ -164,8 +165,8 @@ const RightSidebar = () => {
       {/* Skill Set */}
       <SkillSection>
         <div className="section-header">
-          <FiSettings />
-          <h3>Skill Set</h3>
+          <FiGitPullRequest />
+          <h3>Tech Stack</h3>
         </div>
         <SkillsCarousel>
           <SkillsScroll>
