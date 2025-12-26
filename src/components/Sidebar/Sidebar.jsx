@@ -17,7 +17,7 @@ import './Sidebar.css'
 import profilePic from '../../assets/profile/profile.png'
 import resumePdf from '../../assets/resume/Lance Adrian Acal - Data.pdf'
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
 
   const navItems = [
@@ -28,8 +28,15 @@ const Sidebar = () => {
     { id: 'blogs', label: 'Blogs', icon: <FiFileText />, path: '/blogs' },
   ]
 
+  const handleNavClick = () => {
+    // Close sidebar on mobile when a nav item is clicked
+    if (onClose) {
+      onClose()
+    }
+  }
+
   return (
-    <aside className={`sidebar ${darkMode ? 'dark' : 'light'}`}>
+    <aside className={`sidebar ${darkMode ? 'dark' : 'light'} ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-content">
         {/* Profile Section */}
         <div className="profile-section">
@@ -55,6 +62,7 @@ const Sidebar = () => {
               key={item.id}
               to={item.path}
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              onClick={handleNavClick}
             >
               <span className="nav-icon">{item.icon}</span>
               <span className="nav-label">{item.label}</span>

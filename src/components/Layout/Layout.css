@@ -22,9 +22,74 @@
   grid-column: span 1;
 }
 
+/* Hamburger Button */
+.hamburger-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Right Sidebar - Hidden on desktop */
+.mobile-right-sidebar {
+  display: none;
+}
+
+/* Desktop Right Sidebar */
+.desktop-right-sidebar {
+  display: block;
+}
+
 @media (max-width: 1200px) {
   .layout {
     grid-template-columns: 240px 1fr;
+  }
+  
+  .desktop-right-sidebar {
+    display: none;
+  }
+  
+  .mobile-right-sidebar {
+    display: block;
+    margin-top: 20px;
   }
 }
 
@@ -33,7 +98,7 @@
     grid-template-columns: 1fr;
     gap: 0;
     padding: 16px;
-    padding-bottom: 80px;
+    padding-top: 80px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -48,5 +113,22 @@
     max-width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
+  }
+  
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  .sidebar-overlay {
+    display: block;
+  }
+  
+  .mobile-right-sidebar {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .desktop-right-sidebar {
+    display: none;
   }
 }

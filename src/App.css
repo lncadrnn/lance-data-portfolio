@@ -20,10 +20,3 @@
 .fade-in {
   animation: fadeIn 0.5s ease-out;
 }
-
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .app {
-    padding-bottom: 80px;
-  }
-}

@@ -145,6 +145,19 @@
 
 @media (max-width: 1200px) {
   .right-sidebar {
-    display: none;
+    position: static;
+    height: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .right-sidebar {
+    position: static;
+    height: auto;
+    gap: 16px;
+  }
+
+  .right-sidebar section {
+    padding: 20px;
   }
 }
