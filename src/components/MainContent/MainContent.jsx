@@ -12,11 +12,19 @@ import {
 } from 'react-icons/fi'
 import './MainContent.css'
 import banner1 from '../../assets/images/banner1.jpg'
+import banner2 from '../../assets/images/banner2.jpg'
+import banner3 from '../../assets/images/banner3.jpg'
+import banner4 from '../../assets/images/banner4.jpg'
+import banner5 from '../../assets/images/banner5.jpg'
+import banner6 from '../../assets/images/banner6.jpg'
+
+const banners = [banner1, banner2, banner3, banner4, banner5, banner6]
 
 const MainContent = () => {
   const { darkMode } = useContext(ThemeContext)
   const [currentDate, setCurrentDate] = useState('')
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentBanner, setCurrentBanner] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
@@ -64,6 +72,15 @@ const MainContent = () => {
     const date = new Date()
     const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
     setCurrentDate(date.toLocaleDateString('en-US', options))
+  }, [])
+
+  // Banner rotation effect
+  useEffect(() => {
+    const bannerInterval = setInterval(() => {
+      setCurrentBanner((prev) => (prev + 1) % banners.length)
+    }, 5000) // Change banner every 5 seconds
+
+    return () => clearInterval(bannerInterval)
   }, [])
 
   // Typewriter effect with backspace
@@ -146,9 +163,10 @@ const MainContent = () => {
         <div className="hero-banner">
           <div className="hero-overlay"></div>
           <img 
-            src={banner1} 
+            src={banners[currentBanner]} 
             alt="Data Analytics Banner" 
             className="hero-image"
+            key={currentBanner}
           />
           <div className="hero-content">
             <h1>
