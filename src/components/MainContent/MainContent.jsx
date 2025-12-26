@@ -11,27 +11,54 @@ import {
   FiChevronRight
 } from 'react-icons/fi'
 import './MainContent.css'
-import bannerImage from '../../assets/images/banner.jpg'
+import banner1 from '../../assets/images/banner1.jpg'
 
 const MainContent = () => {
   const { darkMode } = useContext(ThemeContext)
-  const [greeting, setGreeting] = useState('')
   const [currentDate, setCurrentDate] = useState('')
   const [currentSlide, setCurrentSlide] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
+  const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const fullTextRef = useRef('')
+  
+  // Ref to track sequential text index
+  const textIndexRef = useRef(0)
 
-  useEffect(() => {
-    // Set greeting based on time of day
+  // All hero texts - some are dynamic based on time of day
+  const getHeroTexts = () => {
     const hour = new Date().getHours()
-    let greetingText = ''
-    if (hour < 12) greetingText = 'Good morning!'
-    else if (hour < 18) greetingText = 'Good afternoon!'
-    else greetingText = 'Good evening!'
+    let timeGreeting = ''
+    if (hour < 12) timeGreeting = 'Good morning!'
+    else if (hour < 18) timeGreeting = 'Good afternoon!'
+    else timeGreeting = 'Good evening!'
+
+    return [
+      `Hey there, ${timeGreeting}`,
+      'Welcome to my Data Space!',
+      'Great to have you here!',
+      'Explore my journey with data below!',
+      'Turning Data into Insights.',
+      'Exploring Data with Purpose.',
+      'Analytics | Insights | Impact',
+      'Predict. Analyze. Understand.',
+      'Powered by curiosity and data.'
+    ]
+  }
+
+  // Get next text sequentially (loops back to first after last)
+  const getNextText = () => {
+    const heroTexts = getHeroTexts()
+    textIndexRef.current = (textIndexRef.current + 1) % heroTexts.length
+    return heroTexts[textIndexRef.current]
+  }
+
+  // Initialize with first text
+  useEffect(() => {
+    textIndexRef.current = 0
     
-    setGreeting(greetingText)
-    fullTextRef.current = `Hey there, ${greetingText}`
+    const heroTexts = getHeroTexts()
+    fullTextRef.current = heroTexts[0]
 
     // Set formatted date
     const date = new Date()
@@ -39,26 +66,57 @@ const MainContent = () => {
     setCurrentDate(date.toLocaleDateString('en-US', options))
   }, [])
 
-  // Typing animation effect
+  // Typewriter effect with backspace
   useEffect(() => {
     if (!fullTextRef.current) return
     
     let currentIndex = 0
+    let isDeleting = false
+    let pauseTimeout = null
     setDisplayedText('')
     setIsTyping(true)
     
-    const typingInterval = setInterval(() => {
-      if (currentIndex < fullTextRef.current.length) {
-        setDisplayedText(fullTextRef.current.slice(0, currentIndex + 1))
-        currentIndex++
-      } else {
-        setIsTyping(false)
-        clearInterval(typingInterval)
+    const typewriterInterval = setInterval(() => {
+      const currentText = fullTextRef.current
+      
+      if (!isDeleting) {
+        // Typing forward
+        if (currentIndex < currentText.length) {
+          setDisplayedText(currentText.slice(0, currentIndex + 1))
+          currentIndex++
+        } else {
+          // Finished typing, pause then start deleting
+          setIsTyping(false)
+          clearInterval(typewriterInterval)
+          
+          pauseTimeout = setTimeout(() => {
+            // Start the delete and next text cycle
+            let deleteIndex = currentText.length
+            setIsTyping(true)
+            
+            const deleteInterval = setInterval(() => {
+              if (deleteIndex > 0) {
+                deleteIndex--
+                setDisplayedText(currentText.slice(0, deleteIndex))
+              } else {
+                clearInterval(deleteInterval)
+                // Get next text sequentially
+                const nextText = getNextText()
+                
+                setCurrentTextIndex(prev => prev + 1)
+                fullTextRef.current = nextText
+              }
+            }, 40) // Faster backspace
+          }, 2000) // Pause before deleting
+        }
       }
     }, 80)
     
-    return () => clearInterval(typingInterval)
-  }, [greeting])
+    return () => {
+      clearInterval(typewriterInterval)
+      if (pauseTimeout) clearTimeout(pauseTimeout)
+    }
+  }, [currentTextIndex])
 
   const careerStats = [
     { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
@@ -88,7 +146,7 @@ const MainContent = () => {
         <div className="hero-banner">
           <div className="hero-overlay"></div>
           <img 
-            src={bannerImage} 
+            src={banner1} 
             alt="Data Analytics Banner" 
             className="hero-image"
           />
