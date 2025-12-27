@@ -1,11 +1,11 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ThemeContext } from '../../App'
-import { 
-  FiHome, 
-  FiUser, 
-  FiAward, 
-  FiFolder, 
+import {
+  FiHome,
+  FiUser,
+  FiAward,
+  FiFolder,
   FiFileText,
   FiDownload,
   FiMoon,
@@ -19,6 +19,19 @@ import resumePdf from '../../assets/resume/Lance Adrian Acal - Data.pdf'
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [switchingToLight, setSwitchingToLight] = useState(false)
+
+  const handleThemeToggle = () => {
+    setSwitchingToLight(darkMode) // If currently dark, we're switching to light
+    setIsAnimating(true)
+    setTimeout(() => {
+      toggleDarkMode()
+      setTimeout(() => {
+        setIsAnimating(false)
+      }, 400)
+    }, 300)
+  }
 
   const navItems = [
     { id: 'home', label: 'Home', icon: <FiHome />, path: '/' },
@@ -36,60 +49,75 @@ const Sidebar = ({ isOpen, onClose }) => {
   }
 
   return (
-    <aside className={`sidebar ${darkMode ? 'dark' : 'light'} ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-content">
-        {/* Profile Section */}
-        <div className="profile-section">
-          <div className="profile-image">
-            <img 
-              src={profilePic} 
-              alt="Lance Adrian D. Acal" 
-            />
-          </div>
-          <h2 className="profile-name">Lance Adrian D. Acal</h2>
-          <p className="profile-title">Data Analyst / Scientist</p>
-          
-          <a href={resumePdf} download className="resume-btn">
-            <FiDownload />
-            <span>Resume</span>
-          </a>
-        </div>
+    <>
+      <aside className={`sidebar ${darkMode ? 'dark' : 'light'} ${isOpen ? 'open' : ''}`}>
+        <div className="sidebar-content">
+          {/* Profile Section */}
+          <div className="profile-section">
+            <div className="profile-image">
+              <img
+                src={profilePic}
+                alt="Lance Adrian D. Acal"
+              />
+            </div>
+            <h2 className="profile-name">Lance Adrian D. Acal</h2>
+            <p className="profile-title">Data Analyst / Scientist</p>
 
-        {/* Navigation */}
-        <nav className="navigation">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.path}
-              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-              onClick={handleNavClick}
+            <a href={resumePdf} download className="resume-btn">
+              <FiDownload />
+              <span>Resume</span>
+            </a>
+          </div>
+
+          {/* Navigation */}
+          <nav className="navigation">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.path}
+                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                onClick={handleNavClick}
+              >
+                <span className="nav-icon">{item.icon}</span>
+                <span className="nav-label">{item.label}</span>
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Dark Mode Toggle */}
+          <div className="theme-toggle">
+            <div className="toggle-label">
+              {darkMode ? <FiMoon /> : <FiSun />}
+              <span>Dark Mode</span>
+            </div>
+            <button
+              className={`toggle-switch ${darkMode ? 'active' : ''}`}
+              onClick={handleThemeToggle}
+              disabled={isAnimating}
             >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* Dark Mode Toggle */}
-        <div className="theme-toggle">
-          <div className="toggle-label">
-            {darkMode ? <FiMoon /> : <FiSun />}
-            <span>Dark Mode</span>
+              <span className="toggle-slider"></span>
+            </button>
           </div>
-          <button 
-            className={`toggle-switch ${darkMode ? 'active' : ''}`}
-            onClick={toggleDarkMode}
-          >
-            <span className="toggle-slider"></span>
-          </button>
-        </div>
 
-        {/* Footer */}
-        <div className="sidebar-footer">
-          <p>Designed & Built by Lance Adrian Acal</p>
+          {/* Footer */}
+          <div className="sidebar-footer">
+            <p>Designed & Built by Lance Adrian Acal</p>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+
+      {/* Theme Switch Animation Overlay - Outside aside to cover everything */}
+      {
+        isAnimating && (
+          <div className={`theme-animation-overlay ${switchingToLight ? 'to-light' : 'to-dark'}`}>
+            <div className="theme-spinner">
+              <FiSun className="spinner-sun" />
+              <FiMoon className="spinner-moon" />
+            </div>
+          </div>
+        )
+      }
+    </>
   )
 }
 
