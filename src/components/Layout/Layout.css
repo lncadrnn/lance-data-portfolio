@@ -78,22 +78,8 @@
   display: block;
 }
 
-@media (max-width: 1200px) {
-  .layout {
-    grid-template-columns: 240px 1fr;
-  }
-  
-  .desktop-right-sidebar {
-    display: none;
-  }
-  
-  .mobile-right-sidebar {
-    display: block;
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 900px) {
+/* Tablet, smaller screens, and zoom scenarios - hamburger menu for sidebar, right sidebar at bottom */
+@media (max-width: 1400px) {
   .layout {
     grid-template-columns: 1fr;
     gap: 0;
@@ -123,12 +109,12 @@
     display: block;
   }
   
+  .desktop-right-sidebar {
+    display: none;
+  }
+  
   .mobile-right-sidebar {
     display: block;
     margin-top: 20px;
-  }
-  
-  .desktop-right-sidebar {
-    display: none;
   }
 }

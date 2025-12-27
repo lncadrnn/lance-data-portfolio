@@ -86,8 +86,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <p>Designed & Built by Your Name</p>
-          <p>© 2025, All rights reserved.</p>
+          <p>Designed & Built by Lance Adrian Acal</p>
         </div>
       </div>
     </aside>

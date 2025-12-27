@@ -143,14 +143,8 @@
   line-height: 1.4;
 }
 
-@media (max-width: 1200px) {
-  .right-sidebar {
-    position: static;
-    height: auto;
-  }
-}
-
-@media (max-width: 900px) {
+/* Tablet, smaller screens, and zoom scenarios - right sidebar moves to bottom of main content */
+@media (max-width: 1400px) {
   .right-sidebar {
     position: static;
     height: auto;

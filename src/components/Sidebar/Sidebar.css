@@ -177,7 +177,8 @@
   line-height: 1.6;
 }
 
-@media (max-width: 900px) {
+/* Tablet, smaller screens, and zoom scenarios - sidebar becomes slide-out hamburger menu */
+@media (max-width: 1400px) {
   .sidebar {
     position: fixed;
     top: 0;
