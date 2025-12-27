@@ -136,7 +136,7 @@
 .toggle-switch {
   width: 50px;
   height: 26px;
-  background: var(--bg-secondary);
+  background: #3b82f6;
   border-radius: 13px;
   border: none;
   cursor: pointer;
