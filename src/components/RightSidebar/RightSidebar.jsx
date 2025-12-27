@@ -35,7 +35,7 @@ const scroll = keyframes`
 `
 
 const SkillSection = styled.section`
-  background: var(--bg-tertiary) !important;
+  background: var(--bg-secondary) !important;
   border-radius: 20px;
   padding: 24px;
   overflow: hidden;
@@ -71,7 +71,7 @@ const SkillIconWrapper = styled.div`
 const SkillIcon = styled.div`
   width: 64px;
   height: 64px;
-  background: var(--bg-secondary);
+  background: var(--bg-tertiary);
   border-radius: 14px;
   display: flex;
   align-items: center;
