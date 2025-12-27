@@ -78,8 +78,49 @@
   display: block;
 }
 
-/* Tablet, smaller screens, and zoom scenarios - hamburger menu for sidebar, right sidebar at bottom */
+
+/* 1400px: Sidebar becomes hamburger, right sidebar remains on right */
 @media (max-width: 1400px) {
+  .layout {
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    padding: 16px;
+    padding-top: 80px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .layout.construction-mode {
+    grid-template-columns: 1fr;
+  }
+
+  .main-area {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  .desktop-right-sidebar {
+    display: block;
+  }
+
+  .mobile-right-sidebar {
+    display: none;
+  }
+}
+
+/* 900px: Right sidebar moves below main content */
+@media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
     gap: 0;
@@ -100,19 +141,19 @@
     overflow-x: hidden;
     box-sizing: border-box;
   }
-  
+
   .hamburger-btn {
     display: flex;
   }
-  
+
   .sidebar-overlay {
     display: block;
   }
-  
+
   .desktop-right-sidebar {
     display: none;
   }
-  
+
   .mobile-right-sidebar {
     display: block;
     margin-top: 20px;
