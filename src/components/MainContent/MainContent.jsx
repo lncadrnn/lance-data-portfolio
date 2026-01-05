@@ -142,7 +142,60 @@ const MainContent = () => {
     { icon: <FiBriefcase />, value: '0', label: 'Case Studies', unit: '', color: '#06b6d4' },
   ]
 
-  const featuredProjects = []
+  // Sample featured projects - replace with your actual projects
+  const featuredProjects = [
+    {
+      id: 1,
+      title: 'Coming Soon',
+      description: 'Exciting data project in development',
+      category: 'Data Analytics',
+      image: banner1,
+      color: '#3b82f6'
+    },
+    {
+      id: 2,
+      title: 'Coming Soon',
+      description: 'Machine learning project coming up',
+      category: 'Machine Learning',
+      image: banner2,
+      color: '#8b5cf6'
+    },
+    {
+      id: 3,
+      title: 'Coming Soon',
+      description: 'Dashboard visualization project',
+      category: 'Visualization',
+      image: banner3,
+      color: '#10b981'
+    },
+    {
+      id: 4,
+      title: 'Coming Soon',
+      description: 'Data engineering pipeline project',
+      category: 'Data Engineering',
+      image: banner4,
+      color: '#f59e0b'
+    },
+    {
+      id: 5,
+      title: 'Coming Soon',
+      description: 'Business intelligence case study',
+      category: 'Business Intelligence',
+      image: banner5,
+      color: '#ec4899'
+    }
+  ]
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (featuredProjects.length <= 1) return
+    
+    const autoPlayInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
+    }, 5000)
+
+    return () => clearInterval(autoPlayInterval)
+  }, [featuredProjects.length])
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
@@ -150,6 +203,10 @@ const MainContent = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length)
+  }
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index)
   }
 
   return (
@@ -208,33 +265,56 @@ const MainContent = () => {
           <h2>Featured</h2>
         </div>
         <div className="featured-carousel">
-          <div className="carousel-container">
-            {featuredProjects.length === 0 ? (
-              <div className="featured-empty"></div>
-            ) : (
-              featuredProjects.map((project, index) => (
-                <div 
-                  key={project.id} 
-                  className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
-                  style={{ transform: `translateX(${(index - currentSlide) * 105}%)` }}
-                >
-                  <img src={project.image} alt={project.title} />
-                  <div className="carousel-overlay">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-          {featuredProjects.length > 0 && (
+          {featuredProjects.length === 0 ? (
+            <div className="featured-empty">
+              <span>No featured projects yet</span>
+            </div>
+          ) : (
             <>
-              <button className="carousel-btn prev" onClick={prevSlide}>
+              <div className="carousel-track">
+                {featuredProjects.map((project, index) => (
+                  <div 
+                    key={project.id} 
+                    className={`carousel-slide ${index === currentSlide ? 'active' : ''} ${
+                      index === (currentSlide - 1 + featuredProjects.length) % featuredProjects.length ? 'prev' : ''
+                    } ${
+                      index === (currentSlide + 1) % featuredProjects.length ? 'next' : ''
+                    }`}
+                  >
+                    <div className="slide-image">
+                      <img src={project.image} alt={project.title} />
+                      <div className="slide-overlay"></div>
+                    </div>
+                    <div className="slide-content">
+                      <span className="slide-category" style={{ backgroundColor: project.color }}>
+                        {project.category}
+                      </span>
+                      <h3 className="slide-title">{project.title}</h3>
+                      <p className="slide-description">{project.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Navigation Arrows */}
+              <button className="carousel-btn prev" onClick={prevSlide} aria-label="Previous slide">
                 <FiChevronLeft />
               </button>
-              <button className="carousel-btn next" onClick={nextSlide}>
+              <button className="carousel-btn next" onClick={nextSlide} aria-label="Next slide">
                 <FiChevronRight />
               </button>
+              
+              {/* Carousel Indicators */}
+              <div className="carousel-indicators">
+                {featuredProjects.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </>
           )}
         </div>
