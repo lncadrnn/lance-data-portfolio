@@ -178,12 +178,46 @@
   }
 
   .right-sidebar section {
-    padding: 20px;
+    padding: 24px;
+  }
+
+  /* Section header sizes */
+  .right-sidebar .section-header h3 {
+    font-size: 1.35rem;
+  }
+
+  .right-sidebar .section-header svg {
+    font-size: 1.35rem;
+  }
+
+  .right-sidebar .section-header {
+    margin-bottom: 16px;
   }
 
   /* What I'm Learning - beside Career Stats */
   .right-sidebar .expertise-section {
     grid-area: learning;
+  }
+
+  .right-sidebar .expertise-header-static {
+    padding: 14px 18px 10px;
+    font-size: 1rem;
+  }
+
+  .right-sidebar .expertise-icon {
+    font-size: 1.25rem;
+  }
+
+  .right-sidebar .expertise-title {
+    gap: 12px;
+  }
+
+  .right-sidebar .expertise-list {
+    gap: 10px;
+  }
+
+  .right-sidebar .expertise-item {
+    border-radius: 12px;
   }
 
   /* Tech Stack - bottom left */
@@ -192,10 +226,47 @@
     height: 200px;
   }
 
+  /* Tech Stack icon sizes */
+  .right-sidebar [class*="SkillIcon"] {
+    width: 84px !important;
+    height: 84px !important;
+    border-radius: 18px !important;
+  }
+
+  .right-sidebar [class*="SkillImg"] {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .right-sidebar [class*="SkillName"] {
+    font-size: 1rem !important;
+    width: 84px !important;
+  }
+
+  .right-sidebar [class*="SkillIconWrapper"] {
+    gap: 12px !important;
+  }
+
   /* Get in Touch - bottom right */
   .right-sidebar .contact-section {
     grid-area: contact;
     height: 200px;
+  }
+
+  .right-sidebar .social-link {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+    border-radius: 14px;
+  }
+
+  .right-sidebar .social-links {
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+
+  .right-sidebar .contact-text {
+    font-size: 0.95rem;
   }
 
   /* Stop the scrolling animation and show icons in a single row */

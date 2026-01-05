@@ -585,22 +585,34 @@
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 16px;
   }
 
   .stat-card {
-    padding: 16px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 14px;
   }
 
   .stat-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
   }
 
   .stat-value {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.35rem;
+  }
+
+  .section-header svg {
+    font-size: 1.35rem;
   }
 
   .carousel-track {
