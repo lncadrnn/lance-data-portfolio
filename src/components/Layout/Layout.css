@@ -176,14 +176,21 @@
   }
 
   .main-area {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "hero hero"
+      "stats learning"
+      "featured featured"
+      "techstack contact";
+    gap: 20px;
     height: calc(100vh - 40px);
     overflow-y: auto;
     overflow-x: hidden;
     padding-left: 24px;
     padding-right: 16px;
     box-sizing: border-box;
+    align-content: start;
   }
 
   /* Custom scrollbar for main-area */
@@ -210,13 +217,10 @@
   }
 
   .mobile-right-sidebar {
-    display: block !important;
-    margin-top: 20px;
-    flex-shrink: 0;
+    display: contents !important;
   }
 
   .mobile-right-sidebar .right-sidebar {
-    gap: 20px;
-    min-height: auto;
+    display: contents;
   }
 }

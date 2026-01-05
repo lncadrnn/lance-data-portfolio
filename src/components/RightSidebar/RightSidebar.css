@@ -174,44 +174,26 @@
 /* 1650px+: Right sidebar below main content */
 @media (min-width: 1650px) {
   .right-sidebar {
-    position: static;
-    height: auto;
-    min-height: auto;
-    gap: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: contents;
   }
 
   .right-sidebar section {
     padding: 20px;
-    flex: none;
   }
 
-  /* Remove extra margin since parent has gap */
-  .right-sidebar section:first-child {
-    margin-top: 0;
-  }
-
-  /* What I'm Learning - full width on top, order 1 */
+  /* What I'm Learning - beside Career Stats */
   .right-sidebar .expertise-section {
-    order: 1;
-    width: 100%;
-    flex: 1 1 100%;
+    grid-area: learning;
   }
 
-  /* Tech Stack - left side, order 2 */
+  /* Tech Stack - bottom left */
   .right-sidebar section:first-child {
-    order: 2;
-    flex: 1;
-    min-width: 300px;
+    grid-area: techstack;
   }
 
-  /* Get in Touch - right side, order 3 */
+  /* Get in Touch - bottom right */
   .right-sidebar .contact-section {
-    order: 3;
-    flex: 1;
-    min-width: 280px;
+    grid-area: contact;
   }
 
   /* Stop the scrolling animation and show icons in a single row */

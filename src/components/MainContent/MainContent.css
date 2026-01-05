@@ -548,10 +548,19 @@
 /* 1650px+: Stats in 2x2 grid like mobile */
 @media (min-width: 1650px) {
   .main-content {
-    gap: 16px;
-    min-height: auto;
-    height: auto;
-    flex-shrink: 0;
+    display: contents;
+  }
+
+  .hero-section {
+    grid-area: hero;
+  }
+
+  .stats-section {
+    grid-area: stats;
+  }
+
+  .featured-section {
+    grid-area: featured;
   }
 
   .hero-banner {
