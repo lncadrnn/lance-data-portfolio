@@ -285,10 +285,10 @@ const MainContent = () => {
                       <img src={project.image} alt={project.title} />
                       <div className="slide-overlay"></div>
                     </div>
+                    <span className="slide-category" style={{ backgroundColor: project.color }}>
+                      {project.category}
+                    </span>
                     <div className="slide-content">
-                      <span className="slide-category" style={{ backgroundColor: project.color }}>
-                        {project.category}
-                      </span>
                       <h3 className="slide-title">{project.title}</h3>
                       <p className="slide-description">{project.description}</p>
                     </div>
