@@ -2,6 +2,7 @@ import { useState, createContext } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
+import AboutMe from './components/AboutMe/AboutMe'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import './App.css'
 
@@ -23,7 +24,7 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<MainContent />} />
-              <Route path="/about" element={<UnderConstruction pageName="About Me" />} />
+              <Route path="/about" element={<AboutMe />} />
               <Route path="/achievements" element={<UnderConstruction pageName="Achievements" />} />
               <Route path="/projects" element={<UnderConstruction pageName="Projects" />} />
               <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />

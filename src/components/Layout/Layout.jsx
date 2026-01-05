@@ -11,8 +11,8 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   
-  // Check if we're on the home page (show full layout) or under construction pages
-  const isHomePage = location.pathname === '/'
+  // Check if we're on pages with full layout (home and about) or under construction pages
+  const isFullLayoutPage = location.pathname === '/' || location.pathname === '/about'
   
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isHomePage ? 'construction-mode' : ''}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isFullLayoutPage ? 'construction-mode' : ''}`}>
       {/* Hamburger Menu Button - Mobile Only */}
       <button className="hamburger-btn" onClick={toggleSidebar}>
         {sidebarOpen ? <FiX /> : <FiMenu />}
@@ -39,10 +39,10 @@ const Layout = ({ children }) => {
       
       {/* Scrollable content wrapper for main + right sidebar */}
       <div className="content-wrapper">
-        <div className={`main-area ${!isHomePage ? 'full-width' : ''}`}>
+        <div className={`main-area ${!isFullLayoutPage ? 'full-width' : ''}`}>
           {children}
           {/* Right sidebar content on mobile - shown after main content */}
-          {isHomePage && (
+          {isFullLayoutPage && (
             <div className="mobile-right-sidebar">
               <RightSidebar />
             </div>
@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
         </div>
         
         {/* Desktop right sidebar */}
-        {isHomePage && (
+        {isFullLayoutPage && (
           <div className="desktop-right-sidebar">
             <RightSidebar />
           </div>
