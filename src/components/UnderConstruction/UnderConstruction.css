@@ -98,3 +98,13 @@
     font-size: 1.2rem;
   }
 }
+
+/* 1650px+: Under construction stretches to fill available space */
+@media (min-width: 1650px) {
+  .under-construction {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: calc(100vh - 40px);
+  }
+}
