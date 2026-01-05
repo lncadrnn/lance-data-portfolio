@@ -9,7 +9,8 @@ import {
   FiFileText,
   FiDownload,
   FiMoon,
-  FiSun
+  FiSun,
+  FiLock
 } from 'react-icons/fi'
 import './Sidebar.css'
 
@@ -21,6 +22,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
   const [isAnimating, setIsAnimating] = useState(false)
   const [switchingToLight, setSwitchingToLight] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
 
   const handleThemeToggle = () => {
     setSwitchingToLight(darkMode) // If currently dark, we're switching to light
@@ -101,7 +103,14 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Footer */}
           <div className="sidebar-footer">
-            <p>Designed & Built by Lance Adrian Acal</p>
+            <p>Developed by Lance Adrian Acal</p>
+            <button 
+              className="footer-lock-btn"
+              onClick={() => setShowLoginModal(true)}
+              aria-label="Admin Login"
+            >
+              <FiLock />
+            </button>
           </div>
         </div>
       </aside>
@@ -117,6 +126,17 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
         )
       }
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="login-modal-overlay" onClick={() => setShowLoginModal(false)}>
+          <div className="login-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>Admin Login</h2>
+            <p>Firebase authentication will be integrated here</p>
+            <button onClick={() => setShowLoginModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
