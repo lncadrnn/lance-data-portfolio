@@ -177,7 +177,9 @@
     position: static;
     height: auto;
     min-height: auto;
-    gap: 16px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   .right-sidebar section {
@@ -185,9 +187,9 @@
     flex: none;
   }
 
-  /* Add margin-top on first section (Tech Stack) */
+  /* Remove extra margin since parent has gap */
   .right-sidebar section:first-child {
-    margin-top: 16px;
+    margin-top: 0;
   }
 
   /* Stop the scrolling animation and show icons in a single row */

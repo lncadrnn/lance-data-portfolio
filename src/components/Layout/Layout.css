@@ -211,11 +211,12 @@
 
   .mobile-right-sidebar {
     display: block !important;
-    margin-top: 0;
+    margin-top: 20px;
     flex-shrink: 0;
   }
 
   .mobile-right-sidebar .right-sidebar {
-    gap: 16px;
+    gap: 20px;
+    min-height: auto;
   }
 }
