@@ -1,25 +1,61 @@
 .layout {
   display: grid;
-  grid-template-columns: 280px 1fr 340px;
+  grid-template-columns: 280px 1fr;
   gap: 24px;
   min-height: 100vh;
+  height: 100vh;
   padding: 20px;
   max-width: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .layout.construction-mode {
   grid-template-columns: 280px 1fr;
 }
 
+/* Content wrapper - contains main area and right sidebar, single scrollbar */
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 12px;
+}
+
+/* Custom scrollbar for content-wrapper */
+.content-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-wrapper::-webkit-scrollbar-track {
+  background: var(--card-bg);
+  border-radius: 4px;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
 .main-area {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 40px);
+}
+
+/* Right sidebar - no separate scroll */
+.desktop-right-sidebar {
+  display: block;
 }
 
 .main-area.full-width {
-  grid-column: span 1;
+  grid-column: span 2;
 }
 
 /* Hamburger Button */
@@ -73,33 +109,43 @@
   display: none;
 }
 
-/* Desktop Right Sidebar */
-.desktop-right-sidebar {
-  display: block;
-}
-
 
 /* 1400px: Sidebar becomes hamburger, right sidebar remains on right */
 @media (max-width: 1400px) {
   .layout {
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr;
     gap: 20px;
     padding: 16px;
     padding-top: 80px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .layout.construction-mode {
     grid-template-columns: 1fr;
   }
 
+  .content-wrapper {
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 12px;
+  }
+
   .main-area {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow: visible;
     box-sizing: border-box;
+  }
+
+  .main-area.full-width {
+    grid-column: span 2;
   }
 
   .hamburger-btn {
@@ -112,6 +158,7 @@
 
   .desktop-right-sidebar {
     display: block;
+    overflow: visible;
   }
 
   .mobile-right-sidebar {
@@ -129,10 +176,19 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    height: auto;
+    overflow: auto;
   }
 
   .layout.construction-mode {
     grid-template-columns: 1fr;
+  }
+
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 0;
+    height: auto;
+    overflow: visible;
   }
 
   .main-area {
@@ -140,6 +196,10 @@
     max-width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
+  }
+
+  .main-area.full-width {
+    grid-column: span 1;
   }
 
   .hamburger-btn {
@@ -178,6 +238,12 @@
     height: auto;
   }
 
+  .layout.construction-mode .content-wrapper {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
   .layout.construction-mode .main-area {
     display: flex;
     flex-direction: column;
@@ -186,6 +252,15 @@
     overflow: visible;
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .content-wrapper {
+    display: block;
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 24px;
+    padding-right: 16px;
   }
 
   .main-area {
@@ -197,31 +272,26 @@
       "featured featured"
       "techstack contact";
     gap: 20px;
-    height: calc(100vh - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-left: 24px;
-    padding-right: 16px;
     box-sizing: border-box;
     align-content: start;
   }
 
-  /* Custom scrollbar for main-area */
-  .main-area::-webkit-scrollbar {
+  /* Custom scrollbar for content-wrapper */
+  .content-wrapper::-webkit-scrollbar {
     width: 8px;
   }
 
-  .main-area::-webkit-scrollbar-track {
+  .content-wrapper::-webkit-scrollbar-track {
     background: var(--card-bg);
     border-radius: 4px;
   }
 
-  .main-area::-webkit-scrollbar-thumb {
+  .content-wrapper::-webkit-scrollbar-thumb {
     background: var(--accent-color);
     border-radius: 4px;
   }
 
-  .main-area::-webkit-scrollbar-thumb:hover {
+  .content-wrapper::-webkit-scrollbar-thumb:hover {
     background: var(--accent-hover);
   }
 

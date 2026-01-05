@@ -115,7 +115,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Footer */}
           <div className="sidebar-footer">
-            <p>Developed by Lance Adrian Acal</p>
+            <p>© 2025 Lance Adrian Acal. All Rights Reserved.</p>
             <button 
               className="footer-lock-btn"
               onClick={() => setShowLoginModal(true)}

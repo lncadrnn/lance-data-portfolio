@@ -37,22 +37,25 @@ const Layout = ({ children }) => {
 
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
       
-      <div className={`main-area ${!isHomePage ? 'full-width' : ''}`}>
-        {children}
-        {/* Right sidebar content on mobile - shown after main content */}
+      {/* Scrollable content wrapper for main + right sidebar */}
+      <div className="content-wrapper">
+        <div className={`main-area ${!isHomePage ? 'full-width' : ''}`}>
+          {children}
+          {/* Right sidebar content on mobile - shown after main content */}
+          {isHomePage && (
+            <div className="mobile-right-sidebar">
+              <RightSidebar />
+            </div>
+          )}
+        </div>
+        
+        {/* Desktop right sidebar */}
         {isHomePage && (
-          <div className="mobile-right-sidebar">
+          <div className="desktop-right-sidebar">
             <RightSidebar />
           </div>
         )}
       </div>
-      
-      {/* Desktop right sidebar */}
-      {isHomePage && (
-        <div className="desktop-right-sidebar">
-          <RightSidebar />
-        </div>
-      )}
     </div>
   )
 }
