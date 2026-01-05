@@ -189,11 +189,13 @@
   /* Tech Stack - bottom left */
   .right-sidebar section:first-child {
     grid-area: techstack;
+    height: 200px;
   }
 
   /* Get in Touch - bottom right */
   .right-sidebar .contact-section {
     grid-area: contact;
+    height: 200px;
   }
 
   /* Stop the scrolling animation and show icons in a single row */
