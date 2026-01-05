@@ -23,6 +23,8 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [switchingToLight, setSwitchingToLight] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleThemeToggle = () => {
     setSwitchingToLight(darkMode) // If currently dark, we're switching to light
@@ -48,6 +50,16 @@ const Sidebar = ({ isOpen, onClose }) => {
     if (onClose) {
       onClose()
     }
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    // Firebase authentication will be integrated here
+    console.log('Login attempt:', { email, password })
+    // For now, just close the modal
+    setShowLoginModal(false)
+    setEmail('')
+    setPassword('')
   }
 
   return (
@@ -131,9 +143,35 @@ const Sidebar = ({ isOpen, onClose }) => {
       {showLoginModal && (
         <div className="login-modal-overlay" onClick={() => setShowLoginModal(false)}>
           <div className="login-modal" onClick={(e) => e.stopPropagation()}>
-            <h2>Admin Login</h2>
-            <p>Firebase authentication will be integrated here</p>
-            <button onClick={() => setShowLoginModal(false)}>Close</button>
+            <div className="login-header">
+              <h2>Admin Login</h2>
+              <button className="close-btn" onClick={() => setShowLoginModal(false)}>×</button>
+            </div>
+            <form onSubmit={handleLogin}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <button type="submit" className="login-btn">Login</button>
+            </form>
           </div>
         </div>
       )}
