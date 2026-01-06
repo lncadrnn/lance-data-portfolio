@@ -309,6 +309,45 @@
   font-weight: 500;
 }
 
+/* Fun Facts Section */
+.fun-facts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fun-fact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.fun-fact-item:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+  transform: translateX(4px);
+}
+
+.fun-fact-icon {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.fun-fact-text {
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
 /* Contact Section */
 .contact-content {
   display: flex;

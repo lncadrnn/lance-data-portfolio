@@ -9,7 +9,8 @@ import {
   FiTrendingUp,
   FiChevronDown,
   FiChevronUp,
-  FiSend
+  FiSend,
+  FiTarget
 } from 'react-icons/fi'
 import './AboutMe.css'
 
@@ -36,6 +37,13 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
     { name: 'Machine Learning', icon: <FiCode /> },
     { name: 'Data Visualization', icon: <FiTrendingUp /> },
     { name: 'Statistics', icon: <FiDatabase /> },
+  ]
+
+  const currentFocus = [
+    { name: 'Deep Learning', icon: <FiTarget /> },
+    { name: 'Advanced SQL', icon: <FiDatabase /> },
+    { name: 'Cloud Computing', icon: <FiCode /> },
+    { name: 'Data Engineering', icon: <FiTrendingUp /> },
   ]
 
   const truncatedText = aboutText.slice(0, 280) + '...'
@@ -99,7 +107,7 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
       <div className="about-section">
         <div className="section-header">
           <FiUser className="section-icon" />
-          <h2>About</h2>
+          <h2>About Me</h2>
         </div>
         
         <div className="about-content">
@@ -129,7 +137,7 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
       <div className="skills-section">
         <div className="section-header">
           <FiCode className="section-icon" />
-          <h2>Skills & Expertise</h2>
+          <h2>Skills / What I know</h2>
         </div>
         
         <div className="skills-grid">
@@ -137,6 +145,23 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
             <div key={index} className="skill-tag">
               <span className="skill-icon">{skill.icon}</span>
               <span className="skill-name">{skill.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Current Focus Section */}
+      <div className="skills-section">
+        <div className="section-header">
+          <FiTarget className="section-icon" />
+          <h2>Current Focus / Learning</h2>
+        </div>
+        
+        <div className="skills-grid">
+          {currentFocus.map((item, index) => (
+            <div key={index} className="skill-tag">
+              <span className="skill-icon">{item.icon}</span>
+              <span className="skill-name">{item.name}</span>
             </div>
           ))}
         </div>
