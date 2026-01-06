@@ -9,11 +9,7 @@ import {
   FiBook,
   FiGitPullRequest,
   FiBookOpen,
-  FiBriefcase,
-  FiCalendar,
-  FiMapPin,
-  FiChevronDown,
-  FiChevronUp
+  FiBriefcase
 } from 'react-icons/fi'
 import { 
   FaGithub,
@@ -176,21 +172,13 @@ const RightSidebar = () => {
       id: 1,
       degree: 'BSc in Information Technology',
       school: 'Asian Institute of Technology & Education',
-      gwa: '1.28 / 1.00',
-      period: 'Jun 2020 - Jun 2024',
-      description: 'Graduated with Academic Distinction, Former AITEans Forum – Graphic Editor (2022-2024), Outstanding in Information...',
-      icon: '🎓',
-      color: '#3b82f6'
+      year: '2024'
     },
     {
       id: 2,
       degree: 'TVL - Computer System Servicing',
       school: 'San Antonio National High School',
-      gwa: '92 / 100',
-      period: 'Jun 2018 - Mar 2020',
-      description: 'Consistent Honor Student, Former News Editor – School Paper Organization, TVL – CSS National Certificate II Passer...',
-      icon: '📚',
-      color: '#10b981'
+      year: '2020'
     }
   ]
 
@@ -200,22 +188,14 @@ const RightSidebar = () => {
       id: 1,
       title: 'Data Analyst Intern',
       company: 'Tech Solutions Corp.',
-      location: 'Remote, Philippines',
-      period: 'Jan 2024 - Present',
-      description: 'Build and analyze datasets, create data visualizations and dashboards, turning raw data into actionable insights...',
-      icon: '💼',
-      color: '#f59e0b',
+      year: '2024',
       current: true
     },
     {
       id: 2,
       title: 'Freelance Data Analyst',
       company: 'Self-Employed',
-      location: 'Philippines',
-      period: 'Jun 2023 - Dec 2023',
-      description: 'Provided data analysis services to various clients, created reports and visualizations using Python and Power BI...',
-      icon: '📊',
-      color: '#8b5cf6',
+      year: '2023',
       current: false
     }
   ]
@@ -225,69 +205,49 @@ const RightSidebar = () => {
     <aside className={`right-sidebar ${darkMode ? 'dark' : 'light'} ${isAboutPage ? 'about-page' : ''}`}>
       {isAboutPage ? (
         <>
-          {/* Education Section - Timeline Style */}
+          {/* Education Section */}
           <section className="education-section">
             <div className="section-header">
               <FiBookOpen />
               <h3>Education</h3>
             </div>
-            <div className="timeline">
-              {education.map((edu, index) => (
-                <div key={edu.id} className="timeline-item">
-                  <div className="timeline-marker" style={{ background: edu.color }}>
-                    <span>{edu.icon}</span>
-                  </div>
-                  <div className="timeline-content">
-                    <h4 className="timeline-title">{edu.degree}</h4>
-                    <p className="timeline-subtitle">{edu.school}</p>
-                    <div className="timeline-meta">
-                      <span className="timeline-gwa">GWA: {edu.gwa}</span>
+            <div className="timeline-list">
+              {education.map((edu) => (
+                <div key={edu.id} className="timeline-entry">
+                  <div className="timeline-dot"></div>
+                  <div className="timeline-entry-content">
+                    <div className="timeline-entry-info">
+                      <h4 className="timeline-entry-title">{edu.degree}</h4>
+                      <p className="timeline-entry-subtitle">{edu.school}</p>
                     </div>
-                    <div className="timeline-period">
-                      <FiCalendar />
-                      <span>{edu.period}</span>
-                    </div>
-                    <p className="timeline-description">{edu.description}</p>
-                    <button className="see-more-timeline">See more</button>
+                    <span className="timeline-year">{edu.year}</span>
                   </div>
-                  {index < education.length - 1 && <div className="timeline-connector"></div>}
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Experience Section - Timeline Style */}
+          {/* Experience Section */}
           <section className="experience-section">
             <div className="section-header">
               <FiBriefcase />
               <h3>Experience</h3>
             </div>
-            <div className="timeline">
-              {experience.map((exp, index) => (
-                <div key={exp.id} className="timeline-item">
-                  <div className="timeline-marker" style={{ background: exp.color }}>
-                    <span>{exp.icon}</span>
+            <div className="timeline-list">
+              {experience.map((exp) => (
+                <div key={exp.id} className="timeline-entry">
+                  <div className="timeline-dot"></div>
+                  <div className="timeline-entry-content">
+                    <div className="timeline-entry-info">
+                      <h4 className="timeline-entry-title">{exp.title}</h4>
+                      <p className="timeline-entry-subtitle">{exp.company}</p>
+                    </div>
+                    {exp.current ? (
+                      <span className="current-badge">Present</span>
+                    ) : (
+                      <span className="timeline-year">{exp.year}</span>
+                    )}
                   </div>
-                  <div className="timeline-content">
-                    <div className="timeline-header-row">
-                      <h4 className="timeline-title">{exp.title}</h4>
-                      {exp.current && <span className="current-badge">Current</span>}
-                    </div>
-                    <p className="timeline-subtitle">{exp.company}</p>
-                    <div className="timeline-meta">
-                      <span className="timeline-location">
-                        <FiMapPin />
-                        {exp.location}
-                      </span>
-                    </div>
-                    <div className="timeline-period">
-                      <FiCalendar />
-                      <span>{exp.period}</span>
-                    </div>
-                    <p className="timeline-description">{exp.description}</p>
-                    <button className="see-more-timeline">See more</button>
-                  </div>
-                  {index < experience.length - 1 && <div className="timeline-connector"></div>}
                 </div>
               ))}
             </div>
