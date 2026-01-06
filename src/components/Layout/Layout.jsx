@@ -10,10 +10,10 @@ const Layout = ({ children }) => {
   const { darkMode } = useContext(ThemeContext)
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  
+
   // Check if we're on pages with full layout (home and about) or under construction pages
   const isFullLayoutPage = location.pathname === '/' || location.pathname === '/about'
-  
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
   }
@@ -23,20 +23,20 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isFullLayoutPage ? 'construction-mode' : ''}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isFullLayoutPage ? 'construction-mode' : ''} ${location.pathname === '/about' ? 'about-layout' : ''}`}>
       {/* Hamburger Menu Button - Mobile Only */}
       <button className="hamburger-btn" onClick={toggleSidebar}>
         {sidebarOpen ? <FiX /> : <FiMenu />}
       </button>
 
       {/* Overlay for mobile sidebar */}
-      <div 
-        className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} 
+      <div
+        className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`}
         onClick={closeSidebar}
       ></div>
 
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
-      
+
       {/* Scrollable content wrapper for main + right sidebar */}
       <div className="content-wrapper">
         <div className={`main-area ${!isFullLayoutPage ? 'full-width' : ''}`}>
@@ -48,7 +48,7 @@ const Layout = ({ children }) => {
             </div>
           )}
         </div>
-        
+
         {/* Desktop right sidebar */}
         {isFullLayoutPage && (
           <div className="desktop-right-sidebar">

@@ -314,6 +314,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -443,5 +444,25 @@
   /* Hide duplicated items (keep only first set) */
   .right-sidebar [class*="SkillIconWrapper"]:nth-child(n+9) {
     display: none;
+  }
+
+  /* About Page - Layout Adjustments */
+  .right-sidebar.about-page section {
+    height: auto !important;
+    /* Override fixed height from other rules */
+    min-height: 0;
+  }
+
+  /* Specific Grid Placements */
+  .right-sidebar.about-page .education-section {
+    grid-area: education !important;
+  }
+
+  .right-sidebar.about-page .experience-section {
+    grid-area: experience !important;
+  }
+
+  .right-sidebar.about-page .contact-section {
+    grid-area: contact !important;
   }
 }

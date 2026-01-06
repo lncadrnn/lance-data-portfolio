@@ -306,4 +306,27 @@
   .mobile-right-sidebar .right-sidebar {
     display: contents;
   }
+
+  /* About Page Specific Layout */
+  .layout.about-layout .main-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "about about"
+      "education experience"
+      "contact contact";
+    gap: 24px;
+    align-content: start;
+  }
+
+  /* Force About Me into the 'about' area (full width) */
+  .layout.about-layout .main-area>.about-me {
+    grid-area: about;
+    width: 100%;
+  }
+
+  /* Ensure the sidebar containers don't interfere */
+  .layout.about-layout .mobile-right-sidebar {
+    display: contents !important;
+  }
 }
