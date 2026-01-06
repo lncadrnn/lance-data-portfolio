@@ -222,6 +222,13 @@
   gap: 12px;
 }
 
+.timeline-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
 .timeline-entry-info {
   flex: 1;
   min-width: 0;
@@ -242,6 +249,13 @@
   line-height: 1.4;
 }
 
+.timeline-note {
+  margin: 4px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
 .timeline-year {
   flex-shrink: 0;
   font-size: 0.75rem;
@@ -250,6 +264,16 @@
   padding: 4px 12px;
   border-radius: 20px;
   background: transparent;
+}
+
+.timeline-gwa {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  padding: 3px 10px;
+  border-radius: 12px;
+  line-height: 1.2;
 }
 
 .current-badge {

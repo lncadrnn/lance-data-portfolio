@@ -170,15 +170,23 @@ const RightSidebar = () => {
   const education = [
     {
       id: 1,
-      degree: 'BSc in Information Technology',
-      school: 'Asian Institute of Technology & Education',
-      year: '2024'
+      degree: 'BS in Computer Science',
+      school: 'Cavite State University - Imus',
+      years: '2022 - Present',
+      gwa: '1.50',
     },
     {
       id: 2,
-      degree: 'TVL - Computer System Servicing',
-      school: 'San Antonio National High School',
-      year: '2020'
+      degree: 'BS in Computer Science',
+      school: 'AMA Computer College - Makati',
+      years: '2021 - 2022',
+      gwa: '1.24',    },
+    {
+      id: 3,
+      degree: 'STEM',
+      school: 'Manila Tytana Colleges',
+      years: '2019 - 2021',
+      gwa: '93/100'
     }
   ]
 
@@ -221,8 +229,16 @@ const RightSidebar = () => {
                     <div className="timeline-entry-info">
                       <h4 className="timeline-entry-title">{edu.degree}</h4>
                       <p className="timeline-entry-subtitle">{edu.school}</p>
+                        {edu.note && (
+                          <p className="timeline-note">{edu.note}</p>
+                        )}
                     </div>
-                    <span className="timeline-year">{edu.year}</span>
+                      <div className="timeline-meta">
+                        <span className="timeline-year">{edu.years || edu.year}</span>
+                        {edu.gwa && (
+                          <span className="timeline-gwa">{(edu.gwaLabel || 'GWA')}: {edu.gwa}</span>
+                        )}
+                      </div>
                   </div>
                 </div>
               ))}
