@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import { ThemeContext } from '../../App'
-import { 
-  FiUser, 
-  FiMapPin, 
+import {
+  FiUser,
+  FiMapPin,
   FiCalendar,
   FiCode,
   FiDatabase,
@@ -30,30 +30,30 @@ Beyond technical skills, I believe in the power of storytelling with data. I'm d
 When I'm not crunching numbers, you can find me exploring new datasets, contributing to open-source projects, or sharing my knowledge through blogs and tutorials. I'm excited about the endless possibilities that data brings and look forward to making a meaningful impact through analytics.`
 
   const skills = [
-    { 
-      name: 'Python', 
+    {
+      name: 'Python',
       proficiency: 75,
-      description: 'Data manipulation and analysis using Pandas, NumPy, and data visualization libraries.' 
+      description: 'Data manipulation and analysis using Pandas, NumPy, and data visualization libraries.'
     },
-    { 
-      name: 'SQL', 
+    {
+      name: 'SQL',
       proficiency: 70,
-      description: 'Writing queries for data extraction, analysis, and working with relational databases.' 
+      description: 'Writing queries for data extraction, analysis, and working with relational databases.'
     },
-    { 
-      name: 'Excel', 
+    {
+      name: 'Excel',
       proficiency: 85,
-      description: 'Data cleaning, analysis, pivot tables, and advanced formulas for business insights.' 
+      description: 'Data cleaning, analysis, pivot tables, and advanced formulas for business insights.'
     },
-    { 
-      name: 'Power BI', 
+    {
+      name: 'Power BI',
       proficiency: 65,
-      description: 'Creating interactive dashboards and reports for data visualization and storytelling.' 
+      description: 'Creating interactive dashboards and reports for data visualization and storytelling.'
     },
-    { 
-      name: 'Git', 
+    {
+      name: 'Git',
       proficiency: 60,
-      description: 'Version control, collaboration, and managing code repositories on GitHub.' 
+      description: 'Version control, collaboration, and managing code repositories on GitHub.'
     },
   ]
 
@@ -65,9 +65,9 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
       <div className="profile-header-section">
         {/* Cover Photo */}
         <div className="cover-photo-container">
-          <img 
-            src={banner1} 
-            alt="Cover" 
+          <img
+            src={banner1}
+            alt="Cover"
             className="cover-photo"
           />
           <div className="cover-overlay"></div>
@@ -78,9 +78,9 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
           {/* Profile Picture */}
           <div className="profile-picture-wrapper">
             <div className="profile-picture-container">
-              <img 
-                src={profilePic} 
-                alt="Lance Adrian D. Acal" 
+              <img
+                src={profilePic}
+                alt="Lance Adrian D. Acal"
                 className="profile-picture"
               />
               <div className="profile-status-indicator"></div>
@@ -89,9 +89,9 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
 
           {/* Profile Details */}
           <div className="profile-details">
-            <h1 className="profile-name">Lance Adrian D. Acal</h1>
+            <h1 className="about-profile-name">Lance Adrian D. Acal</h1>
             <p className="profile-title">Data Analyst / Scientist</p>
-            
+
             <div className="profile-meta">
               <div className="profile-meta-left">
                 <span className="meta-item">
@@ -103,7 +103,7 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
                   <span>Available for opportunities</span>
                 </span>
               </div>
-              
+
               {/* Action Buttons */}
               <div className="profile-actions">
                 <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
@@ -122,12 +122,12 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
           <FiUser className="section-icon" />
           <h2>About Me</h2>
         </div>
-        
+
         <div className="about-content">
           <p className="about-text">
             {isAboutExpanded ? aboutText : truncatedText}
           </p>
-          <button 
+          <button
             className="see-more-btn"
             onClick={() => setIsAboutExpanded(!isAboutExpanded)}
           >
@@ -152,11 +152,11 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
           <FiCode className="section-icon" />
           <h2>Skills / What I know</h2>
         </div>
-        
+
         <p className="skills-note">
           Currently studying and upskilling. The proficiency levels reflect my ongoing learning journey.
         </p>
-        
+
         <div className="skills-list">
           {skills.map((skill, index) => (
             <div key={index} className="skill-item">
@@ -166,8 +166,8 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
               </div>
               <p className="skill-item-description">{skill.description}</p>
               <div className="skill-progress-bar">
-                <div 
-                  className="skill-progress-fill" 
+                <div
+                  className="skill-progress-fill"
                   style={{ width: `${skill.proficiency}%` }}
                 ></div>
               </div>
