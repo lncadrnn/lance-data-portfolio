@@ -183,21 +183,23 @@ const RightSidebar = () => {
   ]
 
   // Experience data for About page
+  // Experience data for About page
   const experience = [
-    {
-      id: 1,
-      title: 'Data Analyst Intern',
-      company: 'Tech Solutions Corp.',
-      year: '2024',
-      current: true
-    },
-    {
-      id: 2,
-      title: 'Freelance Data Analyst',
-      company: 'Self-Employed',
-      year: '2023',
-      current: false
-    }
+    // Uncomment and modify when you have experience to add
+    // {
+    //   id: 1,
+    //   title: 'Data Analyst Intern',
+    //   company: 'Tech Solutions Corp.',
+    //   year: '2024',
+    //   current: true
+    // },
+    // {
+    //   id: 2,
+    //   title: 'Freelance Data Analyst',
+    //   company: 'Self-Employed',
+    //   year: '2023',
+    //   current: false
+    // }
   ]
 
 
@@ -233,24 +235,38 @@ const RightSidebar = () => {
               <FiBriefcase />
               <h3>Experience</h3>
             </div>
-            <div className="timeline-list">
-              {experience.map((exp) => (
-                <div key={exp.id} className="timeline-entry">
+            {experience.length > 0 ? (
+              <div className="timeline-list">
+                {experience.map((exp) => (
+                  <div key={exp.id} className="timeline-entry">
+                    <div className="timeline-dot"></div>
+                    <div className="timeline-entry-content">
+                      <div className="timeline-entry-info">
+                        <h4 className="timeline-entry-title">{exp.title}</h4>
+                        <p className="timeline-entry-subtitle">{exp.company}</p>
+                      </div>
+                      {exp.current ? (
+                        <span className="current-badge">Present</span>
+                      ) : (
+                        <span className="timeline-year">{exp.year}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="timeline-list">
+                <div className="timeline-entry">
                   <div className="timeline-dot"></div>
                   <div className="timeline-entry-content">
                     <div className="timeline-entry-info">
-                      <h4 className="timeline-entry-title">{exp.title}</h4>
-                      <p className="timeline-entry-subtitle">{exp.company}</p>
+                      <h4 className="timeline-entry-title">No experience yet</h4>
+                      <p className="timeline-entry-subtitle">Currently studying at CvSU - Imus</p>
                     </div>
-                    {exp.current ? (
-                      <span className="current-badge">Present</span>
-                    ) : (
-                      <span className="timeline-year">{exp.year}</span>
-                    )}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </section>
 
           {/* Get in Touch - About page */}
