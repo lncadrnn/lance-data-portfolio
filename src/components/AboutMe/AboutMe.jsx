@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import { ThemeContext } from '../../App'
 import { 
   FiUser, 
-  FiMail, 
   FiMapPin, 
   FiCalendar,
   FiCode,
@@ -140,22 +139,6 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
               <span className="skill-name">{skill.name}</span>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Contact Section */}
-      <div className="contact-section">
-        <div className="section-header">
-          <FiMail className="section-icon" />
-          <h2>Get in Touch</h2>
-        </div>
-        
-        <div className="contact-content">
-          <p>I'm always open to discussing new opportunities, collaborations, or just having a chat about data and technology. Feel free to reach out!</p>
-          <a href="mailto:lanceadrian.acal@example.com" className="contact-btn">
-            <FiMail />
-            <span>Send me an email</span>
-          </a>
         </div>
       </div>
     </div>

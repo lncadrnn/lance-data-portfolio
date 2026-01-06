@@ -252,6 +252,31 @@ const RightSidebar = () => {
               ))}
             </div>
           </section>
+
+          {/* Get in Touch - About page */}
+          <section className="contact-section">
+            <div className="section-header">
+              <FiMail />
+              <h3>Get in touch</h3>
+            </div>
+            <div className="social-links">
+              {socialLinks.map((link, index) => (
+                <a 
+                  key={index} 
+                  href={link.url} 
+                  className="social-link"
+                  title={link.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+            <p className="contact-text">
+              Let's build something great together! feel free to connect with me
+            </p>
+          </section>
         </>
       ) : (
         <>
@@ -296,34 +321,32 @@ const RightSidebar = () => {
               ))}
             </div>
           </section>
-        </>
-      )}
 
-      {/* Get in Touch - Only on home page */}
-      {!isAboutPage && (
-        <section className="contact-section">
-          <div className="section-header">
-            <FiMail />
-            <h3>Get in touch</h3>
-          </div>
-          <div className="social-links">
-            {socialLinks.map((link, index) => (
-              <a 
-                key={index} 
-                href={link.url} 
-                className="social-link"
-                title={link.name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.icon}
-              </a>
-            ))}
-          </div>
-          <p className="contact-text">
-            Let's build something great together! feel free to connect with me
-          </p>
-        </section>
+          {/* Get in Touch - Home page */}
+          <section className="contact-section">
+            <div className="section-header">
+              <FiMail />
+              <h3>Get in touch</h3>
+            </div>
+            <div className="social-links">
+              {socialLinks.map((link, index) => (
+                <a 
+                  key={index} 
+                  href={link.url} 
+                  className="social-link"
+                  title={link.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+            <p className="contact-text">
+              Let's build something great together! feel free to connect with me
+            </p>
+          </section>
+        </>
       )}
     </aside>
   )
