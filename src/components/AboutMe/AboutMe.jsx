@@ -103,7 +103,7 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
               </div>
             </div>
 
-            <p className="profile-title">Data Analyst / Scientist</p>
+            <p className="about-profile-title">Aspiring Data Analyst / Scientist</p>
 
             <div className="profile-meta">
               <div className="profile-meta-left">
