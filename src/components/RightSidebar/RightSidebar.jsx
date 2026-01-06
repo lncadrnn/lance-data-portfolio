@@ -174,19 +174,22 @@ const RightSidebar = () => {
       school: 'Cavite State University - Imus',
       years: '2022 - Present',
       gwa: '1.50',
+      gwaLabel: 'CGPA'
     },
     {
       id: 2,
       degree: 'BS in Computer Science',
       school: 'AMA Computer College - Makati',
       years: '2021 - 2022',
-      gwa: '1.24',    },
+      gwa: '1.24',
+    },
     {
       id: 3,
       degree: 'STEM',
       school: 'Manila Tytana Colleges',
       years: '2019 - 2021',
-      gwa: '93/100'
+      gwa: '93/100',
+      gwaLabel: 'Ave'
     }
   ]
 
@@ -236,7 +239,7 @@ const RightSidebar = () => {
                       <div className="timeline-meta">
                         <span className="timeline-year">{edu.years || edu.year}</span>
                         {edu.gwa && (
-                          <span className="timeline-gwa">{(edu.gwaLabel || 'GWA')}: {edu.gwa}</span>
+                          <span className="timeline-gwa">{(edu.gwaLabel || 'GPA')}: {edu.gwa}</span>
                         )}
                       </div>
                   </div>
