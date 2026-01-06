@@ -9,7 +9,9 @@ import {
   FiTrendingUp,
   FiChevronDown,
   FiChevronUp,
-  FiSend
+  FiSend,
+  FiPhone,
+  FiMail
 } from 'react-icons/fi'
 import './AboutMe.css'
 
@@ -110,8 +112,12 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
                   <span>Imus, Cavite, Philippines</span>
                 </span>
                 <span className="meta-item">
-                  <FiCalendar />
-                  <span>Available for opportunities</span>
+                  <FiPhone />
+                  <span>0976 1855 8774</span>
+                </span>
+                <span className="meta-item">
+                  <FiMail />
+                  <span>lanceadrn.acal@gmail.com</span>
                 </span>
               </div>
             </div>
