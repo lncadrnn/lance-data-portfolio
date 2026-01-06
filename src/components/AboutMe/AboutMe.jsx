@@ -96,7 +96,7 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
 
               {/* Action Buttons - Moved to top right */}
               <div className="profile-actions">
-                <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
+                <a href="mailto:lanceadrn.acal@gmail.com" className="action-btn primary">
                   <FiSend />
                   <span>Message</span>
                 </a>
