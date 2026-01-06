@@ -89,7 +89,18 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
 
           {/* Profile Details */}
           <div className="profile-details">
-            <h1 className="about-profile-name">Lance Adrian D. Acal</h1>
+            <div className="profile-header-row">
+              <h1 className="about-profile-name">Lance Adrian D. Acal</h1>
+
+              {/* Action Buttons - Moved to top right */}
+              <div className="profile-actions">
+                <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
+                  <FiSend />
+                  <span>Message</span>
+                </a>
+              </div>
+            </div>
+
             <p className="profile-title">Data Analyst / Scientist</p>
 
             <div className="profile-meta">
@@ -102,14 +113,6 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
                   <FiCalendar />
                   <span>Available for opportunities</span>
                 </span>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="profile-actions">
-                <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
-                  <FiSend />
-                  <span>Message</span>
-                </a>
               </div>
             </div>
           </div>

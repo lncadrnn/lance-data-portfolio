@@ -123,6 +123,14 @@
   gap: 8px;
 }
 
+.profile-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .about-profile-name {
   margin: 0;
   font-size: 1.75rem;
@@ -497,6 +505,7 @@
 
   .profile-meta {
     flex-direction: column;
+    align-items: flex-start;
     gap: 8px;
   }
 
