@@ -9,8 +9,7 @@ import {
   FiTrendingUp,
   FiChevronDown,
   FiChevronUp,
-  FiSend,
-  FiTarget
+  FiSend
 } from 'react-icons/fi'
 import './AboutMe.css'
 
@@ -31,19 +30,31 @@ Beyond technical skills, I believe in the power of storytelling with data. I'm d
 When I'm not crunching numbers, you can find me exploring new datasets, contributing to open-source projects, or sharing my knowledge through blogs and tutorials. I'm excited about the endless possibilities that data brings and look forward to making a meaningful impact through analytics.`
 
   const skills = [
-    { name: 'Python', icon: <FiCode /> },
-    { name: 'SQL', icon: <FiDatabase /> },
-    { name: 'Data Analysis', icon: <FiTrendingUp /> },
-    { name: 'Machine Learning', icon: <FiCode /> },
-    { name: 'Data Visualization', icon: <FiTrendingUp /> },
-    { name: 'Statistics', icon: <FiDatabase /> },
-  ]
-
-  const currentFocus = [
-    { name: 'Deep Learning', icon: <FiTarget /> },
-    { name: 'Advanced SQL', icon: <FiDatabase /> },
-    { name: 'Cloud Computing', icon: <FiCode /> },
-    { name: 'Data Engineering', icon: <FiTrendingUp /> },
+    { 
+      name: 'Python', 
+      proficiency: 75,
+      description: 'Data manipulation and analysis using Pandas, NumPy, and data visualization libraries.' 
+    },
+    { 
+      name: 'SQL', 
+      proficiency: 70,
+      description: 'Writing queries for data extraction, analysis, and working with relational databases.' 
+    },
+    { 
+      name: 'Excel', 
+      proficiency: 85,
+      description: 'Data cleaning, analysis, pivot tables, and advanced formulas for business insights.' 
+    },
+    { 
+      name: 'Power BI', 
+      proficiency: 65,
+      description: 'Creating interactive dashboards and reports for data visualization and storytelling.' 
+    },
+    { 
+      name: 'Git', 
+      proficiency: 60,
+      description: 'Version control, collaboration, and managing code repositories on GitHub.' 
+    },
   ]
 
   const truncatedText = aboutText.slice(0, 280) + '...'
@@ -82,22 +93,24 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
             <p className="profile-title">Data Analyst / Scientist</p>
             
             <div className="profile-meta">
-              <span className="meta-item">
-                <FiMapPin />
-                <span>Philippines</span>
-              </span>
-              <span className="meta-item">
-                <FiCalendar />
-                <span>Available for opportunities</span>
-              </span>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="profile-actions">
-              <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
-                <FiSend />
-                <span>Message</span>
-              </a>
+              <div className="profile-meta-left">
+                <span className="meta-item">
+                  <FiMapPin />
+                  <span>Imus, Cavite, Philippines</span>
+                </span>
+                <span className="meta-item">
+                  <FiCalendar />
+                  <span>Available for opportunities</span>
+                </span>
+              </div>
+              
+              {/* Action Buttons */}
+              <div className="profile-actions">
+                <a href="mailto:lanceadrian.acal@example.com" className="action-btn primary">
+                  <FiSend />
+                  <span>Message</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -140,28 +153,24 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
           <h2>Skills / What I know</h2>
         </div>
         
-        <div className="skills-grid">
-          {skills.map((skill, index) => (
-            <div key={index} className="skill-tag">
-              <span className="skill-icon">{skill.icon}</span>
-              <span className="skill-name">{skill.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Current Focus Section */}
-      <div className="skills-section">
-        <div className="section-header">
-          <FiTarget className="section-icon" />
-          <h2>Current Focus / Learning</h2>
-        </div>
+        <p className="skills-note">
+          Currently studying and upskilling. The proficiency levels reflect my ongoing learning journey.
+        </p>
         
-        <div className="skills-grid">
-          {currentFocus.map((item, index) => (
-            <div key={index} className="skill-tag">
-              <span className="skill-icon">{item.icon}</span>
-              <span className="skill-name">{item.name}</span>
+        <div className="skills-list">
+          {skills.map((skill, index) => (
+            <div key={index} className="skill-item">
+              <div className="skill-item-header">
+                <h3 className="skill-item-name">{skill.name}</h3>
+                <span className="skill-item-percentage">{skill.proficiency}%</span>
+              </div>
+              <p className="skill-item-description">{skill.description}</p>
+              <div className="skill-progress-bar">
+                <div 
+                  className="skill-progress-fill" 
+                  style={{ width: `${skill.proficiency}%` }}
+                ></div>
+              </div>
             </div>
           ))}
         </div>
