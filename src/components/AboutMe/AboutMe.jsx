@@ -15,7 +15,7 @@ import './AboutMe.css'
 
 // Import assets
 import profilePic from '../../assets/profile/profile.png'
-import banner1 from '../../assets/images/banner1.jpg'
+import banner1 from '../../assets/images/cover-photo.jpg'
 
 const AboutMe = () => {
   const { darkMode } = useContext(ThemeContext)
