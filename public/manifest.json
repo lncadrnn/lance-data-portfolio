@@ -1,0 +1,25 @@
+{
+  "name": "Lance Adrian Data Portfolio",
+  "short_name": "Lance Portfolio",
+  "description": "Data Analytics Portfolio by Lance Adrian D. Acal showcasing projects, skills, and achievements",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1419",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
