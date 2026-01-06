@@ -23,7 +23,7 @@ const AboutMe = () => {
   const { darkMode } = useContext(ThemeContext)
   const [isAboutExpanded, setIsAboutExpanded] = useState(false)
 
-  const aboutText = `I am a Data Analyst and aspiring Data Scientist with a strong passion for turning raw data into meaningful insights. With a solid foundation in statistical analysis, data visualization, and machine learning, I thrive on solving complex problems and uncovering patterns that drive informed decision-making.
+  const aboutText = `I am an aspiring Data Analyst and Data Scientist with a strong passion for turning raw data into meaningful insights. With a solid foundation in statistical analysis, data visualization, and machine learning, I thrive on solving complex problems and uncovering patterns that drive informed decision-making.
 
 My journey in data began during my academic years, where I developed a deep appreciation for how data can transform businesses and industries. I specialize in Python, SQL, and various data visualization tools like Tableau and Power BI. I'm constantly learning and exploring new technologies to stay at the forefront of the data science field.
 
@@ -34,27 +34,27 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
   const skills = [
     {
       name: 'Python',
-      proficiency: 75,
-      description: 'Data manipulation and analysis using Pandas, NumPy, and data visualization libraries.'
+      proficiency: 65,
+      description: 'Data manipulation and analysis using Pandas, Matplotlib, and Seaborn.'
     },
     {
       name: 'SQL',
-      proficiency: 70,
+      proficiency: 55,
       description: 'Writing queries for data extraction, analysis, and working with relational databases.'
     },
     {
       name: 'Excel',
-      proficiency: 85,
+      proficiency: 75,
       description: 'Data cleaning, analysis, pivot tables, and advanced formulas for business insights.'
     },
     {
       name: 'Power BI',
-      proficiency: 65,
+      proficiency: 60,
       description: 'Creating interactive dashboards and reports for data visualization and storytelling.'
     },
     {
       name: 'Git',
-      proficiency: 60,
+      proficiency: 65,
       description: 'Version control, collaboration, and managing code repositories on GitHub.'
     },
   ]
