@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
 import AboutMe from './components/AboutMe/AboutMe'
+import Achievements from './components/Achievements/Achievements'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import './App.css'
 
@@ -25,7 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<AboutMe />} />
-              <Route path="/achievements" element={<UnderConstruction pageName="Achievements" />} />
+              <Route path="/achievements" element={<Achievements />} />
               <Route path="/projects" element={<UnderConstruction pageName="Projects" />} />
               <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />
             </Routes>
