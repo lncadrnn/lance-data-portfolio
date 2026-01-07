@@ -45,7 +45,10 @@ const Achievements = () => {
         }
     }, [selectedCert])
 
-    // Certificates data
+    // Certificates data - temporarily empty to show empty state
+    const certificates = []
+
+    /* COMMENTED OUT - Uncomment when ready to display certificates
     const certificates = [
         {
             id: 1,
@@ -55,7 +58,7 @@ const Achievements = () => {
             category: 'Analytics',
             description: 'Completed a 45-hour structured training program called the Data Analytics Learning Challenge.',
             image: dataAnalyticsCert,
-            credentialId: null, // Add credential ID here if available
+            credentialId: 'STF-25-3702360',
             credentialUrl: '#',
             skills: ['Data Analysis', 'Excel', 'Power BI', 'Statistics']
         },
@@ -160,6 +163,7 @@ const Achievements = () => {
             skills: ['Excellence', 'AI Tools', 'Digital Skills']
         }
     ]
+    */
 
     // Get unique categories for filter
     const categories = ['all', ...new Set(certificates.map(cert => cert.category))]
@@ -217,36 +221,38 @@ const Achievements = () => {
                 </p>
             </section>
 
-            {/* Controls Section */}
-            <section className="achievements-controls">
-                <div className="filter-tabs">
-                    {categories.map(category => (
+            {/* Controls Section - Only show if there are certificates */}
+            {certificates.length > 0 && (
+                <section className="achievements-controls">
+                    <div className="filter-tabs">
+                        {categories.map(category => (
+                            <button
+                                key={category}
+                                className={`filter-tab ${activeFilter === category ? 'active' : ''}`}
+                                onClick={() => setActiveFilter(category)}
+                            >
+                                {category === 'all' ? 'All' : category}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="view-toggle">
                         <button
-                            key={category}
-                            className={`filter-tab ${activeFilter === category ? 'active' : ''}`}
-                            onClick={() => setActiveFilter(category)}
+                            className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                            onClick={() => setViewMode('grid')}
+                            aria-label="Grid view"
                         >
-                            {category === 'all' ? 'All' : category}
+                            <FiGrid />
                         </button>
-                    ))}
-                </div>
-                <div className="view-toggle">
-                    <button
-                        className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                        onClick={() => setViewMode('grid')}
-                        aria-label="Grid view"
-                    >
-                        <FiGrid />
-                    </button>
-                    <button
-                        className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                        onClick={() => setViewMode('list')}
-                        aria-label="List view"
-                    >
-                        <FiList />
-                    </button>
-                </div>
-            </section>
+                        <button
+                            className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                            onClick={() => setViewMode('list')}
+                            aria-label="List view"
+                        >
+                            <FiList />
+                        </button>
+                    </div>
+                </section>
+            )}
 
             {/* Certificates Grid/List */}
             <section className="certificates-section">
@@ -301,12 +307,21 @@ const Achievements = () => {
                     ))}
                 </div>
 
-                {filteredCertificates.length === 0 && (
+                {certificates.length === 0 ? (
+                    <div className="empty-certificates">
+                        <div className="empty-icon">
+                            <FiAward />
+                        </div>
+                        <h3>No Certificates Yet</h3>
+                        <p>Certificates and achievements will be displayed here once earned.</p>
+                        <span className="coming-soon-badge">Coming Soon</span>
+                    </div>
+                ) : filteredCertificates.length === 0 ? (
                     <div className="no-certificates">
                         <FiAward />
                         <p>No certificates found in this category.</p>
                     </div>
-                )}
+                ) : null}
             </section>
 
             {/* Certificate Modal */}

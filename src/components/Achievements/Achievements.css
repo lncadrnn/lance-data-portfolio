@@ -408,6 +408,76 @@
     font-size: 1rem;
 }
 
+/* Empty Certificates State */
+.empty-certificates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    min-height: 400px;
+}
+
+.empty-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-color)20, var(--accent-color)10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-icon svg {
+    font-size: 3.5rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+.empty-certificates h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.empty-certificates p {
+    margin: 0 0 24px 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.coming-soon-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
 /* Certificate Modal */
 .cert-modal-overlay {
     position: fixed;
