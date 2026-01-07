@@ -601,6 +601,21 @@
     color: var(--accent-color);
 }
 
+.modal-credential-id {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    padding: 8px 14px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.modal-credential-id strong {
+    color: var(--text-primary);
+    margin-right: 6px;
+}
+
 .modal-skills {
     margin-top: 8px;
 }

@@ -55,6 +55,7 @@ const Achievements = () => {
             category: 'Analytics',
             description: 'Completed a 45-hour structured training program called the Data Analytics Learning Challenge.',
             image: dataAnalyticsCert,
+            credentialId: null, // Add credential ID here if available
             credentialUrl: '#',
             skills: ['Data Analysis', 'Excel', 'Power BI', 'Statistics']
         },
@@ -66,6 +67,7 @@ const Achievements = () => {
             category: 'Visualization',
             description: 'Professional certification in creating interactive dashboards, reports, and data storytelling using Power BI.',
             image: powerBICert,
+            credentialId: null,
             credentialUrl: '#',
             skills: ['Power BI', 'DAX', 'Data Visualization']
         },
@@ -345,6 +347,11 @@ const Achievements = () => {
                                 <p className="modal-date">
                                     <FiCalendar /> {selectedCert.date}
                                 </p>
+                                {selectedCert.credentialId && (
+                                    <p className="modal-credential-id">
+                                        <strong>Credential ID:</strong> {selectedCert.credentialId}
+                                    </p>
+                                )}
                                 {selectedCert.description && (
                                     <p className="modal-description">{selectedCert.description}</p>
                                 )}
