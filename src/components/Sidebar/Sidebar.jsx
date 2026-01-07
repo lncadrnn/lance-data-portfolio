@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: <FiHome />, path: '/' },
     { id: 'about', label: 'About', icon: <FiUser />, path: '/about' },
-    { id: 'achievements', label: 'Certificates', icon: <FiAward />, path: '/achievements' },
+    { id: 'achievements', label: 'Achievements', icon: <FiAward />, path: '/achievements' },
     { id: 'projects', label: 'Projects', icon: <FiFolder />, path: '/projects' },
     { id: 'blogs', label: 'Blogs', icon: <FiFileText />, path: '/blogs' },
   ]
@@ -116,7 +116,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Footer */}
           <div className="sidebar-footer">
             <p>© 2025 Lance Adrian Acal. All Rights Reserved.</p>
-            <button 
+            <button
               className="footer-lock-btn"
               onClick={() => setShowLoginModal(true)}
               aria-label="Admin Login"

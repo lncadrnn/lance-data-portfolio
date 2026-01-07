@@ -23,13 +23,15 @@ const AboutMe = () => {
   const { darkMode } = useContext(ThemeContext)
   const [isAboutExpanded, setIsAboutExpanded] = useState(false)
 
-  const aboutText = `I am an aspiring Data Analyst and Data Scientist with a strong passion for turning raw data into meaningful insights. With a solid foundation in statistical analysis, data visualization, and machine learning, I thrive on solving complex problems and uncovering patterns that drive informed decision-making.
+  const aboutText = `I am a Computer Science student at Cavite State University – Imus, currently focused on building a strong foundation in Data Analytics as I work my way toward Data Science and eventually Machine Learning Engineering. I enjoy working with data, exploring patterns, uncovering meaningful insights, and transforming information into clear, impactful stories that help people and organizations make smarter decisions.
 
-My journey in data began during my academic years, where I developed a deep appreciation for how data can transform businesses and industries. I specialize in Python, SQL, and various data visualization tools like Tableau and Power BI. I'm constantly learning and exploring new technologies to stay at the forefront of the data science field.
+Most of my experience is rooted in Microsoft Excel, which I confidently use for data cleaning, analysis, and basic automation. I am also continuously improving my skills in SQL for data querying and Python for analytics, especially using libraries such as Pandas, Matplotlib, and Seaborn. In addition, I work with Power BI to create data visualizations and dashboards, and while I am still learning DAX, I enjoy designing dashboards that are both insightful and visually engaging.
 
-Beyond technical skills, I believe in the power of storytelling with data. I'm dedicated to presenting findings in a clear, compelling manner that resonates with both technical and non-technical stakeholders. Whether it's building predictive models, creating interactive dashboards, or conducting exploratory data analysis, I approach every project with curiosity and precision.
+Throughout my learning journey, I have worked on various mini projects, training program activities, self-made projects, dashboards, case studies, and even a capstone project to complete a data science training program and earn certification. These experiences allowed me to apply different tech skills, analyze real-world datasets, solve problems, and strengthen both my technical and analytical thinking abilities.
 
-When I'm not crunching numbers, you can find me exploring new datasets, contributing to open-source projects, or sharing my knowledge through blogs and tutorials. I'm excited about the endless possibilities that data brings and look forward to making a meaningful impact through analytics.`
+Beyond technical skills, I value communication, clarity, and meaningful storytelling with data. I actively participate in webinars, online programs, and professional training to continuously expand my knowledge and build a strong learning portfolio. I also plan to share my journey through blogs to inspire others who are also exploring the world of data.
+
+I am continuously learning, building projects, and improving my craft to grow as a data professional. If anyone needs help analyzing datasets, creating dashboards, or understanding data for business or academic purposes, I’m always open to collaborate and help.`
 
   const skills = [
     {
@@ -171,15 +173,8 @@ When I'm not crunching numbers, you can find me exploring new datasets, contribu
             <div key={index} className="skill-item">
               <div className="skill-item-header">
                 <h3 className="skill-item-name">{skill.name}</h3>
-                <span className="skill-item-percentage">{skill.proficiency}%</span>
               </div>
               <p className="skill-item-description">{skill.description}</p>
-              <div className="skill-progress-bar">
-                <div
-                  className="skill-progress-fill"
-                  style={{ width: `${skill.proficiency}%` }}
-                ></div>
-              </div>
             </div>
           ))}
         </div>
