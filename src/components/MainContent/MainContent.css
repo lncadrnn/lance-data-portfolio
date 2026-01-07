@@ -39,6 +39,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -50,7 +51,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
   z-index: 1;
 }
 
@@ -82,9 +83,12 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -102,8 +106,8 @@
   .stats-section {
     flex: 1;
   }
-  
-  .main-content > section:last-of-type {
+
+  .main-content>section:last-of-type {
     flex: 1;
   }
 }
@@ -261,12 +265,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    rgba(0, 0, 0, 0.85) 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.85) 100%);
 }
 
 /* Slide Category Tag - Top Left */
@@ -401,15 +403,15 @@
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .carousel-track {
     height: 280px;
   }
-  
+
   .slide-title {
     font-size: 1.3rem;
   }
-  
+
   .slide-content {
     padding: 24px;
   }
@@ -463,30 +465,30 @@
   .carousel-track {
     height: 240px;
   }
-  
+
   .carousel-btn {
     opacity: 1;
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
   }
-  
+
   .carousel-btn.prev {
     left: 12px;
   }
-  
+
   .carousel-btn.next {
     right: 12px;
   }
-  
+
   .slide-content {
     padding: 20px;
   }
-  
+
   .slide-title {
     font-size: 1.2rem;
   }
-  
+
   .slide-description {
     font-size: 0.85rem;
   }
@@ -496,40 +498,40 @@
   .stats-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .carousel-track {
     height: 200px;
   }
-  
+
   .carousel-btn {
     width: 36px;
     height: 36px;
     font-size: 1rem;
   }
-  
+
   .carousel-btn.prev {
     left: 8px;
   }
-  
+
   .carousel-btn.next {
     right: 8px;
   }
-  
+
   .slide-content {
     padding: 16px;
   }
-  
+
   .slide-category {
     font-size: 0.65rem;
     padding: 4px 10px;
     margin-bottom: 8px;
   }
-  
+
   .slide-title {
     font-size: 1rem;
     margin-bottom: 4px;
   }
-  
+
   .slide-description {
     font-size: 0.8rem;
     display: -webkit-box;
@@ -537,16 +539,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  
+
   .indicator {
     width: 24px;
     height: 3px;
   }
-  
+
   .indicator.active {
     width: 36px;
   }
-  
+
   .carousel-indicators {
     bottom: 12px;
     gap: 8px;
@@ -630,11 +632,11 @@
   .carousel-track {
     height: 280px;
   }
-  
+
   .slide-title {
     font-size: 1.3rem;
   }
-  
+
   .slide-content {
     padding: 24px;
   }
