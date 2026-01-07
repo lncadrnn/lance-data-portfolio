@@ -442,8 +442,7 @@
     max-height: 90vh;
     background: var(--card-bg);
     border-radius: 24px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     animation: slideUp 0.4s ease;
 }
 
@@ -516,6 +515,9 @@
 .modal-content {
     display: flex;
     flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .modal-image-container {
