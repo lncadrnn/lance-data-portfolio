@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { ThemeContext } from '../../App'
 import {
     FiAward,
@@ -30,23 +30,38 @@ const Achievements = () => {
     const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
     const [activeFilter, setActiveFilter] = useState('all')
 
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden'
+            document.documentElement.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+            document.documentElement.style.overflow = ''
+        }
+        return () => {
+            document.body.style.overflow = ''
+            document.documentElement.style.overflow = ''
+        }
+    }, [selectedCert])
+
     // Certificates data
     const certificates = [
         {
             id: 1,
-            title: 'Data Analytics Certificate',
-            issuer: 'Training Provider',
-            date: '2024',
-            category: 'Data Science',
-            description: 'Comprehensive data analytics program covering data analysis methodologies, tools, and practical applications.',
+            title: 'Data Analytics Learning Challenge',
+            issuer: 'DataSense Analytics',
+            date: 'May 05, 2025',
+            category: 'Analytics',
+            description: 'Completed a 45-hour structured training program called the Data Analytics Learning Challenge.',
             image: dataAnalyticsCert,
             credentialUrl: '#',
-            skills: ['Data Analysis', 'Analytics', 'Reporting']
+            skills: ['Data Analysis', 'Excel', 'Power BI', 'Statistics']
         },
         {
             id: 2,
             title: 'Power BI Certificate',
-            issuer: 'Training Provider',
+            issuer: 'DataSense Analytics',
             date: '2024',
             category: 'Visualization',
             description: 'Professional certification in creating interactive dashboards, reports, and data storytelling using Power BI.',

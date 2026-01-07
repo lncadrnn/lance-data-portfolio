@@ -524,6 +524,7 @@
     width: 100%;
     height: 350px;
     background: var(--bg-secondary);
+    margin-top: 20px;
 }
 
 .modal-image {
