@@ -11,8 +11,11 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  // Check if we're on pages with full layout (home and about) or under construction pages
-  const isFullLayoutPage = location.pathname === '/' || location.pathname === '/about'
+  // Check if we're on pages with fixed app layout (sticky sidebar, no body scroll)
+  const useAppLayout = location.pathname === '/' || location.pathname === '/about' || location.pathname === '/achievements'
+
+  // Check if we should show the right sidebar (only on Home and About)
+  const showRightSidebar = location.pathname === '/' || location.pathname === '/about'
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -23,7 +26,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!isFullLayoutPage ? 'construction-mode' : ''} ${location.pathname === '/about' ? 'about-layout' : ''}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!useAppLayout ? 'construction-mode' : ''} ${location.pathname === '/about' ? 'about-layout' : ''}`}>
       {/* Hamburger Menu Button - Mobile Only */}
       <button className="hamburger-btn" onClick={toggleSidebar}>
         {sidebarOpen ? <FiX /> : <FiMenu />}
@@ -39,10 +42,10 @@ const Layout = ({ children }) => {
 
       {/* Scrollable content wrapper for main + right sidebar */}
       <div className="content-wrapper">
-        <div className={`main-area ${!isFullLayoutPage ? 'full-width' : ''}`}>
+        <div className={`main-area ${!showRightSidebar ? 'full-width' : ''}`}>
           {children}
           {/* Right sidebar content on mobile - shown after main content */}
-          {isFullLayoutPage && (
+          {showRightSidebar && (
             <div className="mobile-right-sidebar">
               <RightSidebar />
             </div>
@@ -50,7 +53,7 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Desktop right sidebar */}
-        {isFullLayoutPage && (
+        {showRightSidebar && (
           <div className="desktop-right-sidebar">
             <RightSidebar />
           </div>
