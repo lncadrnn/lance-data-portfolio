@@ -45,10 +45,7 @@ const Achievements = () => {
         }
     }, [selectedCert])
 
-    // Certificates data - temporarily empty to show empty state
-    const certificates = []
-
-    /* COMMENTED OUT - Uncomment when ready to display certificates
+    // Certificates data
     const certificates = [
         {
             id: 1,
@@ -163,7 +160,6 @@ const Achievements = () => {
             skills: ['Excellence', 'AI Tools', 'Digital Skills']
         }
     ]
-    */
 
     // Get unique categories for filter
     const categories = ['all', ...new Set(certificates.map(cert => cert.category))]
