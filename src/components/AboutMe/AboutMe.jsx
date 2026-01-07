@@ -19,6 +19,16 @@ import './AboutMe.css'
 import profilePic from '../../assets/profile/profile.png'
 import banner1 from '../../assets/images/cover-photo.jpg'
 
+// Import skill icons
+import pythonIcon from '../../assets/icons/python.svg'
+import mysqlIcon from '../../assets/icons/mysql.svg'
+import excelIcon from '../../assets/icons/microsoft-excel.svg'
+import powerbiIcon from '../../assets/icons/powerbi.svg'
+import gitIcon from '../../assets/icons/git.svg'
+import pandasIcon from '../../assets/icons/pandas.svg'
+import matplotlibIcon from '../../assets/icons/matplotlib.svg'
+import seabornIcon from '../../assets/icons/seaborn.svg'
+
 const AboutMe = () => {
   const { darkMode } = useContext(ThemeContext)
   const [isAboutExpanded, setIsAboutExpanded] = useState(false)
@@ -31,34 +41,17 @@ Throughout my learning journey, I have worked on various mini projects, training
 
 Beyond technical skills, I value communication, clarity, and meaningful storytelling with data. I actively participate in webinars, online programs, and professional training to continuously expand my knowledge and build a strong learning portfolio. I also plan to share my journey through blogs to inspire others who are also exploring the world of data.
 
-I am continuously learning, building projects, and improving my craft to grow as a data professional. If anyone needs help analyzing datasets, creating dashboards, or understanding data for business or academic purposes, I’m always open to collaborate and help.`
+I am continuously learning, building projects, and improving my craft to grow as a data professional. If anyone needs help analyzing datasets, creating dashboards, or understanding data for business or academic purposes, I'm always open to collaborate and help.`
 
   const skills = [
-    {
-      name: 'Python',
-      proficiency: 65,
-      description: 'Data manipulation and analysis using Pandas, Matplotlib, and Seaborn.'
-    },
-    {
-      name: 'SQL',
-      proficiency: 55,
-      description: 'Writing queries for data extraction, analysis, and working with relational databases.'
-    },
-    {
-      name: 'Excel',
-      proficiency: 75,
-      description: 'Data cleaning, analysis, pivot tables, and advanced formulas for business insights.'
-    },
-    {
-      name: 'Power BI',
-      proficiency: 60,
-      description: 'Creating interactive dashboards and reports for data visualization and storytelling.'
-    },
-    {
-      name: 'Git',
-      proficiency: 65,
-      description: 'Version control, collaboration, and managing code repositories on GitHub.'
-    },
+    { name: 'Python', icon: pythonIcon },
+    { name: 'SQL', icon: mysqlIcon },
+    { name: 'Excel', icon: excelIcon },
+    { name: 'Power BI', icon: powerbiIcon },
+    { name: 'Git', icon: gitIcon },
+    { name: 'Pandas', icon: pandasIcon },
+    { name: 'Matplotlib', icon: matplotlibIcon },
+    { name: 'Seaborn', icon: seabornIcon },
   ]
 
   const truncatedText = aboutText.slice(0, 280) + '...'
@@ -165,16 +158,16 @@ I am continuously learning, building projects, and improving my craft to grow as
         </div>
 
         <p className="skills-note">
-          Currently studying and upskilling. The proficiency levels reflect my ongoing learning journey.
+          Currently studying and upskilling. These reflect my ongoing learning journey.
         </p>
 
-        <div className="skills-list">
+        <div className="skills-grid">
           {skills.map((skill, index) => (
-            <div key={index} className="skill-item">
-              <div className="skill-item-header">
-                <h3 className="skill-item-name">{skill.name}</h3>
+            <div key={index} className="skill-icon-card">
+              <div className="skill-icon-wrapper">
+                <img src={skill.icon} alt={skill.name} />
               </div>
-              <p className="skill-item-description">{skill.description}</p>
+              <span className="skill-icon-name">{skill.name}</span>
             </div>
           ))}
         </div>
