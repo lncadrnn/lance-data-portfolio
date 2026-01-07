@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect, useRef } from 'react'
 import { ThemeContext } from '../../App'
-import { 
-  FiCalendar, 
-  FiClock, 
-  FiAward, 
+import { certificates } from '../../data/certificates'
+import {
+  FiCalendar,
+  FiClock,
+  FiAward,
   FiFolder,
   FiFileText,
   FiBarChart2,
@@ -29,7 +30,7 @@ const MainContent = () => {
   const [isTyping, setIsTyping] = useState(true)
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const fullTextRef = useRef('')
-  
+
   // Ref to track sequential text index
   const textIndexRef = useRef(0)
 
@@ -64,7 +65,7 @@ const MainContent = () => {
   // Initialize with first text
   useEffect(() => {
     textIndexRef.current = 0
-    
+
     const heroTexts = getHeroTexts()
     fullTextRef.current = heroTexts[0]
 
@@ -86,16 +87,16 @@ const MainContent = () => {
   // Typewriter effect with backspace
   useEffect(() => {
     if (!fullTextRef.current) return
-    
+
     let currentIndex = 0
     let isDeleting = false
     let pauseTimeout = null
     setDisplayedText('')
     setIsTyping(true)
-    
+
     const typewriterInterval = setInterval(() => {
       const currentText = fullTextRef.current
-      
+
       if (!isDeleting) {
         // Typing forward
         if (currentIndex < currentText.length) {
@@ -105,12 +106,12 @@ const MainContent = () => {
           // Finished typing, pause then start deleting
           setIsTyping(false)
           clearInterval(typewriterInterval)
-          
+
           pauseTimeout = setTimeout(() => {
             // Start the delete and next text cycle
             let deleteIndex = currentText.length
             setIsTyping(true)
-            
+
             const deleteInterval = setInterval(() => {
               if (deleteIndex > 0) {
                 deleteIndex--
@@ -119,7 +120,7 @@ const MainContent = () => {
                 clearInterval(deleteInterval)
                 // Get next text sequentially
                 const nextText = getNextText()
-                
+
                 setCurrentTextIndex(prev => prev + 1)
                 fullTextRef.current = nextText
               }
@@ -128,7 +129,7 @@ const MainContent = () => {
         }
       }
     }, 80)
-    
+
     return () => {
       clearInterval(typewriterInterval)
       if (pauseTimeout) clearTimeout(pauseTimeout)
@@ -137,7 +138,7 @@ const MainContent = () => {
 
   const careerStats = [
     { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
-    { icon: <FiAward />, value: '0', label: 'Certificates', unit: '', color: '#f59e0b' },
+    { icon: <FiAward />, value: certificates.length, label: 'Certificates', unit: '', color: '#f59e0b' },
     { icon: <FiFolder />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
     { icon: <FiFileText />, value: '0', label: 'Blogs', unit: '', color: '#06b6d4' },
   ]
@@ -189,7 +190,7 @@ const MainContent = () => {
   // Auto-play carousel
   useEffect(() => {
     if (featuredProjects.length <= 1) return
-    
+
     const autoPlayInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
     }, 5000)
@@ -219,9 +220,9 @@ const MainContent = () => {
         </div>
         <div className="hero-banner">
           <div className="hero-overlay"></div>
-          <img 
-            src={banners[currentBanner]} 
-            alt="Data Analytics Banner" 
+          <img
+            src={banners[currentBanner]}
+            alt="Data Analytics Banner"
             className="hero-image"
             key={currentBanner}
           />
@@ -273,13 +274,11 @@ const MainContent = () => {
             <>
               <div className="carousel-track">
                 {featuredProjects.map((project, index) => (
-                  <div 
-                    key={project.id} 
-                    className={`carousel-slide ${index === currentSlide ? 'active' : ''} ${
-                      index === (currentSlide - 1 + featuredProjects.length) % featuredProjects.length ? 'prev' : ''
-                    } ${
-                      index === (currentSlide + 1) % featuredProjects.length ? 'next' : ''
-                    }`}
+                  <div
+                    key={project.id}
+                    className={`carousel-slide ${index === currentSlide ? 'active' : ''} ${index === (currentSlide - 1 + featuredProjects.length) % featuredProjects.length ? 'prev' : ''
+                      } ${index === (currentSlide + 1) % featuredProjects.length ? 'next' : ''
+                      }`}
                   >
                     <div className="slide-image">
                       <img src={project.image} alt={project.title} />
@@ -295,7 +294,7 @@ const MainContent = () => {
                   </div>
                 ))}
               </div>
-              
+
               {/* Navigation Arrows */}
               <button className="carousel-btn prev" onClick={prevSlide} aria-label="Previous slide">
                 <FiChevronLeft />
@@ -303,7 +302,7 @@ const MainContent = () => {
               <button className="carousel-btn next" onClick={nextSlide} aria-label="Next slide">
                 <FiChevronRight />
               </button>
-              
+
               {/* Carousel Indicators */}
               <div className="carousel-indicators">
                 {featuredProjects.map((_, index) => (
