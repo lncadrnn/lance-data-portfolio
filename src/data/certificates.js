@@ -98,7 +98,6 @@ export const certificates = [
         date: 'March 22, 2025',
         category: 'Analytics',
         description: `Completed a 3‑hour national webinar on Advanced Excel: Unlocking Powerful Features and Functions (Virtual Mentors, March 2025). Key topics covered:
-
                         - Advanced formulas and functions
                         - Conditional logic and lookup formulas
                         - Data validation and clean workflows
@@ -117,7 +116,6 @@ export const certificates = [
         date: 'March 22, 2025',
         category: 'Analytics',
         description: `Completed a national-level webinar titled “Introduction to Excel: Basics and Fundamentals for Beginners” hosted by Virtual Mentors on March 22, 2025. This 3-hour training covered:
-
                         - Spreadsheet navigation and layout
                         - Basic formulas and functions
                         - Data entry and formatting techniques
