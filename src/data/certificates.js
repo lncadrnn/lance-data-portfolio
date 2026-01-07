@@ -1,7 +1,3 @@
-// Import certificate images based on how they would be imported in this file context
-// Note: We need to adjust imports if this file is imported elsewhere
-// For now, we'll keep the image references consistent with where they are used.
-
 import advancedExcelCert from '../assets/Certificates/Advanced Excel.png'
 import dataAnalyticsCert from '../assets/Certificates/Data Analytics Certificate.png'
 import dataExcelCert from '../assets/Certificates/Data Science - Excel Certificate.png'
