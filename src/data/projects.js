@@ -38,7 +38,8 @@ export const projects = [
         technologies: ['Power BI', 'Dashboard Design', 'Power Query'],
         githubUrl: 'https://github.com/lncadrnn/power-bi-projects/tree/main/Financial%20Report%20Dashboard',
         liveUrl: '#',
-        featured: true
+        featured: true,
+        featuredOrder: 6
     },
     {
         id: 2,
@@ -73,7 +74,8 @@ export const projects = [
         technologies: ['Power BI', 'DAX', 'Power Query', 'Excel'],
         githubUrl: 'https://github.com/lncadrnn/power-bi-projects/tree/main/Netflix%20Global%20Content%20Analysis',
         liveUrl: '#',
-        featured: true
+        featured: true,
+        featuredOrder: 3
     },
     {
         id: 3,
@@ -113,7 +115,8 @@ export const projects = [
         technologies: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'RFM Analysis', 'Jupyter Notebook'],
         githubUrl: 'https://github.com/lncadrnn/brazilian-ecommerce-rfm-analysis',
         liveUrl: '#',
-        featured: true
+        featured: true,
+        featuredOrder: 1
     },
     {
         id: 4,
@@ -147,7 +150,8 @@ export const projects = [
         technologies: ['Microsoft Excel', 'Google Sheets', 'Conditional Formatting', 'Data Validation', 'Date Functions'],
         githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Dynamic%20Calendars',
         liveUrl: '#',
-        featured: true
+        featured: true,
+        featuredOrder: 4
     },
     {
         id: 5,
@@ -181,6 +185,7 @@ export const projects = [
         technologies: ['Google Sheets', 'Logical Formulas', 'Checkboxes', 'Conditional Formatting'],
         githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Spotify%20Tracker%20Template',
         liveUrl: '#',
-        featured: true
+        featured: true,
+        featuredOrder: 5
     }
 ]

@@ -196,7 +196,7 @@ const MainContent = () => {
     return text.length > 160 ? `${text.slice(0, 157)}...` : text
   }
 
-  const featuredItems = [
+  const combinedFeatured = [
     ...projects
       .filter(p => p.featured)
       .map((p) => ({
@@ -207,7 +207,8 @@ const MainContent = () => {
         image: p.image || banners[0],
         color: categoryColors[p.category] || '#3b82f6',
         type: 'Project',
-        typeColor: typeColors['Project']
+        typeColor: typeColors['Project'],
+        featuredOrder: p.featuredOrder
       })),
     ...blogs
       .filter(b => b.featured)
@@ -219,7 +220,8 @@ const MainContent = () => {
         image: b.image || banners[1],
         color: categoryColors[b.category] || '#06b6d4',
         type: 'Blog',
-        typeColor: typeColors['Blog']
+        typeColor: typeColors['Blog'],
+        featuredOrder: b.featuredOrder
       })),
     ...certificates
       .filter(c => c.featured)
@@ -231,9 +233,14 @@ const MainContent = () => {
         image: c.image || banners[2],
         color: categoryColors[c.category] || '#f59e0b',
         type: 'Certificate',
-        typeColor: typeColors['Certificate']
+        typeColor: typeColors['Certificate'],
+        featuredOrder: c.featuredOrder
       }))
-  ].slice(0, 6)
+  ]
+
+  const featuredItems = combinedFeatured
+    .sort((a, b) => (a.featuredOrder ?? 999) - (b.featuredOrder ?? 999))
+    .slice(0, 6)
 
   // Handle click to navigate to detail page
   const handleItemClick = (item) => {
