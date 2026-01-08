@@ -7,6 +7,8 @@ import {
     FiX,
     FiChevronLeft,
     FiChevronRight,
+    FiChevronsLeft,
+    FiChevronsRight,
     FiGrid,
     FiList,
     FiArrowUp,
@@ -22,6 +24,13 @@ const Achievements = () => {
     const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
+    const [currentPage, setCurrentPage] = useState(1)
+    const certificatesPerPage = 12
+
+    // Reset to first page when filter or sort changes
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [activeFilter, sortOrder])
 
     // Prevent body scroll when modal is open
     useEffect(() => {
@@ -62,6 +71,24 @@ const Achievements = () => {
         const dateB = new Date(b.date)
         return sortOrder === 'oldest' ? dateA - dateB : dateB - dateA
     })
+
+    // Pagination logic
+    const totalPages = Math.ceil(sortedCertificates.length / certificatesPerPage)
+    const indexOfLastCert = currentPage * certificatesPerPage
+    const indexOfFirstCert = indexOfLastCert - certificatesPerPage
+    const currentCertificates = sortedCertificates.slice(indexOfFirstCert, indexOfLastCert)
+
+    const goToPage = (page) => {
+        setCurrentPage(page)
+    }
+
+    const goToPrevPage = () => {
+        setCurrentPage(prev => Math.max(prev - 1, 1))
+    }
+
+    const goToNextPage = () => {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages))
+    }
 
     // Category colors
     const getCategoryColor = (category) => {
@@ -156,7 +183,7 @@ const Achievements = () => {
             {/* Certificates Grid/List */}
             <section className="certificates-section">
                 <div className={`certificates-container ${viewMode}`}>
-                    {sortedCertificates.map((cert, index) => (
+                    {currentCertificates.map((cert, index) => (
                         <div
                             key={cert.id}
                             className="certificate-card"
@@ -205,6 +232,94 @@ const Achievements = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* Pagination Controls */}
+                {sortedCertificates.length > certificatesPerPage && (
+                    <div className="pagination-container">
+                        <button
+                            className="pagination-btn nav-btn"
+                            onClick={() => goToPage(1)}
+                            disabled={currentPage === 1}
+                            aria-label="First page"
+                            title="First page"
+                        >
+                            <FiChevronsLeft />
+                        </button>
+                        <button
+                            className="pagination-btn nav-btn"
+                            onClick={goToPrevPage}
+                            disabled={currentPage === 1}
+                            aria-label="Previous page"
+                            title="Previous page"
+                        >
+                            <FiChevronLeft />
+                        </button>
+                        <div className="pagination-pages">
+                            {/* First page */}
+                            <button
+                                className={`pagination-btn page-btn ${currentPage === 1 ? 'active' : ''}`}
+                                onClick={() => goToPage(1)}
+                            >
+                                1
+                            </button>
+                            
+                            {/* Ellipsis after first page */}
+                            {currentPage > 3 && totalPages > 4 && (
+                                <span className="pagination-ellipsis">...</span>
+                            )}
+                            
+                            {/* Middle pages */}
+                            {Array.from({ length: totalPages }, (_, i) => i + 1)
+                                .filter(page => {
+                                    if (page === 1 || page === totalPages) return false
+                                    if (totalPages <= 4) return true
+                                    return page >= currentPage - 1 && page <= currentPage + 1
+                                })
+                                .map(page => (
+                                    <button
+                                        key={page}
+                                        className={`pagination-btn page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => goToPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                ))}
+                            
+                            {/* Ellipsis before last page */}
+                            {currentPage < totalPages - 2 && totalPages > 4 && (
+                                <span className="pagination-ellipsis">...</span>
+                            )}
+                            
+                            {/* Last page */}
+                            {totalPages > 1 && (
+                                <button
+                                    className={`pagination-btn page-btn ${currentPage === totalPages ? 'active' : ''}`}
+                                    onClick={() => goToPage(totalPages)}
+                                >
+                                    {totalPages}
+                                </button>
+                            )}
+                        </div>
+                        <button
+                            className="pagination-btn nav-btn"
+                            onClick={goToNextPage}
+                            disabled={currentPage === totalPages}
+                            aria-label="Next page"
+                            title="Next page"
+                        >
+                            <FiChevronRight />
+                        </button>
+                        <button
+                            className="pagination-btn nav-btn"
+                            onClick={() => goToPage(totalPages)}
+                            disabled={currentPage === totalPages}
+                            aria-label="Last page"
+                            title="Last page"
+                        >
+                            <FiChevronsRight />
+                        </button>
+                    </div>
+                )}
 
                 {certificates.length === 0 ? (
                     <div className="empty-certificates">
