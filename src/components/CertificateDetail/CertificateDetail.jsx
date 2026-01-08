@@ -6,8 +6,6 @@ import {
     FiCalendar,
     FiExternalLink,
     FiArrowLeft,
-    FiChevronLeft,
-    FiChevronRight,
     FiClock
 } from 'react-icons/fi'
 import './CertificateDetail.css'
@@ -25,11 +23,12 @@ const CertificateDetail = () => {
     // Get other certificates (excluding current one)
     const otherCertificates = certificates.filter(cert => cert.id !== parseInt(id))
 
-    // Carousel state
-    const [carouselIndex, setCarouselIndex] = useState(0)
+    // Pagination/Carousel state
+    const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerView, setItemsPerView] = useState(3)
     const [isCarouselMode, setIsCarouselMode] = useState(false)
     const carouselRef = useRef(null)
+    const ITEMS_PER_PAGE_SIDEBAR = 6
 
     // Update items per view and carousel mode based on screen size
     useEffect(() => {
@@ -53,19 +52,22 @@ const CertificateDetail = () => {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    // Reset carousel index when certificate changes
+    // Reset page index when certificate changes
     useEffect(() => {
-        setCarouselIndex(0)
+        setCurrentPage(0)
     }, [id])
 
-    const maxCarouselIndex = Math.max(0, otherCertificates.length - itemsPerView)
+    // Calculate pagination
+    const totalPagesCarousel = Math.ceil(otherCertificates.length / itemsPerView)
+    const totalPagesSidebar = Math.ceil(otherCertificates.length / ITEMS_PER_PAGE_SIDEBAR)
+    
+    // Get visible items based on mode and current page
+    const visibleCertificates = isCarouselMode 
+        ? otherCertificates.slice(currentPage * itemsPerView, (currentPage + 1) * itemsPerView)
+        : otherCertificates.slice(currentPage * ITEMS_PER_PAGE_SIDEBAR, (currentPage + 1) * ITEMS_PER_PAGE_SIDEBAR)
 
-    const handlePrevCarousel = () => {
-        setCarouselIndex(prev => Math.max(0, prev - 1))
-    }
-
-    const handleNextCarousel = () => {
-        setCarouselIndex(prev => Math.min(maxCarouselIndex, prev + 1))
+    const handlePageChange = (pageIndex) => {
+        setCurrentPage(pageIndex)
     }
 
     // Category colors
@@ -192,34 +194,10 @@ const CertificateDetail = () => {
                         <div className="sidebar-header">
                             <FiClock />
                             <h3>Other Certificates</h3>
-                            {isCarouselMode && otherCertificates.length > itemsPerView && (
-                                <div className="carousel-controls">
-                                    <button 
-                                        className="carousel-btn" 
-                                        onClick={handlePrevCarousel}
-                                        disabled={carouselIndex === 0}
-                                    >
-                                        <FiChevronLeft />
-                                    </button>
-                                    <button 
-                                        className="carousel-btn" 
-                                        onClick={handleNextCarousel}
-                                        disabled={carouselIndex >= maxCarouselIndex}
-                                    >
-                                        <FiChevronRight />
-                                    </button>
-                                </div>
-                            )}
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
-                            <div 
-                                className="sidebar-list"
-                                style={isCarouselMode ? {
-                                    transform: `translateX(-${carouselIndex * (100 / itemsPerView)}%)`,
-                                    transition: 'transform 0.3s ease'
-                                } : {}}
-                            >
-                                {otherCertificates.map(cert => (
+                            <div className="sidebar-list">
+                                {visibleCertificates.map(cert => (
                                     <Link 
                                         key={cert.id} 
                                         to={`/achievements/${cert.id}`} 
@@ -247,6 +225,32 @@ const CertificateDetail = () => {
                                 ))}
                             </div>
                         </div>
+                        {/* Pagination Dots */}
+                        {isCarouselMode && totalPagesCarousel > 1 && (
+                            <div className="carousel-pagination">
+                                {Array.from({ length: totalPagesCarousel }, (_, i) => (
+                                    <button
+                                        key={i}
+                                        className={`pagination-dot ${currentPage === i ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(i)}
+                                        aria-label={`Go to page ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {/* Sidebar Pagination */}
+                        {!isCarouselMode && totalPagesSidebar > 1 && (
+                            <div className="sidebar-pagination">
+                                {Array.from({ length: totalPagesSidebar }, (_, i) => (
+                                    <button
+                                        key={i}
+                                        className={`pagination-dot ${currentPage === i ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(i)}
+                                        aria-label={`Go to page ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </aside>
             </div>

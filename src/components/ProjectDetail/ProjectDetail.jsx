@@ -7,8 +7,6 @@ import {
     FiExternalLink,
     FiGithub,
     FiArrowLeft,
-    FiChevronLeft,
-    FiChevronRight,
     FiClock
 } from 'react-icons/fi'
 import './ProjectDetail.css'
@@ -26,11 +24,12 @@ const ProjectDetail = () => {
     // Get other projects (excluding current one)
     const otherProjects = projects.filter(p => p.id !== parseInt(id))
 
-    // Carousel state
-    const [carouselIndex, setCarouselIndex] = useState(0)
+    // Pagination/Carousel state
+    const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerView, setItemsPerView] = useState(3)
     const [isCarouselMode, setIsCarouselMode] = useState(false)
     const carouselRef = useRef(null)
+    const ITEMS_PER_PAGE_SIDEBAR = 6
 
     // Update items per view and carousel mode based on screen size
     useEffect(() => {
@@ -54,19 +53,22 @@ const ProjectDetail = () => {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    // Reset carousel index when project changes
+    // Reset page index when project changes
     useEffect(() => {
-        setCarouselIndex(0)
+        setCurrentPage(0)
     }, [id])
 
-    const maxCarouselIndex = Math.max(0, otherProjects.length - itemsPerView)
+    // Calculate pagination
+    const totalPagesCarousel = Math.ceil(otherProjects.length / itemsPerView)
+    const totalPagesSidebar = Math.ceil(otherProjects.length / ITEMS_PER_PAGE_SIDEBAR)
+    
+    // Get visible items based on mode and current page
+    const visibleProjects = isCarouselMode 
+        ? otherProjects.slice(currentPage * itemsPerView, (currentPage + 1) * itemsPerView)
+        : otherProjects.slice(currentPage * ITEMS_PER_PAGE_SIDEBAR, (currentPage + 1) * ITEMS_PER_PAGE_SIDEBAR)
 
-    const handlePrevCarousel = () => {
-        setCarouselIndex(prev => Math.max(0, prev - 1))
-    }
-
-    const handleNextCarousel = () => {
-        setCarouselIndex(prev => Math.min(maxCarouselIndex, prev + 1))
+    const handlePageChange = (pageIndex) => {
+        setCurrentPage(pageIndex)
     }
 
     // Category colors
@@ -196,34 +198,10 @@ const ProjectDetail = () => {
                         <div className="sidebar-header">
                             <FiClock />
                             <h3>Other Projects</h3>
-                            {isCarouselMode && otherProjects.length > itemsPerView && (
-                                <div className="carousel-controls">
-                                    <button 
-                                        className="carousel-btn" 
-                                        onClick={handlePrevCarousel}
-                                        disabled={carouselIndex === 0}
-                                    >
-                                        <FiChevronLeft />
-                                    </button>
-                                    <button 
-                                        className="carousel-btn" 
-                                        onClick={handleNextCarousel}
-                                        disabled={carouselIndex >= maxCarouselIndex}
-                                    >
-                                        <FiChevronRight />
-                                    </button>
-                                </div>
-                            )}
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
-                            <div 
-                                className="sidebar-list"
-                                style={isCarouselMode ? {
-                                    transform: `translateX(-${carouselIndex * (100 / itemsPerView)}%)`,
-                                    transition: 'transform 0.3s ease'
-                                } : {}}
-                            >
-                                {otherProjects.map(proj => (
+                            <div className="sidebar-list">
+                                {visibleProjects.map(proj => (
                                     <Link 
                                         key={proj.id} 
                                         to={`/projects/${proj.id}`} 
@@ -251,6 +229,32 @@ const ProjectDetail = () => {
                                 ))}
                             </div>
                         </div>
+                        {/* Pagination Dots */}
+                        {isCarouselMode && totalPagesCarousel > 1 && (
+                            <div className="carousel-pagination">
+                                {Array.from({ length: totalPagesCarousel }, (_, i) => (
+                                    <button
+                                        key={i}
+                                        className={`pagination-dot ${currentPage === i ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(i)}
+                                        aria-label={`Go to page ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {/* Sidebar Pagination */}
+                        {!isCarouselMode && totalPagesSidebar > 1 && (
+                            <div className="sidebar-pagination">
+                                {Array.from({ length: totalPagesSidebar }, (_, i) => (
+                                    <button
+                                        key={i}
+                                        className={`pagination-dot ${currentPage === i ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(i)}
+                                        aria-label={`Go to page ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </aside>
             </div>

@@ -4,6 +4,7 @@
     gap: 20px;
     animation: fadeInUp 0.5s ease-out;
     width: 100%;
+    overflow: hidden;
 }
 
 @keyframes fadeInUp {
@@ -53,12 +54,14 @@
     display: grid;
     grid-template-columns: 1fr 320px;
     gap: 20px;
+    overflow: hidden;
 }
 
 .certificate-detail .detail-main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-width: 0;
 }
 
 /* Main Content */
@@ -69,6 +72,7 @@
     background: var(--card-bg);
     border-radius: 20px;
     padding: 24px;
+    overflow: hidden;
 }
 
 /* Image Section */
@@ -261,12 +265,15 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .certificate-detail .sidebar-section {
     background: var(--card-bg);
     border-radius: 20px;
     padding: 20px;
+    overflow: hidden;
 }
 
 .certificate-detail .sidebar-header {
@@ -291,40 +298,44 @@
     flex: 1;
 }
 
-/* Carousel Controls */
-.certificate-detail .carousel-controls {
+/* Carousel Pagination */
+.certificate-detail .carousel-pagination {
     display: flex;
+    justify-content: center;
     gap: 8px;
-    margin-left: auto;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
 }
 
-.certificate-detail .carousel-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
+.certificate-detail .pagination-dot {
+    width: 10px;
+    height: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50%;
     background: var(--bg-tertiary);
-    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0;
 }
 
-.certificate-detail .carousel-btn:hover:not(:disabled) {
+.certificate-detail .pagination-dot:hover {
+    background: var(--text-muted);
+}
+
+.certificate-detail .pagination-dot.active {
     background: var(--accent-color);
-    color: white;
+    transform: scale(1.2);
 }
 
-.certificate-detail .carousel-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.certificate-detail .carousel-btn svg {
-    font-size: 1.2rem;
-    color: inherit;
+/* Sidebar Pagination (right sidebar mode) */
+.certificate-detail .sidebar-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
 }
 
 /* Sidebar List Wrapper */
@@ -484,6 +495,7 @@
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-list {
         display: flex;
         flex-direction: row;
+        flex-wrap: nowrap;
         gap: 16px;
     }
 
