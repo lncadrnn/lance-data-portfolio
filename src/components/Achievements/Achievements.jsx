@@ -21,7 +21,7 @@ const Achievements = () => {
     const [selectedCert, setSelectedCert] = useState(null)
     const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
     const [activeFilter, setActiveFilter] = useState('all')
-    const [sortOrder, setSortOrder] = useState('oldest') // 'oldest' or 'newest'
+    const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
 
     // Prevent body scroll when modal is open
     useEffect(() => {
@@ -40,8 +40,16 @@ const Achievements = () => {
 
 
 
-    // Get unique categories for filter
-    const categories = ['all', ...new Set(certificates.map(cert => cert.category))]
+    // Define categories for filter
+    const categories = [
+        'all',
+        'Data Science',
+        'Analytics',
+        'Programming',
+        'Visualization',
+        'Tools',
+        'Achievement'
+    ]
 
     // Filter certificates based on active filter
     const filteredCertificates = activeFilter === 'all'
