@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fi'
 import './Achievements.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 
 import { certificates } from '../../data/certificates'
 
@@ -25,6 +26,7 @@ const Achievements = () => {
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
     const [currentPage, setCurrentPage] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     const certificatesPerPage = 12
 
     // Reset to first page when filter or sort changes
@@ -91,11 +93,19 @@ const Achievements = () => {
 
     // Navigate to certificate detail page
     const handleCertClick = (certId) => {
-        navigate(`/achievements/${certId}`)
+        setIsLoading(true)
+        const contentWrapper = document.querySelector('.content-wrapper')
+        if (contentWrapper) {
+            contentWrapper.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+        setTimeout(() => {
+            navigate(`/achievements/${certId}`)
+        }, 500)
     }
 
     return (
         <div className={`achievements ${darkMode ? 'dark' : 'light'}`}>
+            {isLoading && <Loading size="medium" />}
             {/* Header Section */}
             <section className="achievements-header">
                 <div className="achievements-title-row">

@@ -16,6 +16,7 @@ import {
 } from 'react-icons/fi'
 import './MainContent.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 import banner1 from '../../assets/images/banner1.jpg'
 import banner2 from '../../assets/images/banner2.jpg'
 import banner3 from '../../assets/images/banner3.jpg'
@@ -38,6 +39,7 @@ const MainContent = () => {
   // Featured carousel state
   const [currentPage, setCurrentPage] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(3)
+  const [isLoading, setIsLoading] = useState(false)
 
   // Animated stats state
   const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0])
@@ -273,13 +275,25 @@ const MainContent = () => {
 
   // Handle click to navigate to detail page
   const handleItemClick = (item) => {
-    if (item.type === 'Project') {
-      navigate(`/projects/${item.id}`)
-    } else if (item.type === 'Blog') {
-      navigate(`/blogs/${item.id}`)
-    } else if (item.type === 'Certificate') {
-      navigate(`/achievements/${item.id}`)
+    // Show loading first
+    setIsLoading(true)
+    
+    // Scroll to top of content wrapper
+    const contentWrapper = document.querySelector('.content-wrapper')
+    if (contentWrapper) {
+      contentWrapper.scrollTo({ top: 0, behavior: 'smooth' })
     }
+    
+    // After loading is visible, navigate
+    setTimeout(() => {
+      if (item.type === 'Project') {
+        navigate(`/projects/${item.id}`)
+      } else if (item.type === 'Blog') {
+        navigate(`/blogs/${item.id}`)
+      } else if (item.type === 'Certificate') {
+        navigate(`/achievements/${item.id}`)
+      }
+    }, 500)
   }
 
   // Carousel pagination
@@ -302,6 +316,7 @@ const MainContent = () => {
   }
   return (
     <main className={`main-content ${darkMode ? 'dark' : 'light'}`}>
+      {isLoading && <Loading size="medium" />}
       {/* Hero Section */}
       <section className="hero-section">
         <div className="date-badge">

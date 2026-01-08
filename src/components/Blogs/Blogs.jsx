@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fi'
 import './Blogs.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 import { blogs } from '../../data/blogs'
 
 const Blogs = () => {
@@ -24,6 +25,7 @@ const Blogs = () => {
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
     const [currentPage, setCurrentPage] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     const blogsPerPage = 9
 
     // Reset to first page when filter or sort changes
@@ -81,11 +83,19 @@ const Blogs = () => {
 
     // Navigate to blog detail page
     const handleBlogClick = (blogId) => {
-        navigate(`/blogs/${blogId}`)
+        setIsLoading(true)
+        const contentWrapper = document.querySelector('.content-wrapper')
+        if (contentWrapper) {
+            contentWrapper.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+        setTimeout(() => {
+            navigate(`/blogs/${blogId}`)
+        }, 500)
     }
 
     return (
         <div className={`blogs-page ${darkMode ? 'dark' : 'light'}`}>
+            {isLoading && <Loading size="medium" />}
             {/* Header Section */}
             <section className="blogs-header">
                 <div className="blogs-title-row">

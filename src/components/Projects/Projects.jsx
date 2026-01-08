@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fi'
 import './Projects.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 
 import { projects } from '../../data/projects'
 
@@ -25,6 +26,7 @@ const Projects = () => {
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
     const [currentPage, setCurrentPage] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     const projectsPerPage = 12
 
     // Reset to first page when filter or sort changes
@@ -86,11 +88,19 @@ const Projects = () => {
 
     // Navigate to project detail page
     const handleProjectClick = (projectId) => {
-        navigate(`/projects/${projectId}`)
+        setIsLoading(true)
+        const contentWrapper = document.querySelector('.content-wrapper')
+        if (contentWrapper) {
+            contentWrapper.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+        setTimeout(() => {
+            navigate(`/projects/${projectId}`)
+        }, 500)
     }
 
     return (
         <div className={`projects-page ${darkMode ? 'dark' : 'light'}`}>
+            {isLoading && <Loading size="medium" />}
             {/* Header Section */}
             <section className="projects-header">
                 <div className="projects-title-row">

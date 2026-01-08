@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
 import AboutMe from './components/AboutMe/AboutMe'
@@ -22,6 +22,51 @@ const getInitialTheme = () => {
     return savedTheme === 'true'
   }
   return true // Default to dark mode
+}
+
+// Inner component to handle route changes with loading
+const AppRoutes = ({ darkMode }) => {
+  const location = useLocation()
+  const [showLoading, setShowLoading] = useState(false)
+  const [prevPath, setPrevPath] = useState(location.pathname)
+
+  useEffect(() => {
+    // Detect main tab changes (not detail pages)
+    const mainPages = ['/', '/about', '/achievements', '/projects', '/blogs']
+    const prevIsMainPage = mainPages.some(page => prevPath === page)
+    const currIsMainPage = mainPages.some(page => location.pathname === page)
+
+    // Show loading only when switching between main pages
+    if (prevIsMainPage && currIsMainPage && prevPath !== location.pathname) {
+      setShowLoading(true)
+      const timer = setTimeout(() => {
+        setShowLoading(false)
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+
+    setPrevPath(location.pathname)
+  }, [location.pathname, prevPath])
+
+  return (
+    <>
+      {showLoading && <Loading size="medium" />}
+      <div className={`app ${darkMode ? 'dark' : 'light'}`}>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<MainContent />} />
+            <Route path="/about" element={<AboutMe />} />
+            <Route path="/achievements" element={<Achievements />} />
+            <Route path="/achievements/:id" element={<CertificateDetail />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogDetail />} />
+          </Routes>
+        </Layout>
+      </div>
+    </>
+  )
 }
 
 function App() {
@@ -68,20 +113,7 @@ function App() {
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       <Router>
-        <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<MainContent />} />
-              <Route path="/about" element={<AboutMe />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/achievements/:id" element={<CertificateDetail />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/blogs" element={<Blogs />} />
-              <Route path="/blogs/:id" element={<BlogDetail />} />
-            </Routes>
-          </Layout>
-        </div>
+        <AppRoutes darkMode={darkMode} />
       </Router>
     </ThemeContext.Provider>
   )
