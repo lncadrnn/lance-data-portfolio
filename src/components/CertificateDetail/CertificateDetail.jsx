@@ -34,6 +34,15 @@ const CertificateDetail = () => {
     const carouselRef = useRef(null)
     const ITEMS_PER_PAGE_SIDEBAR = 6
 
+    // Always jump to top when the detail id changes (mobile + desktop)
+    useEffect(() => {
+        const contentWrapper = document.querySelector('.content-wrapper')
+        if (contentWrapper) {
+            contentWrapper.scrollTo({ top: 0, behavior: 'auto' })
+        }
+        window.scrollTo({ top: 0, behavior: 'auto' })
+    }, [id])
+
     // Update items per view and carousel mode based on screen size
     useEffect(() => {
         const handleResize = () => {
