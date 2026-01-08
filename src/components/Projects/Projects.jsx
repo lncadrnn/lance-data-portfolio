@@ -53,9 +53,7 @@ const Projects = () => {
         'all',
         'Data Science',
         'Analytics',
-        'Visualization',
-        'Programming',
-        'Machine Learning'
+        'Visualization'
     ]
 
     // Filter projects based on active filter
