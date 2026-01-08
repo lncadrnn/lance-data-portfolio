@@ -180,16 +180,9 @@
   padding: 24px;
 }
 
-.featured-carousel {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-/* Empty State */
 .featured-empty {
   width: 100%;
-  height: 280px;
+  height: 220px;
   background: var(--bg-tertiary);
   border-radius: 16px;
   display: flex;
@@ -199,221 +192,130 @@
   font-size: 1rem;
 }
 
-/* Carousel Track */
-.carousel-track {
-  position: relative;
-  height: 320px;
-  border-radius: 16px;
+/* Featured Carousel */
+.featured-carousel {
   overflow: hidden;
 }
 
-/* Carousel Slides */
-.carousel-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-  z-index: 2;
-}
-
-.carousel-slide.prev {
-  opacity: 0;
-  transform: translateX(-30%) scale(0.9);
-}
-
-.carousel-slide.next {
-  opacity: 0;
-  transform: translateX(30%) scale(0.9);
-}
-
-/* Slide Image */
-.slide-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.slide-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.carousel-slide.active:hover .slide-image img {
-  transform: scale(1.05);
-}
-
-.slide-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg,
-      transparent 0%,
-      rgba(0, 0, 0, 0.2) 50%,
-      rgba(0, 0, 0, 0.85) 100%);
-}
-
-/* Slide Category Tag - Top Left */
-.slide-category {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.5s ease 0.2s;
-}
-
-.carousel-slide.active .slide-category {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Slide Content */
-.slide-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 32px;
-  z-index: 1;
-  transform: translateY(10px);
-  opacity: 0;
-  transition: all 0.5s ease 0.2s;
-}
-
-.carousel-slide.active .slide-content {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.slide-title {
-  margin: 0 0 8px 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.slide-description {
-  margin: 0;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
-  max-width: 500px;
-}
-
-/* Navigation Buttons */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  color: white;
-  cursor: pointer;
+.featured-carousel-track {
   display: flex;
-  align-items: center;
+  gap: 16px;
+}
+
+/* Pagination Dots */
+.featured-pagination {
+  display: flex;
   justify-content: center;
-  font-size: 1.4rem;
-  transition: all 0.3s ease;
-  z-index: 10;
-  opacity: 0;
-}
-
-.featured-carousel:hover .carousel-btn {
-  opacity: 1;
-}
-
-.carousel-btn:hover {
-  background: var(--accent-color);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn.prev {
-  left: 16px;
-}
-
-.carousel-btn.next {
-  right: 16px;
-}
-
-/* Carousel Indicators */
-.carousel-indicators {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
   gap: 10px;
-  z-index: 10;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
 }
 
-.indicator {
-  width: 32px;
-  height: 4px;
-  border-radius: 2px;
+.featured-pagination .pagination-dot {
+  width: 12px;
+  height: 12px;
   border: none;
-  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: var(--bg-tertiary);
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
 }
 
-.indicator:hover {
-  background: rgba(255, 255, 255, 0.7);
+.featured-pagination .pagination-dot:hover {
+  background: var(--text-muted);
 }
 
-.indicator.active {
+.featured-pagination .pagination-dot.active {
   background: var(--accent-color);
-  width: 48px;
+  transform: scale(1.2);
+}
+
+.featured-card {
+  background: var(--bg-tertiary);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.featured-card-image {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.featured-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.featured-card:hover .featured-card-image img {
+  transform: scale(1.05);
+}
+
+.featured-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.35));
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+}
+
+.featured-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.featured-category {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.featured-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.featured-card-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
 }
 
 @media (max-width: 1200px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .carousel-track {
-    height: 280px;
-  }
-
-  .slide-title {
-    font-size: 1.3rem;
-  }
-
-  .slide-content {
-    padding: 24px;
   }
 }
 
@@ -462,34 +364,23 @@
     font-size: 1.3rem;
   }
 
-  .carousel-track {
-    height: 240px;
+  .featured-carousel-track {
+    gap: 12px;
   }
 
-  .carousel-btn {
-    opacity: 1;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+  .featured-card-image {
+    height: 160px;
   }
 
-  .carousel-btn.prev {
-    left: 12px;
+  .featured-card-content {
+    padding: 14px;
   }
 
-  .carousel-btn.next {
-    right: 12px;
+  .featured-card-title {
+    font-size: 1rem;
   }
 
-  .slide-content {
-    padding: 20px;
-  }
-
-  .slide-title {
-    font-size: 1.2rem;
-  }
-
-  .slide-description {
+  .featured-card-description {
     font-size: 0.85rem;
   }
 }
@@ -499,60 +390,16 @@
     grid-template-columns: 1fr;
   }
 
-  .carousel-track {
-    height: 200px;
+  .featured-card-image {
+    height: 150px;
   }
 
-  .carousel-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
+  .featured-card-title {
+    font-size: 0.95rem;
   }
 
-  .carousel-btn.prev {
-    left: 8px;
-  }
-
-  .carousel-btn.next {
-    right: 8px;
-  }
-
-  .slide-content {
-    padding: 16px;
-  }
-
-  .slide-category {
-    font-size: 0.65rem;
-    padding: 4px 10px;
-    margin-bottom: 8px;
-  }
-
-  .slide-title {
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .slide-description {
-    font-size: 0.8rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .indicator {
-    width: 24px;
-    height: 3px;
-  }
-
-  .indicator.active {
-    width: 36px;
-  }
-
-  .carousel-indicators {
-    bottom: 12px;
-    gap: 8px;
+  .featured-card-description {
+    font-size: 0.82rem;
   }
 
   .hero-content h1 {
@@ -628,17 +475,5 @@
 
   .section-header svg {
     font-size: 1.35rem;
-  }
-
-  .carousel-track {
-    height: 280px;
-  }
-
-  .slide-title {
-    font-size: 1.3rem;
-  }
-
-  .slide-content {
-    padding: 24px;
   }
 }

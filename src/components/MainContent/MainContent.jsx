@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import { certificates } from '../../data/certificates'
 import { projects } from '../../data/projects'
@@ -9,9 +10,7 @@ import {
   FiAward,
   FiFolder,
   FiFileText,
-  FiBarChart2,
-  FiChevronLeft,
-  FiChevronRight
+  FiBarChart2
 } from 'react-icons/fi'
 import './MainContent.css'
 import ImageLoader from '../Loading/ImageLoader'
@@ -26,13 +25,17 @@ const banners = [banner1, banner2, banner3, banner4, banner5, banner6]
 
 const MainContent = () => {
   const { darkMode } = useContext(ThemeContext)
+  const navigate = useNavigate()
   const [currentDate, setCurrentDate] = useState('')
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [currentBanner, setCurrentBanner] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const fullTextRef = useRef('')
+
+  // Featured carousel state
+  const [currentPage, setCurrentPage] = useState(0)
+  const [itemsPerView, setItemsPerView] = useState(3)
 
   // Ref to track sequential text index
   const textIndexRef = useRef(0)
@@ -85,6 +88,23 @@ const MainContent = () => {
     }, 5000) // Change banner every 5 seconds
 
     return () => clearInterval(bannerInterval)
+  }, [])
+
+  // Update items per view based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width <= 600) {
+        setItemsPerView(1)
+      } else if (width < 1350) {
+        setItemsPerView(2)
+      } else {
+        setItemsPerView(3)
+      }
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   // Typewriter effect with backspace
@@ -146,73 +166,86 @@ const MainContent = () => {
     { icon: <FiFileText />, value: blogs.length, label: 'Blogs', unit: '', color: '#06b6d4' },
   ]
 
-  // Sample featured projects - replace with your actual projects
-  const featuredProjects = [
-    {
-      id: 1,
-      title: 'Coming Soon',
-      description: 'Exciting data project in development',
-      category: 'Data Analytics',
-      image: banner1,
-      color: '#3b82f6'
-    },
-    {
-      id: 2,
-      title: 'Coming Soon',
-      description: 'Machine learning project coming up',
-      category: 'Machine Learning',
-      image: banner2,
-      color: '#8b5cf6'
-    },
-    {
-      id: 3,
-      title: 'Coming Soon',
-      description: 'Dashboard visualization project',
-      category: 'Visualization',
-      image: banner3,
-      color: '#10b981'
-    },
-    {
-      id: 4,
-      title: 'Coming Soon',
-      description: 'Data engineering pipeline project',
-      category: 'Data Engineering',
-      image: banner4,
-      color: '#f59e0b'
-    },
-    {
-      id: 5,
-      title: 'Coming Soon',
-      description: 'Business intelligence case study',
-      category: 'Business Intelligence',
-      image: banner5,
-      color: '#ec4899'
+  // Use featured projects from data (featured: true)
+  const categoryColors = {
+    'Dashboard': '#3b82f6',
+    'Analytics': '#10b981',
+    'Data Science': '#8b5cf6',
+    'Programming': '#f59e0b',
+    'Machine Learning': '#f97316',
+    'Visualization': '#06b6d4',
+    'Database': '#8b5cf6',
+    'Tools': '#06b6d4',
+    'Achievement': '#fbbf24'
+  }
+
+  const formatDescription = (desc) => {
+    if (!desc) return ''
+    const text = desc
+      .replace(/\*/g, '')
+      .replace(/`/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+    return text.length > 160 ? `${text.slice(0, 157)}...` : text
+  }
+
+  const featuredItems = [
+    ...projects
+      .filter(p => p.featured)
+      .map((p) => ({
+        id: p.id,
+        title: p.title,
+        description: formatDescription(p.description),
+        category: p.category,
+        image: p.image || banners[0],
+        color: categoryColors[p.category] || '#3b82f6',
+        type: 'Project'
+      })),
+    ...blogs
+      .filter(b => b.featured)
+      .map((b) => ({
+        id: b.id,
+        title: b.title,
+        description: formatDescription(b.excerpt || b.content),
+        category: b.category,
+        image: b.image || banners[1],
+        color: categoryColors[b.category] || '#06b6d4',
+        type: 'Blog'
+      })),
+    ...certificates
+      .filter(c => c.featured)
+      .map((c) => ({
+        id: c.id,
+        title: c.title,
+        description: formatDescription(c.description),
+        category: c.category,
+        image: c.image || banners[2],
+        color: categoryColors[c.category] || '#f59e0b',
+        type: 'Certificate'
+      }))
+  ].slice(0, 6)
+
+  // Handle click to navigate to detail page
+  const handleItemClick = (item) => {
+    if (item.type === 'Project') {
+      navigate(`/projects/${item.id}`)
+    } else if (item.type === 'Blog') {
+      navigate(`/blogs/${item.id}`)
+    } else if (item.type === 'Certificate') {
+      navigate(`/achievements/${item.id}`)
     }
-  ]
-
-  // Auto-play carousel
-  useEffect(() => {
-    if (featuredProjects.length <= 1) return
-
-    const autoPlayInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
-    }, 5000)
-
-    return () => clearInterval(autoPlayInterval)
-  }, [featuredProjects.length])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredProjects.length)
   }
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length)
-  }
+  // Carousel pagination
+  const totalPages = Math.ceil(featuredItems.length / itemsPerView)
+  const visibleItems = featuredItems.slice(
+    currentPage * itemsPerView,
+    (currentPage + 1) * itemsPerView
+  )
 
-  const goToSlide = (index) => {
-    setCurrentSlide(index)
+  const handlePageChange = (pageIndex) => {
+    setCurrentPage(pageIndex)
   }
-
   return (
     <main className={`main-content ${darkMode ? 'dark' : 'light'}`}>
       {/* Hero Section */}
@@ -261,64 +294,61 @@ const MainContent = () => {
         </div>
       </section>
 
-      {/* Featured Projects */}
+      {/* Featured (Projects + Blogs, max 6) */}
       <section className="featured-section">
         <div className="section-header">
           <FiAward />
           <h2>Featured</h2>
         </div>
-        <div className="featured-carousel">
-          {featuredProjects.length === 0 ? (
-            <div className="featured-empty">
-              <span>No featured projects yet</span>
-            </div>
-          ) : (
-            <>
-              <div className="carousel-track">
-                {featuredProjects.map((project, index) => (
-                  <div
-                    key={project.id}
-                    className={`carousel-slide ${index === currentSlide ? 'active' : ''} ${index === (currentSlide - 1 + featuredProjects.length) % featuredProjects.length ? 'prev' : ''
-                      } ${index === (currentSlide + 1) % featuredProjects.length ? 'next' : ''
-                      }`}
+        {featuredItems.length === 0 ? (
+          <div className="featured-empty">
+            <span>No featured items yet</span>
+          </div>
+        ) : (
+          <>
+            <div className="featured-carousel">
+              <div className="featured-carousel-track">
+                {visibleItems.map((item) => (
+                  <div 
+                    key={`${item.type}-${item.id}`} 
+                    className="featured-card"
+                    onClick={() => handleItemClick(item)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && handleItemClick(item)}
                   >
-                    <div className="slide-image">
-                      <ImageLoader src={project.image} alt={project.title} />
-                      <div className="slide-overlay"></div>
+                    <div className="featured-card-image">
+                      <ImageLoader src={item.image} alt={item.title} />
+                      <div className="featured-card-overlay"></div>
+                      <span className="featured-badge" style={{ backgroundColor: item.color }}>
+                        {item.type}
+                      </span>
                     </div>
-                    <span className="slide-category" style={{ backgroundColor: project.color }}>
-                      {project.category}
-                    </span>
-                    <div className="slide-content">
-                      <h3 className="slide-title">{project.title}</h3>
-                      <p className="slide-description">{project.description}</p>
+                    <div className="featured-card-content">
+                      <span className="featured-category" style={{ color: item.color }}>
+                        {item.category}
+                      </span>
+                      <h3 className="featured-card-title">{item.title}</h3>
+                      <p className="featured-card-description">{item.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Navigation Arrows */}
-              <button className="carousel-btn prev" onClick={prevSlide} aria-label="Previous slide">
-                <FiChevronLeft />
-              </button>
-              <button className="carousel-btn next" onClick={nextSlide} aria-label="Next slide">
-                <FiChevronRight />
-              </button>
-
-              {/* Carousel Indicators */}
-              <div className="carousel-indicators">
-                {featuredProjects.map((_, index) => (
+            </div>
+            {totalPages > 1 && (
+              <div className="featured-pagination">
+                {Array.from({ length: totalPages }, (_, i) => (
                   <button
-                    key={index}
-                    className={`indicator ${index === currentSlide ? 'active' : ''}`}
-                    onClick={() => goToSlide(index)}
-                    aria-label={`Go to slide ${index + 1}`}
+                    key={i}
+                    className={`pagination-dot ${currentPage === i ? 'active' : ''}`}
+                    onClick={() => handlePageChange(i)}
+                    aria-label={`Go to page ${i + 1}`}
                   />
                 ))}
               </div>
-            </>
-          )}
-        </div>
+            )}
+          </>
+        )}
       </section>
     </main>
   )
