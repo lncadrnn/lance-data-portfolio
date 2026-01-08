@@ -37,6 +37,9 @@ const MainContent = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(3)
 
+  // Animated stats state
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0])
+
   // Ref to track sequential text index
   const textIndexRef = useRef(0)
 
@@ -79,6 +82,30 @@ const MainContent = () => {
     const date = new Date()
     const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }
     setCurrentDate(date.toLocaleDateString('en-US', options))
+  }, [])
+
+  // Count-up animation for stats
+  useEffect(() => {
+    const targetStats = [0, certificates.length, projects.length, blogs.length]
+    const duration = 1500 // 1.5 seconds
+    const startTime = Date.now()
+
+    const animateStats = () => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+
+      const newStats = targetStats.map((target) => {
+        return Math.floor(target * progress)
+      })
+
+      setAnimatedStats(newStats)
+
+      if (progress < 1) {
+        requestAnimationFrame(animateStats)
+      }
+    }
+
+    animateStats()
   }, [])
 
   // Banner rotation effect
@@ -160,10 +187,10 @@ const MainContent = () => {
   }, [currentTextIndex])
 
   const careerStats = [
-    { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
-    { icon: <FiAward />, value: certificates.length, label: 'Certificates', unit: '', color: '#f59e0b' },
-    { icon: <FiFolder />, value: projects.length, label: 'Projects', unit: '', color: '#10b981' },
-    { icon: <FiFileText />, value: blogs.length, label: 'Blogs', unit: '', color: '#06b6d4' },
+    { icon: <FiClock />, value: animatedStats[0], label: 'Experience', unit: '', color: '#3b82f6', displayValue: animatedStats[0] },
+    { icon: <FiAward />, value: certificates.length, label: 'Certificates', unit: '', color: '#f59e0b', displayValue: animatedStats[1] },
+    { icon: <FiFolder />, value: projects.length, label: 'Projects', unit: '', color: '#10b981', displayValue: animatedStats[2] },
+    { icon: <FiFileText />, value: blogs.length, label: 'Blogs', unit: '', color: '#06b6d4', displayValue: animatedStats[3] },
   ]
 
   // Use featured projects from data (featured: true)
@@ -301,7 +328,7 @@ const MainContent = () => {
               </div>
               <div className="stat-info">
                 <span className="stat-value">
-                  {stat.value}
+                  {stat.displayValue}
                   {stat.unit && <small> {stat.unit}</small>}
                 </span>
                 <span className="stat-label">{stat.label}</span>
