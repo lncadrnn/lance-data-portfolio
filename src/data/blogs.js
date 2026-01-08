@@ -2,6 +2,20 @@
 // import blogImage1 from '../assets/blogs/blog1.jpg'
 
 export const blogs = [
+    
+    /*
+    {
+        id: 1,
+        title: 'Getting Started with Data Analysis in Python',
+        excerpt: 'Learn the fundamentals of data analysis using Python, pandas, and numpy. This comprehensive guide covers everything from data loading to visualization.',
+        content: ... ,
+        category: 'Self-Study',
+        author: 'Lance Adrian D. Acal',
+        date: 'January 2026',
+        image: null
+    },
+    */
+    
     {
         id: 1,
         title: 'Getting Started with Data Analysis in Python',
@@ -37,13 +51,10 @@ print(df.head())
 
 Understanding your data is crucial before diving into analysis...
         `,
-        category: 'Data Science',
-        tags: ['Python', 'Pandas', 'Data Analysis', 'Beginner'],
+        category: 'Self-Study',
         author: 'Lance Adrian D. Acal',
         date: 'January 2026',
-        readTime: '8 min read',
-        image: null,
-        featured: true
+        image: null
     },
     {
         id: 2,
@@ -65,13 +76,10 @@ Avoid cluttering your dashboard with too many visuals. Focus on the key metrics 
 ### 3. Consistent Color Scheme
 Use a consistent color palette throughout your dashboard for a professional look.
         `,
-        category: 'Visualization',
-        tags: ['Power BI', 'Dashboard', 'Design', 'Business Intelligence'],
+        category: 'Work',
         author: 'Lance Adrian D. Acal',
         date: 'December 2025',
-        readTime: '6 min read',
-        image: null,
-        featured: false
+        image: null
     },
     {
         id: 3,
@@ -102,13 +110,10 @@ FROM table_a a
 INNER JOIN table_b b ON a.id = b.id;
 \`\`\`
         `,
-        category: 'Database',
-        tags: ['SQL', 'Database', 'Queries', 'Data Analysis'],
+        category: 'School',
         author: 'Lance Adrian D. Acal',
         date: 'November 2025',
-        readTime: '10 min read',
-        image: null,
-        featured: true
+        image: null
     },
     {
         id: 4,
@@ -130,12 +135,9 @@ The algorithm finds patterns in unlabeled data.
 ### Reinforcement Learning
 The algorithm learns through trial and error.
         `,
-        category: 'Machine Learning',
-        tags: ['Machine Learning', 'Python', 'Scikit-learn', 'AI'],
+        category: 'Self-Study',
         author: 'Lance Adrian D. Acal',
         date: 'October 2025',
-        readTime: '12 min read',
-        image: null,
-        featured: false
+        image: null
     }
 ]

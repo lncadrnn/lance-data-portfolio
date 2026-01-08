@@ -10,6 +10,21 @@ import statisticsCert from '../assets/Certificates/Statistics Certificate.png'
 import topStudentCert from '../assets/Certificates/Top Student of Digital Literacy and AI Tools.png'
 
 export const certificates = [
+    
+    /* Layout for Certificates
+    {
+        id: 1,
+        title: 'Data Science',
+        issuer: 'Direcho Trabaho',
+        date: 'November 29, 2025',
+        category: 'Data Science',
+        description: 'Completed a 38-hour training program on Data Science course under the Direcho Trabaho Program, offered by The Coding School in partnership with The Alvarez Foundation on November 29, 2025. Training covered Python for data science covering libraries like Pandas, Matplotlib, and Seaborn for data manipulation and visualization. Also covered few topics regarding Excel and SQL.',
+        image: dataPythonCert,
+        credentialUrl: '#',
+        skills: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Data Science']
+    }, 
+    */
+
     {
         id: 1,
         title: 'Data Science',

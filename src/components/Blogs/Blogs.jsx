@@ -4,7 +4,6 @@ import { ThemeContext } from '../../App'
 import {
     FiFileText,
     FiCalendar,
-    FiClock,
     FiChevronLeft,
     FiChevronRight,
     FiChevronsLeft,
@@ -35,10 +34,9 @@ const Blogs = () => {
     // Define categories for filter
     const categories = [
         'all',
-        'Data Science',
-        'Visualization',
-        'Database',
-        'Machine Learning'
+        'School',
+        'Self-Study',
+        'Work'
     ]
 
     // Filter blogs based on active filter
@@ -74,12 +72,9 @@ const Blogs = () => {
     // Category colors
     const getCategoryColor = (category) => {
         const colors = {
-            'Data Science': '#3b82f6',
-            'Visualization': '#10b981',
-            'Database': '#8b5cf6',
-            'Machine Learning': '#f59e0b',
-            'Analytics': '#ec4899',
-            'Programming': '#06b6d4'
+            'School': '#3b82f6',
+            'Self-Study': '#10b981',
+            'Work': '#f59e0b'
         }
         return colors[category] || '#6b7280'
     }
@@ -194,10 +189,6 @@ const Blogs = () => {
                                     <span className="blog-date">
                                         <FiCalendar />
                                         {blog.date}
-                                    </span>
-                                    <span className="blog-read-time">
-                                        <FiClock />
-                                        {blog.readTime}
                                     </span>
                                 </div>
                             </div>

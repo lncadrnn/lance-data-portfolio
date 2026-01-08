@@ -4,10 +4,8 @@ import { ThemeContext } from '../../App'
 import {
     FiFileText,
     FiCalendar,
-    FiClock,
     FiArrowLeft,
     FiUser,
-    FiTag,
     FiShare2,
     FiTwitter,
     FiLinkedin,
@@ -181,21 +179,7 @@ const BlogDetail = () => {
                                 <span className="detail-date">
                                     <FiCalendar /> {blog.date}
                                 </span>
-                                <span className="detail-read-time">
-                                    <FiClock /> {blog.readTime}
-                                </span>
                             </div>
-
-                            {blog.tags && blog.tags.length > 0 && (
-                                <div className="detail-tags">
-                                    {blog.tags.map((tag, i) => (
-                                        <span key={i} className="detail-tag">
-                                            <FiTag />
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
 
                             {/* Article Content */}
                             <div className="article-content">
@@ -238,7 +222,7 @@ const BlogDetail = () => {
                 <aside className={`detail-sidebar ${isCarouselMode ? 'carousel-mode' : ''}`}>
                     <div className="sidebar-section">
                         <div className="sidebar-header">
-                            <FiClock />
+                            <FiFileText />
                             <h3>Other Articles</h3>
                             <Link to="/blogs" className="view-all-link">
                                 View All
