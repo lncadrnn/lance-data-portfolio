@@ -39,7 +39,7 @@ const Projects = () => {
         'Analytics',
         'Dashboard',
         'Machine Learning',
-        'Others'
+        'Tools'
     ]
 
     // Filter projects based on active filter
@@ -78,7 +78,7 @@ const Projects = () => {
             'Data Science': '#3b82f6',
             'Analytics': '#ec4899',
             'Dashboard': '#10b981',
-            'Others': '#f59e0b',
+            'Tools': '#f59e0b',
             'Machine Learning': '#8b5cf6'
         }
         return colors[category] || '#6b7280'

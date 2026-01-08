@@ -1,6 +1,8 @@
 import financialReport from '../assets/projects/financial-report.png'
 import movieDataset from '../assets/projects/movie-dataset.png'
 import ecommerceDashboard from '../assets/projects/ecommerce_dashboard.png'
+import contentCalendar from '../assets/projects/Content Calendar.png'
+import informationSheet from '../assets/projects/Input Information Sheet.png'
 
 export const projects = [
     {
@@ -112,5 +114,73 @@ export const projects = [
         githubUrl: 'https://github.com/lncadrnn/brazilian-ecommerce-rfm-analysis',
         liveUrl: '#',
         featured: true
+    },
+    {
+        id: 4,
+        title: 'All-in-One Dynamic Content Calendar',
+        description: 
+        
+            `**Project: All-in-One Dynamic Content Calendar**
+
+            **The Challenge**
+            Most content calendars require users to toggle between a list view and a calendar view, which can lead to data fragmentation. The goal was to build a streamlined, single-sheet tool where a user can input tasks on the left and see them visually mapped to a calendar on the right in real time.
+
+            **The Solution**
+            I designed a responsive workspace in Excel that uses coordinate-based logic to link a task list to a calendar grid. This "side-by-side" layout minimizes navigation time and provides an immediate visual representation of workload density.
+
+            - **Tech Stack:** Microsoft Excel / Google Sheets (Conditional Formatting, Data Validation, Date Functions).
+            - **Layout Strategy:** Dual-pane interface (Task Input on the left, Visual Calendar on the right).
+
+            **Key Features**
+            - **Live Task Syncing:** Built a system where tasks entered under the "Task" column are automatically pulled into the corresponding date block on the calendar using lookup formulas.
+            - **Anchor-Date Automation:** Implemented a single-cell control system. By changing the start date (e.g., Dec 20), the entire calendar header and grid recalculate automatically to show the relevant week or month.
+            - **Visual Organization:** Used distinct color coding and border styling to separate the input zone from the viewing zone, ensuring a clean and professional user experience.
+            - **Scalable Task Entry:** Designed the left-hand list to allow for rapid-fire task entry, making it ideal for content creators or project managers with high-volume daily tasks.
+
+            **Impact**
+            This project demonstrates my skill in Productivity Tool Design. I transformed a static spreadsheet into a dynamic application that solves the problem of manual scheduling, proving that effective BI doesn't always require complex software—sometimes it just needs smart logic.
+            `,
+
+        category: 'Tools',
+        date: 'December 2025',
+        image: contentCalendar,
+        technologies: ['Microsoft Excel', 'Google Sheets', 'Conditional Formatting', 'Data Validation', 'Date Functions'],
+        githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Dynamic%20Calendars',
+        liveUrl: '#',
+        featured: false
+    },
+    {
+        id: 5,
+        title: 'Spotify Family Plan Administration Tool',
+        description: 
+        
+            `**Project: Spotify Family Plan Administration Tool**
+
+            **The Challenge**
+            Managing shared subscription costs often leads to confusion regarding individual payment deadlines and amounts. I created this tracker to centralize member information and automate the "Paid/Unpaid" status tracking, removing the need for manual text updates or constant follow-ups.
+
+            **The Solution**
+            I engineered a three-sheet architecture that separates Data Input, User Interaction (Checkboxes), and Output Reporting. The system uses logical linking to ensure that once a member is "Checked" on the tracker, their status is instantly updated across the entire workbook.
+
+            - **Tech Stack:** Google Sheets (Logical Formulas, Checkboxes, Conditional Formatting).
+            - **Key Architecture:** Three-tier system (Input Information, Active Tracker, and Final Payment Status).
+
+            **Key Features**
+            - **Dynamic Cost Calculation:** Built an input table that automatically adjusts individual payment amounts based on the total plan price and the number of active members.
+            - **Checkbox-Driven Automation:** Integrated interactive checkboxes that trigger backend status changes, moving away from manual "Yes/No" typing.
+            - **Visual Status Indicators:** Applied conditional formatting to the "Status Sheet," using high-contrast colors (Red/Green) and iconography (✅/❌) to provide an immediate summary of current-month accounts receivable.
+            - **Dynamic Date Management:** Centralized the "Start Date" control, allowing the entire 24-month tracking grid to shift automatically based on when the family plan cycle began.
+
+            **Impact**
+            This tool demonstrates my ability to design User-Centric Applications within a spreadsheet environment. It focuses on data integrity (via controlled inputs) and clear communication (via automated reporting)—skills that are directly transferable to professional project management and administrative roles.
+            `,
+
+        category: 'Tools',
+        date: 'December 2025',
+        image: informationSheet,
+        technologies: ['Google Sheets', 'Logical Formulas', 'Checkboxes', 'Conditional Formatting'],
+        githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Spotify%20Tracker%20Template',
+        liveUrl: '#',
+        featured: false
     }
 ]
