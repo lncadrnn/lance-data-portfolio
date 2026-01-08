@@ -180,14 +180,45 @@
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin: 0 0 8px 0;
+    margin: 0 0 16px 0;
 }
 
-.project-detail .detail-description p {
+.project-detail .description-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-detail .description-content strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 12px;
+    display: block;
+}
+
+.project-detail .description-content strong:first-child {
+    margin-top: 0;
+}
+
+.project-detail .description-content p {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.6;
     margin: 0;
+}
+
+.project-detail .description-content li {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+.project-detail .description-content br {
+    display: block;
+    height: 0.5rem;
 }
 
 .project-detail .detail-technologies {

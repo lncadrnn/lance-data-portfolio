@@ -178,7 +178,49 @@ const ProjectDetail = () => {
                             {project.description && (
                                 <div className="detail-description">
                                     <h3>Description</h3>
-                                    <p>{project.description}</p>
+                                    <div className="description-content">
+                                        {project.description.split('\n').map((line, idx) => {
+                                            const trimmedLine = line.trim();
+                                            
+                                            // Skip empty lines
+                                            if (!trimmedLine) {
+                                                return <br key={idx} />
+                                            }
+                                            
+                                            // Handle bold titles (lines that are only bold)
+                                            if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && !trimmedLine.includes(':')) {
+                                                return <strong key={idx}>{trimmedLine.replace(/\*\*/g, '')}</strong>
+                                            }
+                                            
+                                            // Handle bullet points
+                                            if (trimmedLine.startsWith('- ')) {
+                                                const bulletContent = trimmedLine.replace(/^- /, '');
+                                                // Parse bold text within bullet point
+                                                const parts = bulletContent.split(/(\*\*[^*]+\*\*)/);
+                                                return (
+                                                    <li key={idx}>
+                                                        {parts.map((part, i) => 
+                                                            part.startsWith('**') 
+                                                                ? <strong key={i}>{part.replace(/\*\*/g, '')}</strong>
+                                                                : part
+                                                        )}
+                                                    </li>
+                                                );
+                                            }
+                                            
+                                            // Regular text with possible bold formatting
+                                            const parts = trimmedLine.split(/(\*\*[^*]+\*\*)/);
+                                            return (
+                                                <p key={idx}>
+                                                    {parts.map((part, i) => 
+                                                        part.startsWith('**') 
+                                                            ? <strong key={i}>{part.replace(/\*\*/g, '')}</strong>
+                                                            : part
+                                                    )}
+                                                </p>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             )}
 
