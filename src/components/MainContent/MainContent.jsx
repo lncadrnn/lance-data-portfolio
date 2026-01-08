@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, useRef } from 'react'
 import { ThemeContext } from '../../App'
 import { certificates } from '../../data/certificates'
+import { projects } from '../../data/projects'
 import {
   FiCalendar,
   FiClock,
@@ -139,7 +140,7 @@ const MainContent = () => {
   const careerStats = [
     { icon: <FiClock />, value: '0', label: 'Experience', unit: '', color: '#3b82f6' },
     { icon: <FiAward />, value: certificates.length, label: 'Certificates', unit: '', color: '#f59e0b' },
-    { icon: <FiFolder />, value: '0', label: 'Projects', unit: '', color: '#10b981' },
+    { icon: <FiFolder />, value: projects.length, label: 'Projects', unit: '', color: '#10b981' },
     { icon: <FiFileText />, value: '0', label: 'Blogs', unit: '', color: '#06b6d4' },
   ]
 

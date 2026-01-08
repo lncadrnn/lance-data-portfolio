@@ -4,6 +4,7 @@ import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
 import AboutMe from './components/AboutMe/AboutMe'
 import Achievements from './components/Achievements/Achievements'
+import Projects from './components/Projects/Projects'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import './App.css'
 
@@ -27,7 +28,7 @@ function App() {
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<AboutMe />} />
               <Route path="/achievements" element={<Achievements />} />
-              <Route path="/projects" element={<UnderConstruction pageName="Projects" />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />
             </Routes>
           </Layout>
