@@ -11,18 +11,20 @@ import {
 } from 'react-icons/fi'
 import './ProjectDetail.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 import { projects } from '../../data/projects'
 
 const ProjectDetail = () => {
     const { darkMode } = useContext(ThemeContext)
     const { id } = useParams()
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
 
     // Find the project by id
     const project = projects.find(p => p.id === parseInt(id))
 
-    // Get other projects (excluding current one)
-    const otherProjects = projects.filter(p => p.id !== parseInt(id))
+    // Get other projects (excluding current one) - limit to 6
+    const otherProjects = projects.filter(p => p.id !== parseInt(id)).slice(0, 6)
 
     // Pagination/Carousel state
     const [currentPage, setCurrentPage] = useState(0)
@@ -56,7 +58,29 @@ const ProjectDetail = () => {
     // Reset page index when project changes
     useEffect(() => {
         setCurrentPage(0)
-    }, [id])
+        // Show loading briefly when switching projects
+        if (isLoading) {
+            const timer = setTimeout(() => {
+                setIsLoading(false)
+            }, 500)
+            return () => clearTimeout(timer)
+        }
+    }, [id, isLoading])
+
+    // Handle click on other project
+    const handleProjectClick = (projectId) => {
+        // Show loading first (user stays where they are)
+        setIsLoading(true)
+        // After loading is visible, scroll to top and navigate
+        setTimeout(() => {
+            const contentWrapper = document.querySelector('.content-wrapper')
+            if (contentWrapper) {
+                contentWrapper.scrollTo({ top: 0, behavior: 'instant' })
+            }
+            // Navigate after scrolling
+            navigate(`/projects/${projectId}`)
+        }, 500)
+    }
 
     // Calculate pagination
     const totalPagesCarousel = Math.ceil(otherProjects.length / itemsPerView)
@@ -102,6 +126,9 @@ const ProjectDetail = () => {
 
     return (
         <div className={`project-detail ${darkMode ? 'dark' : 'light'}`}>
+            {/* Loading Overlay */}
+            {isLoading && <Loading fullScreen={false} size="medium" text="Loading project" />}
+            
             {/* Back Button */}
             <div className="detail-header">
                 <button className="back-btn" onClick={() => navigate('/projects')}>
@@ -198,14 +225,20 @@ const ProjectDetail = () => {
                         <div className="sidebar-header">
                             <FiClock />
                             <h3>Other Projects</h3>
+                            <Link to="/projects" className="view-all-link">
+                                View All
+                            </Link>
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
                             <div className="sidebar-list">
                                 {visibleProjects.map(proj => (
-                                    <Link 
+                                    <div 
                                         key={proj.id} 
-                                        to={`/projects/${proj.id}`} 
                                         className="sidebar-item"
+                                        onClick={() => handleProjectClick(proj.id)}
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={(e) => e.key === 'Enter' && handleProjectClick(proj.id)}
                                     >
                                         <div className="sidebar-item-image">
                                             {proj.image ? (
@@ -233,7 +266,7 @@ const ProjectDetail = () => {
                                             </span>
                                             <span className="sidebar-item-title">{proj.title}</span>
                                         </div>
-                                    </Link>
+                                    </div>
                                 ))}
                             </div>
                         </div>

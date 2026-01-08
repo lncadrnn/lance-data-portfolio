@@ -5,6 +5,25 @@
     animation: fadeInUp 0.5s ease-out;
     width: 100%;
     overflow: hidden;
+    position: relative;
+}
+
+.certificate-detail > .loading-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    border-radius: 20px;
+}
+
+.certificate-detail > .loading-container.dark {
+    background: #0f1419 !important;
+}
+
+.certificate-detail > .loading-container.light {
+    background: #f8f9fc !important;
 }
 
 @keyframes fadeInUp {
@@ -298,6 +317,22 @@
     flex: 1;
 }
 
+.certificate-detail .sidebar-header .view-all-link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: var(--bg-tertiary);
+    transition: all 0.3s ease;
+}
+
+.certificate-detail .sidebar-header .view-all-link:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
 /* Carousel Pagination */
 .certificate-detail .carousel-pagination {
     display: flex;
@@ -357,6 +392,7 @@
     text-decoration: none;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .certificate-detail .sidebar-item:hover {

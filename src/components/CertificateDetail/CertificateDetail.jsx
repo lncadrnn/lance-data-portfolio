@@ -10,18 +10,20 @@ import {
 } from 'react-icons/fi'
 import './CertificateDetail.css'
 import ImageLoader from '../Loading/ImageLoader'
+import Loading from '../Loading/Loading'
 import { certificates } from '../../data/certificates'
 
 const CertificateDetail = () => {
     const { darkMode } = useContext(ThemeContext)
     const { id } = useParams()
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
 
     // Find the certificate by id
     const certificate = certificates.find(cert => cert.id === parseInt(id))
 
-    // Get other certificates (excluding current one)
-    const otherCertificates = certificates.filter(cert => cert.id !== parseInt(id))
+    // Get other certificates (excluding current one) - limit to 6
+    const otherCertificates = certificates.filter(cert => cert.id !== parseInt(id)).slice(0, 6)
 
     // Pagination/Carousel state
     const [currentPage, setCurrentPage] = useState(0)
@@ -55,7 +57,29 @@ const CertificateDetail = () => {
     // Reset page index when certificate changes
     useEffect(() => {
         setCurrentPage(0)
-    }, [id])
+        // Show loading briefly when switching certificates
+        if (isLoading) {
+            const timer = setTimeout(() => {
+                setIsLoading(false)
+            }, 500)
+            return () => clearTimeout(timer)
+        }
+    }, [id, isLoading])
+
+    // Handle click on other certificate
+    const handleCertificateClick = (certId) => {
+        // Show loading first (user stays where they are)
+        setIsLoading(true)
+        // After loading is visible, scroll to top and navigate
+        setTimeout(() => {
+            const contentWrapper = document.querySelector('.content-wrapper')
+            if (contentWrapper) {
+                contentWrapper.scrollTo({ top: 0, behavior: 'instant' })
+            }
+            // Navigate after scrolling
+            navigate(`/achievements/${certId}`)
+        }, 500)
+    }
 
     // Calculate pagination
     const totalPagesCarousel = Math.ceil(otherCertificates.length / itemsPerView)
@@ -103,6 +127,9 @@ const CertificateDetail = () => {
 
     return (
         <div className={`certificate-detail ${darkMode ? 'dark' : 'light'}`}>
+            {/* Loading Overlay */}
+            {isLoading && <Loading fullScreen={false} size="medium" text="Loading certificate" />}
+            
             {/* Back Button */}
             <div className="detail-header">
                 <button className="back-btn" onClick={() => navigate('/achievements')}>
@@ -194,14 +221,20 @@ const CertificateDetail = () => {
                         <div className="sidebar-header">
                             <FiClock />
                             <h3>Other Certificates</h3>
+                            <Link to="/achievements" className="view-all-link">
+                                View All
+                            </Link>
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
                             <div className="sidebar-list">
                                 {visibleCertificates.map(cert => (
-                                    <Link 
+                                    <div 
                                         key={cert.id} 
-                                        to={`/achievements/${cert.id}`} 
                                         className="sidebar-item"
+                                        onClick={() => handleCertificateClick(cert.id)}
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={(e) => e.key === 'Enter' && handleCertificateClick(cert.id)}
                                     >
                                         <div className="sidebar-item-image">
                                             {cert.image ? (
@@ -229,7 +262,7 @@ const CertificateDetail = () => {
                                             </span>
                                             <span className="sidebar-item-title">{cert.title}</span>
                                         </div>
-                                    </Link>
+                                    </div>
                                 ))}
                             </div>
                         </div>
