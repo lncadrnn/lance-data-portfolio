@@ -343,6 +343,50 @@
     border-top: 1px solid var(--border-color);
 }
 
+/* Carousel Arrows */
+.certificate-detail .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    background: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 5;
+}
+
+.certificate-detail .carousel-arrow:hover:not(.hidden) {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    opacity: 0.9;
+}
+
+.certificate-detail .carousel-arrow.hidden {
+    opacity: 0.4;
+    border-color: var(--text-muted);
+    background: var(--text-muted);
+    color: var(--card-bg);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.certificate-detail .carousel-arrow.prev {
+    left: 16px;
+}
+
+.certificate-detail .carousel-arrow.next {
+    right: 16px;
+}
+
 .certificate-detail .pagination-dot {
     width: 10px;
     height: 10px;
@@ -376,6 +420,7 @@
 /* Sidebar List Wrapper */
 .certificate-detail .sidebar-list-wrapper {
     overflow: hidden;
+    position: relative;
 }
 
 .certificate-detail .sidebar-list {

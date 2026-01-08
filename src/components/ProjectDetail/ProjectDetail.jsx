@@ -7,7 +7,9 @@ import {
     FiExternalLink,
     FiGithub,
     FiArrowLeft,
-    FiClock
+    FiClock,
+    FiChevronLeft,
+    FiChevronRight
 } from 'react-icons/fi'
 import './ProjectDetail.css'
 import ImageLoader from '../Loading/ImageLoader'
@@ -93,6 +95,16 @@ const ProjectDetail = () => {
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
+    }
+
+    const handlePrevPage = () => {
+        const totalPages = isCarouselMode ? totalPagesCarousel : totalPagesSidebar
+        setCurrentPage((prev) => Math.max(prev - 1, 0))
+    }
+
+    const handleNextPage = () => {
+        const totalPages = isCarouselMode ? totalPagesCarousel : totalPagesSidebar
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
     }
 
     // Category colors
@@ -287,6 +299,15 @@ const ProjectDetail = () => {
                             </Link>
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
+                            {isCarouselMode && totalPagesCarousel > 1 && (
+                                <button
+                                    className={`carousel-arrow prev ${currentPage === 0 ? 'hidden' : ''}`}
+                                    onClick={handlePrevPage}
+                                    aria-label="Previous page"
+                                >
+                                    <FiChevronLeft />
+                                </button>
+                            )}
                             <div className="sidebar-list">
                                 {visibleProjects.map(proj => (
                                     <div 
@@ -326,6 +347,15 @@ const ProjectDetail = () => {
                                     </div>
                                 ))}
                             </div>
+                            {isCarouselMode && totalPagesCarousel > 1 && (
+                                <button
+                                    className={`carousel-arrow next ${currentPage === totalPagesCarousel - 1 ? 'hidden' : ''}`}
+                                    onClick={handleNextPage}
+                                    aria-label="Next page"
+                                >
+                                    <FiChevronRight />
+                                </button>
+                            )}
                         </div>
                         {/* Pagination Dots */}
                         {isCarouselMode && totalPagesCarousel > 1 && (

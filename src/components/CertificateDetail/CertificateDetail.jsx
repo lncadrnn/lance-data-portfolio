@@ -6,7 +6,9 @@ import {
     FiCalendar,
     FiExternalLink,
     FiArrowLeft,
-    FiClock
+    FiClock,
+    FiChevronLeft,
+    FiChevronRight
 } from 'react-icons/fi'
 import './CertificateDetail.css'
 import ImageLoader from '../Loading/ImageLoader'
@@ -92,6 +94,16 @@ const CertificateDetail = () => {
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
+    }
+
+    const handlePrevPage = () => {
+        const totalPages = isCarouselMode ? totalPagesCarousel : totalPagesSidebar
+        setCurrentPage((prev) => Math.max(prev - 1, 0))
+    }
+
+    const handleNextPage = () => {
+        const totalPages = isCarouselMode ? totalPagesCarousel : totalPagesSidebar
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
     }
 
     // Category colors
@@ -226,6 +238,15 @@ const CertificateDetail = () => {
                             </Link>
                         </div>
                         <div className="sidebar-list-wrapper" ref={carouselRef}>
+                            {isCarouselMode && totalPagesCarousel > 1 && (
+                                <button
+                                    className={`carousel-arrow prev ${currentPage === 0 ? 'hidden' : ''}`}
+                                    onClick={handlePrevPage}
+                                    aria-label="Previous page"
+                                >
+                                    <FiChevronLeft />
+                                </button>
+                            )}
                             <div className="sidebar-list">
                                 {visibleCertificates.map(cert => (
                                     <div 
@@ -265,6 +286,15 @@ const CertificateDetail = () => {
                                     </div>
                                 ))}
                             </div>
+                            {isCarouselMode && totalPagesCarousel > 1 && (
+                                <button
+                                    className={`carousel-arrow next ${currentPage === totalPagesCarousel - 1 ? 'hidden' : ''}`}
+                                    onClick={handleNextPage}
+                                    aria-label="Next page"
+                                >
+                                    <FiChevronRight />
+                                </button>
+                            )}
                         </div>
                         {/* Pagination Dots */}
                         {isCarouselMode && totalPagesCarousel > 1 && (
