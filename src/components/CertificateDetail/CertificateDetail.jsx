@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import {
@@ -22,15 +22,51 @@ const CertificateDetail = () => {
     // Find the certificate by id
     const certificate = certificates.find(cert => cert.id === parseInt(id))
 
-    // Find previous and next certificates
-    const currentIndex = certificates.findIndex(cert => cert.id === parseInt(id))
-    const prevCert = currentIndex > 0 ? certificates[currentIndex - 1] : null
-    const nextCert = currentIndex < certificates.length - 1 ? certificates[currentIndex + 1] : null
-
     // Get other certificates (excluding current one)
-    const otherCertificates = certificates
-        .filter(cert => cert.id !== parseInt(id))
-        .slice(0, 6) // Show max 6 other certificates
+    const otherCertificates = certificates.filter(cert => cert.id !== parseInt(id))
+
+    // Carousel state
+    const [carouselIndex, setCarouselIndex] = useState(0)
+    const [itemsPerView, setItemsPerView] = useState(3)
+    const [isCarouselMode, setIsCarouselMode] = useState(false)
+    const carouselRef = useRef(null)
+
+    // Update items per view and carousel mode based on screen size
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth
+            if (width >= 1550) {
+                setIsCarouselMode(true)
+                setItemsPerView(3)
+            } else if (width <= 1100 && width > 600) {
+                setIsCarouselMode(true)
+                setItemsPerView(2)
+            } else if (width <= 600) {
+                setIsCarouselMode(true)
+                setItemsPerView(1)
+            } else {
+                setIsCarouselMode(false)
+            }
+        }
+        handleResize()
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    // Reset carousel index when certificate changes
+    useEffect(() => {
+        setCarouselIndex(0)
+    }, [id])
+
+    const maxCarouselIndex = Math.max(0, otherCertificates.length - itemsPerView)
+
+    const handlePrevCarousel = () => {
+        setCarouselIndex(prev => Math.max(0, prev - 1))
+    }
+
+    const handleNextCarousel = () => {
+        setCarouselIndex(prev => Math.min(maxCarouselIndex, prev + 1))
+    }
 
     // Category colors
     const getCategoryColor = (category) => {
@@ -148,69 +184,68 @@ const CertificateDetail = () => {
                             )}
                         </div>
                     </div>
-
-                    {/* Navigation */}
-                    <div className="detail-navigation">
-                        {prevCert ? (
-                            <Link to={`/achievements/${prevCert.id}`} className="nav-link prev">
-                                <FiChevronLeft />
-                                <div className="nav-info">
-                                    <span className="nav-label">Previous</span>
-                                    <span className="nav-title">{prevCert.title}</span>
-                                </div>
-                            </Link>
-                        ) : (
-                            <div className="nav-link disabled"></div>
-                        )}
-                        
-                        {nextCert ? (
-                            <Link to={`/achievements/${nextCert.id}`} className="nav-link next">
-                                <div className="nav-info">
-                                    <span className="nav-label">Next</span>
-                                    <span className="nav-title">{nextCert.title}</span>
-                                </div>
-                                <FiChevronRight />
-                            </Link>
-                        ) : (
-                            <div className="nav-link disabled"></div>
-                        )}
-                    </div>
                 </div>
 
                 {/* Right Sidebar - Other Certificates */}
-                <aside className="detail-sidebar">
+                <aside className={`detail-sidebar ${isCarouselMode ? 'carousel-mode' : ''}`}>
                     <div className="sidebar-section">
                         <div className="sidebar-header">
                             <FiClock />
                             <h3>Other Certificates</h3>
+                            {isCarouselMode && otherCertificates.length > itemsPerView && (
+                                <div className="carousel-controls">
+                                    <button 
+                                        className="carousel-btn" 
+                                        onClick={handlePrevCarousel}
+                                        disabled={carouselIndex === 0}
+                                    >
+                                        <FiChevronLeft />
+                                    </button>
+                                    <button 
+                                        className="carousel-btn" 
+                                        onClick={handleNextCarousel}
+                                        disabled={carouselIndex >= maxCarouselIndex}
+                                    >
+                                        <FiChevronRight />
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                        <div className="sidebar-list">
-                            {otherCertificates.map(cert => (
-                                <Link 
-                                    key={cert.id} 
-                                    to={`/achievements/${cert.id}`} 
-                                    className="sidebar-item"
-                                >
-                                    <div className="sidebar-item-image">
-                                        {cert.image ? (
-                                            <ImageLoader 
-                                                src={cert.image} 
-                                                alt={cert.title}
-                                            />
-                                        ) : (
-                                            <div className="sidebar-item-placeholder">
-                                                <FiAward />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="sidebar-item-info">
-                                        <span className="sidebar-item-date">
-                                            <FiCalendar /> {cert.date}
-                                        </span>
-                                        <span className="sidebar-item-title">{cert.title}</span>
-                                    </div>
-                                </Link>
-                            ))}
+                        <div className="sidebar-list-wrapper" ref={carouselRef}>
+                            <div 
+                                className="sidebar-list"
+                                style={isCarouselMode ? {
+                                    transform: `translateX(-${carouselIndex * (100 / itemsPerView)}%)`,
+                                    transition: 'transform 0.3s ease'
+                                } : {}}
+                            >
+                                {otherCertificates.map(cert => (
+                                    <Link 
+                                        key={cert.id} 
+                                        to={`/achievements/${cert.id}`} 
+                                        className="sidebar-item"
+                                    >
+                                        <div className="sidebar-item-image">
+                                            {cert.image ? (
+                                                <ImageLoader 
+                                                    src={cert.image} 
+                                                    alt={cert.title}
+                                                />
+                                            ) : (
+                                                <div className="sidebar-item-placeholder">
+                                                    <FiAward />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="sidebar-item-info">
+                                            <span className="sidebar-item-date">
+                                                <FiCalendar /> {cert.date}
+                                            </span>
+                                            <span className="sidebar-item-title">{cert.title}</span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </aside>
