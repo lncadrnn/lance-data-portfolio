@@ -9,13 +9,26 @@
 }
 
 .blog-detail > .loading-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 100;
-    border-radius: 20px;
+    border-radius: 0;
+}
+
+@media (min-width: 1550px) {
+    .blog-detail > .loading-container {
+        position: absolute;
+        width: auto;
+        height: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 20px;
+    }
 }
 
 .blog-detail > .loading-container.dark {
