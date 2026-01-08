@@ -251,6 +251,9 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
 }
 
 .featured-pagination .pagination-dot {

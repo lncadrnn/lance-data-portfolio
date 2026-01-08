@@ -127,6 +127,8 @@ const MainContent = () => {
       const width = window.innerWidth
       if (width <= 600) {
         setItemsPerView(1)
+      } else if (width <= 950) {
+        setItemsPerView(1)
       } else if (width < 1350) {
         setItemsPerView(2)
       } else {
