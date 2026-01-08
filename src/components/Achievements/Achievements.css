@@ -827,6 +827,10 @@
         height: 140px;
     }
 
+    .certificates-container.list .cert-category {
+        margin-top: 12px;
+    }
+
     .cert-content {
         padding: 14px;
     }
