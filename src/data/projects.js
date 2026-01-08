@@ -5,6 +5,23 @@ import contentCalendar from '../assets/projects/Content Calendar.png'
 import informationSheet from '../assets/projects/Input Information Sheet.png'
 
 export const projects = [
+    
+    /*
+    {
+        id: 1,
+        title: 'Financial Report Dashboard',
+        description: (...),
+        category: 'Dashboard',
+        date: 'March 30, 2025',
+        image: financialReport,
+        technologies: ['Power BI', 'Dashboard Design', 'Power Query'],
+        githubUrl: 'https://github.com/lncadrnn/power-bi-projects/tree/main/Financial%20Report%20Dashboard',
+        liveUrl: '#',
+        featured: true,
+        featuredOrder: 1
+    },
+    */
+
     {
         id: 1,
         title: 'Financial Report Dashboard',
