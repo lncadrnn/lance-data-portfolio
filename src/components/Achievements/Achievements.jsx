@@ -1,10 +1,9 @@
 import { useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import {
     FiAward,
     FiCalendar,
-    FiExternalLink,
-    FiX,
     FiChevronLeft,
     FiChevronRight,
     FiChevronsLeft,
@@ -21,7 +20,7 @@ import { certificates } from '../../data/certificates'
 
 const Achievements = () => {
     const { darkMode } = useContext(ThemeContext)
-    const [selectedCert, setSelectedCert] = useState(null)
+    const navigate = useNavigate()
     const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
@@ -32,21 +31,6 @@ const Achievements = () => {
     useEffect(() => {
         setCurrentPage(1)
     }, [activeFilter, sortOrder])
-
-    // Prevent body scroll when modal is open
-    useEffect(() => {
-        if (selectedCert) {
-            document.body.style.overflow = 'hidden'
-            document.documentElement.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-            document.documentElement.style.overflow = ''
-        }
-        return () => {
-            document.body.style.overflow = ''
-            document.documentElement.style.overflow = ''
-        }
-    }, [selectedCert])
 
 
 
@@ -105,17 +89,9 @@ const Achievements = () => {
         return colors[category] || '#6b7280'
     }
 
-    // Navigate certificates in modal
-    const navigateCert = (direction) => {
-        if (!selectedCert) return
-        const currentIndex = sortedCertificates.findIndex(c => c.id === selectedCert.id)
-        let newIndex
-        if (direction === 'next') {
-            newIndex = (currentIndex + 1) % sortedCertificates.length
-        } else {
-            newIndex = (currentIndex - 1 + sortedCertificates.length) % sortedCertificates.length
-        }
-        setSelectedCert(sortedCertificates[newIndex])
+    // Navigate to certificate detail page
+    const handleCertClick = (certId) => {
+        navigate(`/achievements/${certId}`)
     }
 
     return (
@@ -188,7 +164,7 @@ const Achievements = () => {
                         <div
                             key={cert.id}
                             className="certificate-card"
-                            onClick={() => setSelectedCert(cert)}
+                            onClick={() => handleCertClick(cert.id)}
                             style={{ animationDelay: `${index * 0.05}s` }}
                         >
                             <div className="cert-image-container">
@@ -342,81 +318,6 @@ const Achievements = () => {
                     </div>
                 ) : null}
             </section>
-
-            {/* Certificate Modal */}
-            {selectedCert && (
-                <div className="cert-modal-overlay" onClick={() => setSelectedCert(null)}>
-                    <div className="cert-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close" onClick={() => setSelectedCert(null)}>
-                            <FiX />
-                        </button>
-
-                        <button className="modal-nav prev" onClick={() => navigateCert('prev')}>
-                            <FiChevronLeft />
-                        </button>
-                        <button className="modal-nav next" onClick={() => navigateCert('next')}>
-                            <FiChevronRight />
-                        </button>
-
-                        <div className="modal-content">
-                            <div className="modal-image-container">
-                                {selectedCert.image ? (
-                                    <ImageLoader 
-                                        src={selectedCert.image} 
-                                        alt={selectedCert.title} 
-                                        className="modal-image"
-                                    />
-                                ) : (
-                                    <div className="modal-placeholder">
-                                        <FiAward />
-                                        <span>Certificate Preview</span>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="modal-details">
-                                <span
-                                    className="modal-category"
-                                    style={{ backgroundColor: getCategoryColor(selectedCert.category) }}
-                                >
-                                    {selectedCert.category}
-                                </span>
-                                <h2 className="modal-title">{selectedCert.title}</h2>
-                                <p className="modal-issuer">Issued by {selectedCert.issuer}</p>
-                                <p className="modal-date">
-                                    <FiCalendar /> {selectedCert.date}
-                                </p>
-                                {selectedCert.credentialId && (
-                                    <p className="modal-credential-id">
-                                        <strong>Credential ID:</strong> {selectedCert.credentialId}
-                                    </p>
-                                )}
-                                {selectedCert.description && (
-                                    <p className="modal-description">{selectedCert.description}</p>
-                                )}
-                                <div className="modal-skills">
-                                    <h4>Skills</h4>
-                                    <div className="skills-list">
-                                        {selectedCert.skills.map((skill, i) => (
-                                            <span key={i} className="achievement-skill-tag">{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                {selectedCert.credentialUrl && selectedCert.credentialUrl !== '#' && (
-                                    <a
-                                        href={selectedCert.credentialUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="credential-link"
-                                    >
-                                        <FiExternalLink />
-                                        View Credential
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     )
 }

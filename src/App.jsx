@@ -4,7 +4,9 @@ import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
 import AboutMe from './components/AboutMe/AboutMe'
 import Achievements from './components/Achievements/Achievements'
+import CertificateDetail from './components/CertificateDetail/CertificateDetail'
 import Projects from './components/Projects/Projects'
+import ProjectDetail from './components/ProjectDetail/ProjectDetail'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import Loading from './components/Loading/Loading'
 import './App.css'
@@ -70,7 +72,9 @@ function App() {
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<AboutMe />} />
               <Route path="/achievements" element={<Achievements />} />
+              <Route path="/achievements/:id" element={<CertificateDetail />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />
             </Routes>
           </Layout>

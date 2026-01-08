@@ -1,11 +1,9 @@
 import { useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../App'
 import {
     FiFolder,
     FiCalendar,
-    FiExternalLink,
-    FiGithub,
-    FiX,
     FiChevronLeft,
     FiChevronRight,
     FiChevronsLeft,
@@ -22,7 +20,7 @@ import { projects } from '../../data/projects'
 
 const Projects = () => {
     const { darkMode } = useContext(ThemeContext)
-    const [selectedProject, setSelectedProject] = useState(null)
+    const navigate = useNavigate()
     const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
     const [activeFilter, setActiveFilter] = useState('all')
     const [sortOrder, setSortOrder] = useState('newest') // 'oldest' or 'newest'
@@ -33,21 +31,6 @@ const Projects = () => {
     useEffect(() => {
         setCurrentPage(1)
     }, [activeFilter, sortOrder])
-
-    // Prevent body scroll when modal is open
-    useEffect(() => {
-        if (selectedProject) {
-            document.body.style.overflow = 'hidden'
-            document.documentElement.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-            document.documentElement.style.overflow = ''
-        }
-        return () => {
-            document.body.style.overflow = ''
-            document.documentElement.style.overflow = ''
-        }
-    }, [selectedProject])
 
     // Define categories for filter
     const categories = [
@@ -99,17 +82,9 @@ const Projects = () => {
         return colors[category] || '#6b7280'
     }
 
-    // Navigate projects in modal
-    const navigateProject = (direction) => {
-        if (!selectedProject) return
-        const currentIndex = sortedProjects.findIndex(p => p.id === selectedProject.id)
-        let newIndex
-        if (direction === 'next') {
-            newIndex = (currentIndex + 1) % sortedProjects.length
-        } else {
-            newIndex = (currentIndex - 1 + sortedProjects.length) % sortedProjects.length
-        }
-        setSelectedProject(sortedProjects[newIndex])
+    // Navigate to project detail page
+    const handleProjectClick = (projectId) => {
+        navigate(`/projects/${projectId}`)
     }
 
     return (
@@ -182,7 +157,7 @@ const Projects = () => {
                         <div
                             key={project.id}
                             className="project-card"
-                            onClick={() => setSelectedProject(project)}
+                            onClick={() => handleProjectClick(project.id)}
                             style={{ animationDelay: `${index * 0.05}s` }}
                         >
                             <div className="project-image-container">
@@ -335,88 +310,6 @@ const Projects = () => {
                     </div>
                 ) : null}
             </section>
-
-            {/* Project Modal */}
-            {selectedProject && (
-                <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
-                    <div className="project-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close" onClick={() => setSelectedProject(null)}>
-                            <FiX />
-                        </button>
-
-                        <button className="modal-nav prev" onClick={() => navigateProject('prev')}>
-                            <FiChevronLeft />
-                        </button>
-                        <button className="modal-nav next" onClick={() => navigateProject('next')}>
-                            <FiChevronRight />
-                        </button>
-
-                        <div className="modal-content">
-                            <div className="modal-image-container">
-                                {selectedProject.image ? (
-                                    <ImageLoader 
-                                        src={selectedProject.image} 
-                                        alt={selectedProject.title} 
-                                        className="modal-image"
-                                    />
-                                ) : (
-                                    <div className="modal-placeholder">
-                                        <FiFolder />
-                                        <span>Project Preview</span>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="modal-details">
-                                <span
-                                    className="modal-category"
-                                    style={{ backgroundColor: getCategoryColor(selectedProject.category) }}
-                                >
-                                    {selectedProject.category}
-                                </span>
-                                <h2 className="modal-title">{selectedProject.title}</h2>
-                                <p className="modal-date">
-                                    <FiCalendar /> {selectedProject.date}
-                                </p>
-                                {selectedProject.description && (
-                                    <p className="modal-description">{selectedProject.description}</p>
-                                )}
-                                <div className="modal-technologies">
-                                    <h4>Technologies</h4>
-                                    <div className="technologies-list">
-                                        {selectedProject.technologies.map((tech, i) => (
-                                            <span key={i} className="project-tech-tag">{tech}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="modal-links">
-                                    {selectedProject.githubUrl && selectedProject.githubUrl !== '#' && (
-                                        <a
-                                            href={selectedProject.githubUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="project-link github-link"
-                                        >
-                                            <FiGithub />
-                                            View on GitHub
-                                        </a>
-                                    )}
-                                    {selectedProject.liveUrl && selectedProject.liveUrl !== '#' && (
-                                        <a
-                                            href={selectedProject.liveUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="project-link live-link"
-                                        >
-                                            <FiExternalLink />
-                                            View Live
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     )
 }
