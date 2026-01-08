@@ -100,8 +100,8 @@ const ProjectDetail = () => {
         const colors = {
             'Data Science': '#3b82f6',
             'Analytics': '#ec4899',
-            'Dashboard': '#10b981',
-            'Other': '#f59e0b',
+            'Visualization': '#10b981',
+            'Programming': '#f59e0b',
             'Machine Learning': '#8b5cf6'
         }
         return colors[category] || '#6b7280'
@@ -158,6 +158,21 @@ const ProjectDetail = () => {
                                     </div>
                                 )}
                             </div>
+                            
+                            {/* Additional Images */}
+                            {project.additionalImages && project.additionalImages.length > 0 && (
+                                <div className="additional-images">
+                                    {project.additionalImages.map((imgSrc, idx) => (
+                                        <div key={idx} className="detail-image-container">
+                                            <ImageLoader 
+                                                src={imgSrc} 
+                                                alt={`${project.title} - Version ${idx + 2}`} 
+                                                className="detail-image"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         {/* Details Section */}
