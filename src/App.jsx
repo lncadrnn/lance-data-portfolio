@@ -11,6 +11,7 @@ import Blogs from './components/Blogs/Blogs'
 import BlogDetail from './components/BlogDetail/BlogDetail'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import Loading from './components/Loading/Loading'
+import Chatbot from './components/Chatbot/Chatbot'
 import './App.css'
 
 export const ThemeContext = createContext()
@@ -66,6 +67,7 @@ const AppRoutes = ({ darkMode }) => {
             <Route path="/blogs/:id" element={<BlogDetail />} />
           </Routes>
         </Layout>
+        <Chatbot />
       </div>
     </NavigationContext.Provider>
   )
