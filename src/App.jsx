@@ -11,12 +11,25 @@ import './App.css'
 
 export const ThemeContext = createContext()
 
+// Get initial theme from localStorage or default to dark
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem('darkMode')
+  if (savedTheme !== null) {
+    return savedTheme === 'true'
+  }
+  return true // Default to dark mode
+}
+
 function App() {
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(getInitialTheme)
   const [isAppLoading, setIsAppLoading] = useState(true)
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
+    setDarkMode(prev => {
+      const newValue = !prev
+      localStorage.setItem('darkMode', newValue.toString())
+      return newValue
+    })
   }
 
   // Initial app loading - wait for critical resources
