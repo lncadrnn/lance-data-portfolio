@@ -96,12 +96,12 @@ const Blogs = () => {
                     <div className="blogs-stats">
                         <div className="stat-badge">
                             <FiFileText />
-                            <span>{blogs.length} Articles</span>
+                            <span>{blogs.length} Blogs</span>
                         </div>
                     </div>
                 </div>
                 <p className="blogs-subtitle">
-                    Insights, tutorials, and thoughts on data science, analytics, and technology. Sharing knowledge and experiences from my data journey.
+                    Capturing the evolving journey of learning and applying data, from college to career and everything in between.
                 </p>
             </section>
 

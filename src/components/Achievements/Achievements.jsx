@@ -111,7 +111,7 @@ const Achievements = () => {
                     </div>
                 </div>
                 <p className="achievements-subtitle">
-                    A collection of certifications and achievements earned throughout my data analytics journey.
+                    A collection of Certifications and Achievements earned throughout my Data Analytics and Data Science Journey.
                 </p>
             </section>
 

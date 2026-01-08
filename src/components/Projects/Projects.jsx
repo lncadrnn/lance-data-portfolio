@@ -104,7 +104,7 @@ const Projects = () => {
                     </div>
                 </div>
                 <p className="projects-subtitle">
-                    A showcase of data analytics, visualization, and programming projects demonstrating practical skills and problem-solving abilities.
+                    A showcase of Projects and Case Studies about Data Analytics, Data Science & more that demonstrates practical skills and problem-solving abilities.
                 </p>
             </section>
 
