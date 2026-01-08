@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { ThemeContext } from '../../App'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { ThemeContext, NavigationContext } from '../../App'
 import {
   FiHome,
   FiUser,
@@ -20,6 +20,7 @@ import resumePdf from '../../assets/resume/Lance Adrian Acal - Data.pdf'
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext)
+  const { handleNavigate } = useContext(NavigationContext)
   const [isAnimating, setIsAnimating] = useState(false)
   const [switchingToLight, setSwitchingToLight] = useState(false)
 
@@ -42,10 +43,15 @@ const Sidebar = ({ isOpen, onClose }) => {
     { id: 'blogs', label: 'Blogs', icon: <FiFileText />, path: '/blogs' },
   ]
 
-  const handleNavClick = () => {
+  const handleNavClick = (path) => {
     // Close sidebar on mobile when a nav item is clicked
     if (onClose) {
       onClose()
+    }
+    
+    // Use custom navigation with loading
+    if (handleNavigate) {
+      handleNavigate(path)
     }
   }
 
@@ -79,7 +85,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                 key={item.id}
                 to={item.path}
                 className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                onClick={handleNavClick}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleNavClick(item.path)
+                }}
               >
                 <span className="nav-icon">{item.icon}</span>
                 <span className="nav-label">{item.label}</span>

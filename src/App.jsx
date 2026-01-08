@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext } from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { useState, useEffect, createContext, useContext } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import MainContent from './components/MainContent/MainContent'
 import AboutMe from './components/AboutMe/AboutMe'
@@ -14,6 +14,7 @@ import Loading from './components/Loading/Loading'
 import './App.css'
 
 export const ThemeContext = createContext()
+export const NavigationContext = createContext()
 
 // Get initial theme from localStorage or default to dark
 const getInitialTheme = () => {
@@ -27,30 +28,31 @@ const getInitialTheme = () => {
 // Inner component to handle route changes with loading
 const AppRoutes = ({ darkMode }) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [showLoading, setShowLoading] = useState(false)
-  const [prevPath, setPrevPath] = useState(location.pathname)
 
-  useEffect(() => {
-    // Detect main tab changes (not detail pages)
-    const mainPages = ['/', '/about', '/achievements', '/projects', '/blogs']
-    const prevIsMainPage = mainPages.some(page => prevPath === page)
-    const currIsMainPage = mainPages.some(page => location.pathname === page)
-
-    // Show loading only when switching between main pages
-    if (prevIsMainPage && currIsMainPage && prevPath !== location.pathname) {
-      setShowLoading(true)
-      const timer = setTimeout(() => {
-        setShowLoading(false)
-      }, 500)
-      return () => clearTimeout(timer)
+  const handleNavigate = (path) => {
+    // Scroll to top
+    const contentWrapper = document.querySelector('.content-wrapper')
+    if (contentWrapper) {
+      contentWrapper.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    setPrevPath(location.pathname)
-  }, [location.pathname, prevPath])
+    // Show loading first
+    setShowLoading(true)
+
+    // Navigate after showing loading
+    setTimeout(() => {
+      navigate(path)
+      setTimeout(() => {
+        setShowLoading(false)
+      }, 500)
+    }, 100)
+  }
 
   return (
-    <>
-      {showLoading && <Loading size="medium" />}
+    <NavigationContext.Provider value={{ handleNavigate }}>
+      {showLoading && <Loading fullScreen={true} size="small" />}
       <div className={`app ${darkMode ? 'dark' : 'light'}`}>
         <Layout>
           <Routes>
@@ -65,7 +67,7 @@ const AppRoutes = ({ darkMode }) => {
           </Routes>
         </Layout>
       </div>
-    </>
+    </NavigationContext.Provider>
   )
 }
 

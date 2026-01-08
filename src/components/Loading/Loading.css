@@ -281,11 +281,11 @@
 }
 
 .loading-container:not(.fullscreen).dark {
-    background: rgba(15, 20, 25, 0.6);
+    background: #0f1419;
 }
 
 .loading-container:not(.fullscreen).light {
-    background: rgba(248, 249, 252, 0.8);
+    background: #f8f9fc;
 }
 
 /* Responsive */
