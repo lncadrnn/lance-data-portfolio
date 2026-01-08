@@ -442,11 +442,14 @@
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item {
         flex: 0 0 calc(33.333% - 11px);
         flex-direction: column;
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
         padding: 16px;
         background: var(--bg-tertiary);
         min-width: 0;
+        min-height: 320px;
+        display: flex;
+        justify-content: space-between;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item:hover {
@@ -461,17 +464,51 @@
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-image {
         width: 100%;
-        height: 120px;
-        margin-bottom: 8px;
+        height: 220px;
+        margin-bottom: 12px;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-info {
-        align-items: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-date {
+        justify-content: flex-start;
+        font-size: 0.75rem;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-title {
         font-size: 0.9rem;
-        text-align: center;
+        text-align: left;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-category {
+        display: inline-flex;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 4px;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-skill-tag {
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        font-size: 0.65rem;
+        color: white;
+        font-weight: 500;
     }
 }
 
@@ -521,21 +558,39 @@
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-image {
         width: 100%;
-        height: 100px;
-        margin-bottom: 8px;
+        height: 180px;
+        margin-bottom: 12px;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-info {
-        align-items: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-date {
+        justify-content: flex-start;
+        font-size: 0.7rem;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-title {
         font-size: 0.85rem;
-        text-align: center;
+        text-align: left;
         white-space: normal;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-category {
+        display: inline-flex;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 0.6rem;
+        font-weight: 600;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 4px;
     }
 }
 
@@ -555,9 +610,65 @@
     /* Single item carousel at 600px and below */
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item {
         flex: 0 0 100%;
+        align-items: flex-start;
+        text-align: left;
     }
 
     .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-image {
-        height: 120px;
+        height: 220px;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-info {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-date {
+        justify-content: flex-start;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-title {
+        text-align: left;
+    }
+
+    .certificate-detail .detail-sidebar.carousel-mode .sidebar-item-category {
+        display: inline-flex;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 0.6rem;
+        font-weight: 600;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 4px;
+    }
+}
+
+/* 1650px+ Ultra-wide adjustments */
+@media (min-width: 1650px) {
+    .certificate-detail {
+        display: contents;
+    }
+
+    .certificate-detail .detail-header {
+        grid-column: 1 / -1;
+    }
+
+    .certificate-detail .detail-layout {
+        display: contents;
+    }
+
+    .certificate-detail .detail-main {
+        grid-column: 1 / -1;
+    }
+
+    .certificate-detail .detail-sidebar {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .certificate-detail .sidebar-section {
+        flex: 1;
     }
 }

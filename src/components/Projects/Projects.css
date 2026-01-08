@@ -893,3 +893,26 @@
         font-size: 0.85rem;
     }
 }
+
+/* 1650px+ Ultra-wide adjustments */
+@media (min-width: 1650px) {
+    .projects-page {
+        display: contents;
+    }
+
+    .projects-header {
+        grid-column: 1 / -1;
+    }
+
+    .projects-controls {
+        grid-column: 1 / -1;
+    }
+
+    .projects-section {
+        grid-column: 1 / -1;
+    }
+
+    .projects-container.grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

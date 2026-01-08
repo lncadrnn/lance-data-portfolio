@@ -220,6 +220,14 @@ const ProjectDetail = () => {
                                             )}
                                         </div>
                                         <div className="sidebar-item-info">
+                                            {isCarouselMode && proj.category && (
+                                                <span 
+                                                    className="sidebar-item-category"
+                                                    style={{ backgroundColor: getCategoryColor(proj.category) }}
+                                                >
+                                                    {proj.category}
+                                                </span>
+                                            )}
                                             <span className="sidebar-item-date">
                                                 <FiCalendar /> {proj.date}
                                             </span>

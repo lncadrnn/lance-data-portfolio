@@ -12,7 +12,14 @@ const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // Check if we're on pages with fixed app layout (sticky sidebar, no body scroll)
-  const useAppLayout = location.pathname === '/' || location.pathname === '/about' || location.pathname === '/achievements'
+  // Include all main pages and their detail routes
+  const useAppLayout = 
+    location.pathname === '/' || 
+    location.pathname === '/about' || 
+    location.pathname === '/achievements' ||
+    location.pathname.startsWith('/achievements/') ||
+    location.pathname === '/projects' ||
+    location.pathname.startsWith('/projects/')
 
   // Check if we should show the right sidebar (only on Home and About)
   const showRightSidebar = location.pathname === '/' || location.pathname === '/about'

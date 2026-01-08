@@ -216,6 +216,14 @@ const CertificateDetail = () => {
                                             )}
                                         </div>
                                         <div className="sidebar-item-info">
+                                            {isCarouselMode && cert.category && (
+                                                <span 
+                                                    className="sidebar-item-category"
+                                                    style={{ backgroundColor: getCategoryColor(cert.category) }}
+                                                >
+                                                    {cert.category}
+                                                </span>
+                                            )}
                                             <span className="sidebar-item-date">
                                                 <FiCalendar /> {cert.date}
                                             </span>
