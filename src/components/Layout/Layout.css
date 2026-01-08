@@ -36,12 +36,12 @@
 }
 
 .content-wrapper::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
+  background: #6b7280;
   border-radius: 4px;
 }
 
 .content-wrapper::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: #9ca3af;
 }
 
 .main-area {
@@ -287,12 +287,12 @@
   }
 
   .content-wrapper::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
+    background: #6b7280;
     border-radius: 4px;
   }
 
   .content-wrapper::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-hover);
+    background: #9ca3af;
   }
 
   .desktop-right-sidebar {

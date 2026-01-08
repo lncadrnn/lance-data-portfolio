@@ -195,11 +195,11 @@
     width: 280px;
     height: 100vh;
     border-radius: 0 20px 20px 0;
-    padding: 24px;
+    padding: 0;
     z-index: 1000;
     box-sizing: border-box;
     transition: left 0.3s ease;
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .sidebar.open {
@@ -207,8 +207,29 @@
   }
 
   .sidebar-content {
-    height: auto;
+    height: 100%;
     gap: 24px;
+    padding: 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar scrollbar styling */
+  .sidebar-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar-content::-webkit-scrollbar-thumb {
+    background: #6b7280;
+    border-radius: 3px;
+  }
+
+  .sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
   }
 
   .profile-section,
