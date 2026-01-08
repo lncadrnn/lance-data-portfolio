@@ -29,17 +29,17 @@ export const projects = [
             This project successfully fulfilled the requirements for the Business Intelligence with Power BI Desktop Certificate. It demonstrates a strong foundation in BI fundamentals, including data loading, categorical organization, and the ability to design an "Executive Level" report that prioritizes clarity and rapid decision-making.
             `,
 
-        category: 'Visualization',
+        category: 'Dashboard',
         date: 'March 30, 2025',
         image: financialReport,
-        technologies: ['Power BI Desktop', 'Power Query'],
-        githubUrl: 'https://github.com/lncadrnn',
+        technologies: ['Power BI', 'Dashboard Design', 'Power Query'],
+        githubUrl: 'https://github.com/lncadrnn/power-bi-projects/tree/main/Financial%20Report%20Dashboard',
         liveUrl: '#',
         featured: true
     },
     {
         id: 2,
-        title: 'Netflix Global Content Analysis (2000:2020)',
+        title: 'Netflix Global Content Analysis (2000 - 2020)',
         description: 
         
             `**Project: Netflix Global Content Analysis (2000:2020)**
@@ -68,7 +68,7 @@ export const projects = [
         date: 'April 23, 2025',
         image: movieDataset,
         technologies: ['Power BI', 'DAX', 'Power Query', 'Excel'],
-        githubUrl: 'https://github.com/lncadrnn',
+        githubUrl: 'https://github.com/lncadrnn/power-bi-projects/tree/main/Netflix%20Global%20Content%20Analysis',
         liveUrl: '#',
         featured: true
     }
