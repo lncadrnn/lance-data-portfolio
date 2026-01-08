@@ -195,6 +195,7 @@
 /* Featured Carousel */
 .featured-carousel {
   overflow: hidden;
+  position: relative;
 }
 
 .featured-carousel-track {
@@ -202,14 +203,54 @@
   gap: 16px;
 }
 
+.featured-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+  background: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.featured-arrow:hover:not(.hidden) {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  opacity: 0.9;
+}
+
+.featured-arrow.hidden {
+  opacity: 0.4;
+  border-color: var(--text-muted);
+  background: var(--text-muted);
+  color: var(--card-bg);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.featured-arrow.prev {
+  left: 16px;
+}
+
+.featured-arrow.next {
+  right: 16px;
+}
+
 /* Pagination Dots */
 .featured-pagination {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
 }
 
 .featured-pagination .pagination-dot {

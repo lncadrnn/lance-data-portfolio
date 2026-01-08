@@ -10,7 +10,9 @@ import {
   FiAward,
   FiFolder,
   FiFileText,
-  FiBarChart2
+  FiBarChart2,
+  FiChevronLeft,
+  FiChevronRight
 } from 'react-icons/fi'
 import './MainContent.css'
 import ImageLoader from '../Loading/ImageLoader'
@@ -290,6 +292,14 @@ const MainContent = () => {
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0))
+  }
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
+  }
   return (
     <main className={`main-content ${darkMode ? 'dark' : 'light'}`}>
       {/* Hero Section */}
@@ -351,6 +361,15 @@ const MainContent = () => {
         ) : (
           <>
             <div className="featured-carousel">
+              {totalPages > 1 && (
+                <button
+                  className={`featured-arrow prev ${currentPage === 0 ? 'hidden' : ''}`}
+                  onClick={handlePrevPage}
+                  aria-label="Previous page"
+                >
+                  <FiChevronLeft />
+                </button>
+              )}
               <div className="featured-carousel-track">
                 {visibleItems.map((item) => (
                   <div 
@@ -378,6 +397,15 @@ const MainContent = () => {
                   </div>
                 ))}
               </div>
+              {totalPages > 1 && (
+                <button
+                  className={`featured-arrow next ${currentPage === totalPages - 1 ? 'hidden' : ''}`}
+                  onClick={handleNextPage}
+                  aria-label="Next page"
+                >
+                  <FiChevronRight />
+                </button>
+              )}
             </div>
             {totalPages > 1 && (
               <div className="featured-pagination">
