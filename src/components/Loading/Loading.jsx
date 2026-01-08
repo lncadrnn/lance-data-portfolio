@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { ThemeContext } from '../../App'
 import './Loading.css'
 
-const Loading = ({ fullScreen = true, size = 'medium', text = 'Loading...' }) => {
+const Loading = ({ fullScreen = true, size = 'small', text = 'Loading...' }) => {
     const { darkMode } = useContext(ThemeContext)
 
     return (

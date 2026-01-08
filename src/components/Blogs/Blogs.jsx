@@ -95,7 +95,7 @@ const Blogs = () => {
 
     return (
         <div className={`blogs-page ${darkMode ? 'dark' : 'light'}`}>
-            {isLoading && <Loading size="medium" />}
+            {isLoading && <Loading size="small" />}
             {/* Header Section */}
             <section className="blogs-header">
                 <div className="blogs-title-row">

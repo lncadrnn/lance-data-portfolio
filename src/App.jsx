@@ -107,7 +107,7 @@ function App() {
   if (isAppLoading) {
     return (
       <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
-        <Loading fullScreen={true} size="large" text="Loading" />
+        <Loading fullScreen={true} size="small" text="Loading" />
       </ThemeContext.Provider>
     )
   }

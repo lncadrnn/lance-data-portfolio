@@ -105,7 +105,7 @@ const Achievements = () => {
 
     return (
         <div className={`achievements ${darkMode ? 'dark' : 'light'}`}>
-            {isLoading && <Loading size="medium" />}
+            {isLoading && <Loading size="small" />}
             {/* Header Section */}
             <section className="achievements-header">
                 <div className="achievements-title-row">

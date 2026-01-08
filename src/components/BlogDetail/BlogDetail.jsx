@@ -149,7 +149,7 @@ const BlogDetail = () => {
     return (
         <div className={`blog-detail ${darkMode ? 'dark' : 'light'}`}>
             {/* Loading Overlay */}
-            {isLoading && <Loading fullScreen={false} size="medium" text="Loading article" />}
+            {isLoading && <Loading fullScreen={false} size="small" text="Loading article" />}
             
             {/* Back Button */}
             <div className="detail-header">

@@ -148,7 +148,7 @@ const ProjectDetail = () => {
     return (
         <div className={`project-detail ${darkMode ? 'dark' : 'light'}`}>
             {/* Loading Overlay */}
-            {isLoading && <Loading fullScreen={false} size="medium" text="Loading project" />}
+            {isLoading && <Loading fullScreen={false} size="small" text="Loading project" />}
             
             {/* Back Button */}
             <div className="detail-header">

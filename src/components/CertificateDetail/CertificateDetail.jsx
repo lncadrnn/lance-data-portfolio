@@ -149,7 +149,7 @@ const CertificateDetail = () => {
     return (
         <div className={`certificate-detail ${darkMode ? 'dark' : 'light'}`}>
             {/* Loading Overlay */}
-            {isLoading && <Loading fullScreen={false} size="medium" text="Loading certificate" />}
+            {isLoading && <Loading fullScreen={false} size="small" text="Loading certificate" />}
             
             {/* Back Button */}
             <div className="detail-header">

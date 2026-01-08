@@ -100,7 +100,7 @@ const Projects = () => {
 
     return (
         <div className={`projects-page ${darkMode ? 'dark' : 'light'}`}>
-            {isLoading && <Loading size="medium" />}
+            {isLoading && <Loading size="small" />}
             {/* Header Section */}
             <section className="projects-header">
                 <div className="projects-title-row">

@@ -318,7 +318,7 @@ const MainContent = () => {
   }
   return (
     <main className={`main-content ${darkMode ? 'dark' : 'light'}`}>
-      {isLoading && <Loading size="medium" />}
+      {isLoading && <Loading size="small" />}
       {/* Hero Section */}
       <section className="hero-section">
         <div className="date-badge">
