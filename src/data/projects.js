@@ -147,7 +147,7 @@ export const projects = [
         technologies: ['Microsoft Excel', 'Google Sheets', 'Conditional Formatting', 'Data Validation', 'Date Functions'],
         githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Dynamic%20Calendars',
         liveUrl: '#',
-        featured: false
+        featured: true
     },
     {
         id: 5,
@@ -181,6 +181,6 @@ export const projects = [
         technologies: ['Google Sheets', 'Logical Formulas', 'Checkboxes', 'Conditional Formatting'],
         githubUrl: 'https://github.com/lncadrnn/excel-projects/tree/main/Spotify%20Tracker%20Template',
         liveUrl: '#',
-        featured: false
+        featured: true
     }
 ]

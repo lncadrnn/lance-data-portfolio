@@ -34,7 +34,8 @@ export const certificates = [
         description: 'Completed a 38-hour training program on Data Science course under the Direcho Trabaho Program, offered by The Coding School in partnership with The Alvarez Foundation on November 29, 2025. Training covered Python for data science covering libraries like Pandas, Matplotlib, and Seaborn for data manipulation and visualization. Also covered few topics regarding Excel and SQL.',
         image: dataPythonCert,
         credentialUrl: '#',
-        skills: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Data Science']
+        skills: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Data Science'],
+        featured: true
     },
     {
         id: 2,

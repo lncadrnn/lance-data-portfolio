@@ -179,6 +179,13 @@ const MainContent = () => {
     'Achievement': '#fbbf24'
   }
 
+  // Badge colors by type
+  const typeColors = {
+    'Project': '#3b82f6',
+    'Blog': '#06b6d4',
+    'Certificate': '#f59e0b'
+  }
+
   const formatDescription = (desc) => {
     if (!desc) return ''
     const text = desc
@@ -199,7 +206,8 @@ const MainContent = () => {
         category: p.category,
         image: p.image || banners[0],
         color: categoryColors[p.category] || '#3b82f6',
-        type: 'Project'
+        type: 'Project',
+        typeColor: typeColors['Project']
       })),
     ...blogs
       .filter(b => b.featured)
@@ -210,7 +218,8 @@ const MainContent = () => {
         category: b.category,
         image: b.image || banners[1],
         color: categoryColors[b.category] || '#06b6d4',
-        type: 'Blog'
+        type: 'Blog',
+        typeColor: typeColors['Blog']
       })),
     ...certificates
       .filter(c => c.featured)
@@ -221,7 +230,8 @@ const MainContent = () => {
         category: c.category,
         image: c.image || banners[2],
         color: categoryColors[c.category] || '#f59e0b',
-        type: 'Certificate'
+        type: 'Certificate',
+        typeColor: typeColors['Certificate']
       }))
   ].slice(0, 6)
 
@@ -320,7 +330,7 @@ const MainContent = () => {
                     <div className="featured-card-image">
                       <ImageLoader src={item.image} alt={item.title} />
                       <div className="featured-card-overlay"></div>
-                      <span className="featured-badge" style={{ backgroundColor: item.color }}>
+                      <span className="featured-badge" style={{ backgroundColor: item.typeColor || item.color }}>
                         {item.type}
                       </span>
                     </div>
