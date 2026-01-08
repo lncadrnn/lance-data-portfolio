@@ -15,6 +15,7 @@ import {
     FiArrowDown
 } from 'react-icons/fi'
 import './Achievements.css'
+import ImageLoader from '../Loading/ImageLoader'
 
 import { certificates } from '../../data/certificates'
 
@@ -192,7 +193,11 @@ const Achievements = () => {
                         >
                             <div className="cert-image-container">
                                 {cert.image ? (
-                                    <img src={cert.image} alt={cert.title} className="cert-image" />
+                                    <ImageLoader 
+                                        src={cert.image} 
+                                        alt={cert.title} 
+                                        className="cert-image"
+                                    />
                                 ) : (
                                     <div className="cert-placeholder">
                                         <FiAward />
@@ -356,7 +361,11 @@ const Achievements = () => {
                         <div className="modal-content">
                             <div className="modal-image-container">
                                 {selectedCert.image ? (
-                                    <img src={selectedCert.image} alt={selectedCert.title} className="modal-image" />
+                                    <ImageLoader 
+                                        src={selectedCert.image} 
+                                        alt={selectedCert.title} 
+                                        className="modal-image"
+                                    />
                                 ) : (
                                     <div className="modal-placeholder">
                                         <FiAward />

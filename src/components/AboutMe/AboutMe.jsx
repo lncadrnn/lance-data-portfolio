@@ -14,6 +14,7 @@ import {
   FiMail
 } from 'react-icons/fi'
 import './AboutMe.css'
+import ImageLoader from '../Loading/ImageLoader'
 
 // Import assets
 import profilePic from '../../assets/profile/profile.png'
@@ -62,7 +63,7 @@ I am continuously learning, building projects, and improving my craft to grow as
       <div className="profile-header-section">
         {/* Cover Photo */}
         <div className="cover-photo-container">
-          <img
+          <ImageLoader
             src={banner1}
             alt="Cover"
             className="cover-photo"
@@ -75,7 +76,7 @@ I am continuously learning, building projects, and improving my craft to grow as
           {/* Profile Picture */}
           <div className="profile-picture-wrapper">
             <div className="profile-picture-container">
-              <img
+              <ImageLoader
                 src={profilePic}
                 alt="Lance Adrian D. Acal"
                 className="profile-picture"

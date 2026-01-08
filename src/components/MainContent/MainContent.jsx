@@ -13,6 +13,7 @@ import {
   FiChevronRight
 } from 'react-icons/fi'
 import './MainContent.css'
+import ImageLoader from '../Loading/ImageLoader'
 import banner1 from '../../assets/images/banner1.jpg'
 import banner2 from '../../assets/images/banner2.jpg'
 import banner3 from '../../assets/images/banner3.jpg'
@@ -221,11 +222,10 @@ const MainContent = () => {
         </div>
         <div className="hero-banner">
           <div className="hero-overlay"></div>
-          <img
+          <ImageLoader
             src={banners[currentBanner]}
             alt="Data Analytics Banner"
             className="hero-image"
-            key={currentBanner}
           />
           <div className="hero-content">
             <h1>
@@ -282,7 +282,7 @@ const MainContent = () => {
                       }`}
                   >
                     <div className="slide-image">
-                      <img src={project.image} alt={project.title} />
+                      <ImageLoader src={project.image} alt={project.title} />
                       <div className="slide-overlay"></div>
                     </div>
                     <span className="slide-category" style={{ backgroundColor: project.color }}>

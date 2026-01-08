@@ -16,6 +16,7 @@ import {
     FiArrowDown
 } from 'react-icons/fi'
 import './Projects.css'
+import ImageLoader from '../Loading/ImageLoader'
 
 import { projects } from '../../data/projects'
 
@@ -186,7 +187,11 @@ const Projects = () => {
                         >
                             <div className="project-image-container">
                                 {project.image ? (
-                                    <img src={project.image} alt={project.title} className="project-image" />
+                                    <ImageLoader 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="project-image"
+                                    />
                                 ) : (
                                     <div className="project-placeholder">
                                         <FiFolder />
@@ -349,7 +354,11 @@ const Projects = () => {
                         <div className="modal-content">
                             <div className="modal-image-container">
                                 {selectedProject.image ? (
-                                    <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+                                    <ImageLoader 
+                                        src={selectedProject.image} 
+                                        alt={selectedProject.title} 
+                                        className="modal-image"
+                                    />
                                 ) : (
                                     <div className="modal-placeholder">
                                         <FiFolder />

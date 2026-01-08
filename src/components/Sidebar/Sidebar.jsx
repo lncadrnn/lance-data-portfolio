@@ -12,6 +12,7 @@ import {
   FiSun
 } from 'react-icons/fi'
 import './Sidebar.css'
+import ImageLoader from '../Loading/ImageLoader'
 
 // Import assets
 import profilePic from '../../assets/profile/profile.png'
@@ -57,7 +58,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Profile Section */}
           <div className="profile-section">
             <div className="profile-image">
-              <img
+              <ImageLoader
                 src={profilePic}
                 alt="Lance Adrian D. Acal"
               />
