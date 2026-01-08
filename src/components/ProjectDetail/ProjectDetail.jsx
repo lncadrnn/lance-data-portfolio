@@ -100,8 +100,8 @@ const ProjectDetail = () => {
         const colors = {
             'Data Science': '#3b82f6',
             'Analytics': '#ec4899',
-            'Visualization': '#10b981',
-            'Programming': '#f59e0b',
+            'Dashboard': '#10b981',
+            'Tools': '#f59e0b',
             'Machine Learning': '#8b5cf6'
         }
         return colors[category] || '#6b7280'
