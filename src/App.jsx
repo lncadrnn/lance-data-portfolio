@@ -7,6 +7,8 @@ import Achievements from './components/Achievements/Achievements'
 import CertificateDetail from './components/CertificateDetail/CertificateDetail'
 import Projects from './components/Projects/Projects'
 import ProjectDetail from './components/ProjectDetail/ProjectDetail'
+import Blogs from './components/Blogs/Blogs'
+import BlogDetail from './components/BlogDetail/BlogDetail'
 import UnderConstruction from './components/UnderConstruction/UnderConstruction'
 import Loading from './components/Loading/Loading'
 import './App.css'
@@ -75,7 +77,8 @@ function App() {
               <Route path="/achievements/:id" element={<CertificateDetail />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
-              <Route path="/blogs" element={<UnderConstruction pageName="Blogs" />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/:id" element={<BlogDetail />} />
             </Routes>
           </Layout>
         </div>

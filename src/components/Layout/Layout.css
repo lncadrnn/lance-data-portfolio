@@ -25,6 +25,10 @@
   padding-right: 12px;
 }
 
+.content-wrapper.no-sidebar {
+  grid-template-columns: 1fr;
+}
+
 /* Custom scrollbar for content-wrapper */
 .content-wrapper::-webkit-scrollbar {
   width: 8px;
@@ -135,6 +139,10 @@
     overflow-x: hidden;
     padding-right: 12px;
     padding-top: 60px;
+  }
+
+  .content-wrapper.no-sidebar {
+    grid-template-columns: 1fr;
   }
 
   .main-area {
@@ -328,5 +336,21 @@
   /* Ensure the sidebar containers don't interfere */
   .layout.about-layout .mobile-right-sidebar {
     display: contents !important;
+  }
+
+  /* Blogs Page Specific Layout */
+  .layout.blogs-layout .main-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-content: start;
+  }
+
+  /* Achievements Page Specific Layout */
+  .layout.achievements-layout .main-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-content: start;
   }
 }

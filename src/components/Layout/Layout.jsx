@@ -19,9 +19,11 @@ const Layout = ({ children }) => {
     location.pathname === '/achievements' ||
     location.pathname.startsWith('/achievements/') ||
     location.pathname === '/projects' ||
-    location.pathname.startsWith('/projects/')
+    location.pathname.startsWith('/projects/') ||
+    location.pathname === '/blogs' ||
+    location.pathname.startsWith('/blogs/')
 
-  // Check if we should show the right sidebar (only on Home and About)
+  // Check if we should show the right sidebar (only on Home and About, not on Blogs/Achievements)
   const showRightSidebar = location.pathname === '/' || location.pathname === '/about'
 
   const toggleSidebar = () => {
@@ -32,8 +34,16 @@ const Layout = ({ children }) => {
     setSidebarOpen(false)
   }
 
+  // Determine page-specific layout class
+  const getLayoutClass = () => {
+    if (location.pathname === '/about') return 'about-layout'
+    if (location.pathname === '/blogs') return 'blogs-layout'
+    if (location.pathname === '/achievements') return 'achievements-layout'
+    return ''
+  }
+
   return (
-    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!useAppLayout ? 'construction-mode' : ''} ${location.pathname === '/about' ? 'about-layout' : ''}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'} ${!useAppLayout ? 'construction-mode' : ''} ${getLayoutClass()}`}>
       {/* Hamburger Menu Button - Mobile Only */}
       <button className="hamburger-btn" onClick={toggleSidebar}>
         {sidebarOpen ? <FiX /> : <FiMenu />}
@@ -48,7 +58,7 @@ const Layout = ({ children }) => {
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
       {/* Scrollable content wrapper for main + right sidebar */}
-      <div className="content-wrapper">
+      <div className={`content-wrapper ${!showRightSidebar ? 'no-sidebar' : ''}`}>
         <div className={`main-area ${!showRightSidebar ? 'full-width' : ''}`}>
           {children}
           {/* Right sidebar content on mobile - shown after main content */}
