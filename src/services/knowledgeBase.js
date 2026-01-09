@@ -218,6 +218,10 @@ export function getKnowledgeResponse(intent) {
     // === GREETINGS & CONVERSATION ===
     greeting: () => {
       const greetings = [
+        `Hi, I’m Lance.
+
+Feel free to ask about myself, my portfolio website, or data-related topics I’m familiar with.
+I’ll answer as clearly and honestly as I can.`,
         `Hey there! 👋 Welcome to my portfolio! What would you like to know?`,
         `Hi! Feel free to ask about my projects, certificates, or how to navigate this website!`,
         `Hello! 👋 How can I help you today?`
@@ -375,7 +379,7 @@ Just ask naturally and I'll do my best to help! 😊`
     
     // === DEFAULT ===
     default: () => {
-      return `I'm not sure about that. Try asking about my projects, certificates, or how to navigate this website! 😊`
+      return `I can help with questions about myself, my portfolio website, or data topics! Try asking about my projects, certificates, navigation tips, or a data concept you’re curious about. 😊`
     }
   }
   

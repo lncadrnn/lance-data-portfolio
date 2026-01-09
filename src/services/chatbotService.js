@@ -142,9 +142,9 @@ function getRefusalMessage() {
  */
 function getUnknownResponse() {
   const responses = [
-    "I'm not quite sure what you're asking 🤔\n\nTry asking about:\n• My projects and work\n• My skills and tools\n• Data analytics concepts\n• How to contact me",
-    "Hmm, I didn't catch that! Could you rephrase? 😊\n\nI can help with questions about my portfolio, skills, projects, or data topics!",
-    "I'm not sure I understood. Let me know if you want to learn about my projects, skills, certificates, or data-related concepts! 📊"
+    "I'm not quite sure what you're asking 🤔\n\nI can help with:\n• **Myself** – fun facts, contact info, skills, background\n• **My portfolio website** – navigation, projects list, features\n• **Data-related topics** – analytics, Power BI, Excel, SQL, Python",
+    "Hmm, I didn't catch that! Could you rephrase? 😊\n\nI answer questions about:\n• **Myself** – who I am, my contacts, my story\n• **My portfolio** – how to navigate, view projects and certificates\n• **Data topics** – data analytics concepts and tools",
+    "I'm not sure I understood. Let me know if you want to know about:\n• **Myself** – details about me, how to reach me\n• **My portfolio website** – navigation tips, projects, certificates\n• **Data-related topics** – analytics, visualization, tools I use"
   ]
   
   return responses[Math.floor(Math.random() * responses.length)]
@@ -251,7 +251,7 @@ export function getQuickActions() {
  */
 export function getWelcomeMessage() {
   return {
-    text: "Hey there! 👋 I'm Lance. Welcome to my portfolio!\n\nAsk me about my projects, skills, certificates, or any data analytics questions. I'm here to help!",
+    text: "Hi, I'm Lance.\n\nFeel free to ask about myself, my portfolio website, or data-related topics I'm familiar with.\nI'll answer as clearly and honestly as I can.",
     type: 'greeting'
   }
 }
