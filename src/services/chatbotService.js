@@ -4,7 +4,7 @@
  */
 
 import { classifyIntent } from './nlpProcessor'
-import { getKnowledgeResponse, knowledgeBase } from './knowledgeBase'
+import { getKnowledgeResponse, personalInfo, websiteInfo } from './knowledgeBase'
 
 // Groq API configuration
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
