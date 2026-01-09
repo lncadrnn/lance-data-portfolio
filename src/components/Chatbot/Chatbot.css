@@ -9,19 +9,21 @@
 
 /* Toggle Button */
 .chatbot-toggle {
-  width: 56px;
+  min-width: 176px;
   height: 56px;
-  border-radius: 16px;
+  border-radius: 32px;
   border: none;
   background: var(--accent-hover);
   color: white;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0;
+  padding: 0 18px;
+  font-weight: 600;
 }
 
 .chatbot-toggle:hover {
@@ -36,14 +38,19 @@
 
 .chatbot-toggle.open {
   background: #1d4ed8;
+  min-width: 56px;
+  padding: 0;
   border-radius: 50%;
 }
 
-.chatbot-toggle-icon {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+.chatbot-toggle-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chatbot-toggle-text {
+  font-size: 14px;
 }
 
 /* Chat Window */
@@ -97,13 +104,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .chatbot-avatar-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .chatbot-header-info h3 {
@@ -190,6 +197,8 @@
 .message {
   display: flex;
   animation: messageIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 10px;
+  align-items: flex-start;
 }
 
 @keyframes messageIn {
@@ -218,6 +227,21 @@
   word-wrap: break-word;
 }
 
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+}
+
+.message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .message.user .message-content {
   background: var(--accent-color);
   color: white;
@@ -228,6 +252,13 @@
   background: var(--bg-tertiary);
   color: var(--text-primary);
   border-bottom-left-radius: 6px;
+}
+
+.message-sender {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
 }
 
 .message-content p,

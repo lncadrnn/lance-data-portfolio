@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react'
 import { ThemeContext } from '../../App'
 import { getChatbotResponse, getWelcomeMessage } from '../../services/chatbotService'
-import chatbotIcon from '../../assets/icons/chatbot-icon.png'
+import profileImage from '../../assets/profile/profile.png'
 import './Chatbot.css'
 
 /**
@@ -134,12 +134,19 @@ const Chatbot = () => {
         aria-label="Open chatbot"
       >
         {isOpen ? (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         ) : (
-          <img src={chatbotIcon} alt="Chatbot" className="chatbot-toggle-icon" />
+          <div className="chatbot-toggle-content">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              <path d="M8 9h8" />
+              <path d="M8 13h5" />
+            </svg>
+            <span className="chatbot-toggle-text">Chat with Lance!</span>
+          </div>
         )}
       </button>
 
@@ -150,10 +157,10 @@ const Chatbot = () => {
           <div className="chatbot-header">
             <div className="chatbot-header-content">
               <div className="chatbot-avatar">
-                <img src={chatbotIcon} alt="Bot" className="chatbot-avatar-icon" />
+                  <img src={profileImage} alt="Lance" className="chatbot-avatar-icon" />
               </div>
               <div className="chatbot-header-info">
-                <h3>Chat with Lance!</h3>
+                  <h3>Chat with Lance</h3>
                 <p className="status">
                   <span className="status-dot"></span>
                   Online
@@ -179,7 +186,15 @@ const Chatbot = () => {
                 key={message.id}
                 className={`message ${message.sender}`}
               >
+                {message.sender === 'bot' && (
+                  <div className="message-avatar">
+                    <img src={profileImage} alt="Lance" />
+                  </div>
+                )}
                 <div className="message-content">
+                  {message.sender === 'bot' && (
+                    <div className="message-sender">Lance</div>
+                  )}
                   <div className="message-text">
                     {message.sender === 'bot' 
                       ? parseFormattedText(message.text)
