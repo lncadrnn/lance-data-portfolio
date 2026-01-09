@@ -125,12 +125,6 @@ const Chatbot = () => {
     }
   }
 
-  const handleQuickAction = (text) => {
-    setInputValue(text)
-    // Optional: auto-send the quick action
-    // setTimeout(() => handleSendMessage(), 100)
-  }
-
   return (
     <div className={`chatbot-container ${darkMode ? 'dark' : 'light'}`}>
       {/* Chat Bubble Button */}
@@ -159,7 +153,7 @@ const Chatbot = () => {
                 <img src={chatbotIcon} alt="Bot" className="chatbot-avatar-icon" />
               </div>
               <div className="chatbot-header-info">
-                <h3>Lance's Assistant</h3>
+                <h3>Chat with Lance!</h3>
                 <p className="status">
                   <span className="status-dot"></span>
                   Online
@@ -211,22 +205,6 @@ const Chatbot = () => {
               </div>
             )}
             <div ref={messagesEndRef} />
-          </div>
-
-          {/* Quick Actions */}
-          <div className="quick-actions">
-            <button className="quick-action-btn" onClick={() => handleQuickAction("Tell me about your projects")}>
-              📂 Projects
-            </button>
-            <button className="quick-action-btn" onClick={() => handleQuickAction("What are your skills?")}>
-              🛠️ Skills
-            </button>
-            <button className="quick-action-btn" onClick={() => handleQuickAction("How can I contact you?")}>
-              📧 Contact
-            </button>
-            <button className="quick-action-btn" onClick={() => handleQuickAction("What is data analytics?")}>
-              📊 Data
-            </button>
           </div>
 
           {/* Input Area */}

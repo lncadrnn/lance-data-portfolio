@@ -9,6 +9,12 @@
 const INTENT_PATTERNS = {
   // === PORTFOLIO INTENTS (Rule-based responses) ===
   
+  projects_nav: {
+    keywords: ['where', 'find', 'navigate', 'open', 'visit', 'see', 'view', 'access', 'go', 'projects', 'project', 'tab', 'page'],
+    phrases: ['where are your projects', 'where to see projects', 'projects tab', 'projects page', 'open projects', 'go to projects', 'navigate to projects', 'view projects'],
+    weight: 14
+  },
+  
   projects: {
     keywords: ['project', 'projects', 'portfolio', 'work', 'works', 'made', 'built', 'created', 'gawa', 'ginawa'],
     phrases: ['show me', 'tell me about', 'what are your', 'ano projects', 'mga projects', 'your projects', 'show projects'],
@@ -81,6 +87,12 @@ const INTENT_PATTERNS = {
     weight: 10
   },
   
+  certificates_nav: {
+    keywords: ['where', 'find', 'navigate', 'open', 'visit', 'see', 'view', 'access', 'go', 'certificate', 'certificates', 'certification', 'certifications', 'achievements', 'achievement', 'tab', 'page'],
+    phrases: ['where are your certificates', 'where to see certificates', 'certificates tab', 'achievements tab', 'go to certificates', 'navigate to achievements', 'open certificates'],
+    weight: 14
+  },
+  
   experience: {
     keywords: ['experience', 'job', 'career', 'employment', 'internship', 'trabaho'],
     phrases: ['work experience', 'professional experience', 'have you worked', 'nag work ka ba'],
@@ -97,6 +109,12 @@ const INTENT_PATTERNS = {
     keywords: ['website', 'site', 'portfolio'],
     phrases: ['this website', 'your website', 'portfolio site', 'about this site', 'ano to'],
     weight: 8
+  },
+  
+  blogs_nav: {
+    keywords: ['where', 'find', 'navigate', 'open', 'visit', 'see', 'view', 'access', 'go', 'blog', 'blogs', 'articles', 'tab', 'page'],
+    phrases: ['where are your blogs', 'where to see blogs', 'blogs tab', 'blog page', 'go to blogs', 'navigate to blogs', 'open blogs'],
+    weight: 14
   },
   
   components: {

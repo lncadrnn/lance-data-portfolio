@@ -355,33 +355,6 @@
   }
 }
 
-/* Quick Actions */
-.quick-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 20px;
-  background: var(--bg-primary);
-  border-top: 1px solid var(--border-color);
-}
-
-.quick-action-btn {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--border-color);
-  background: var(--card-bg);
-  color: var(--text-secondary);
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quick-action-btn:hover {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-  background: var(--bg-tertiary);
-}
-
 /* Responsive Design */
 @media (max-width: 480px) {
   .chatbot-container {

@@ -255,6 +255,10 @@ Just ask naturally and I'll do my best to help! 😊`
       
       return `Here are my projects:\n\n${formatted}\n\n💡 Click on "Projects" in the sidebar to see full details and descriptions!`
     },
+
+    projects_nav: () => {
+      return `You can view all my projects on the Projects page. Tap "Projects" in the left sidebar and open any card to see details, tech stack, links, and write-up. If you're on mobile, open the sidebar first, then choose "Projects".`
+    },
     
     // === CERTIFICATES ===
     certificates: () => {
@@ -264,6 +268,14 @@ Just ask naturally and I'll do my best to help! 😊`
       ).join('\n\n')
       
       return `Here are some of my certificates:\n\n${formatted}\n\n📜 Check out the "Achievements" section in the sidebar for the complete list!`
+    },
+
+    certificates_nav: () => {
+      return `Certificates are under the Achievements section. Click "Achievements" in the left sidebar to browse them all, then open any tile for issuer, date, and skills.`
+    },
+
+    blogs_nav: () => {
+      return `Blogs live in the Blogs tab. Click "Blogs" in the sidebar to see posts. If you're on mobile, open the sidebar menu first.`
     },
     
     // === WEBSITE NAVIGATION ===
