@@ -13,31 +13,51 @@ import { projects } from '../data/projects'
 import { certificates } from '../data/certificates'
 
 // ============================================
-// PERSONAL INFO - TO BE FILLED IN BY LANCE
+// PERSONAL INFO
 // ============================================
 export const personalInfo = {
-  // Basic Info - FILL THESE IN
+  // Basic Info
   name: "Lance Adrian D. Acal",
   nickname: "Lance",
   
-  // Contact - FILL THESE IN
-  email: "", // e.g., "lanceadrn.acal@gmail.com"
-  github: "", // e.g., "https://github.com/lncadrnn"
-  github_username: "", // e.g., "lncadrnn"
-  linkedin: "", // e.g., "https://linkedin.com/in/lanceacal"
+  // Contact
+  email: "lanceadrn.acal@gmail.com",
+  github: "https://github.com/lncadrnn",
+  github_username: "lncadrnn",
+  linkedin: "https://linkedin.com/in/lncadrnn",
   
-  // Location/Education - FILL THESE IN
-  location: "", // e.g., "Cavite, Philippines"
-  university: "", // e.g., "Cavite State University – Imus"
-  course: "", // e.g., "Bachelor of Science in Computer Science"
+  // Location/Education
+  location: "Imus City, Cavite, Philippines",
+  university: "Cavite State University - Imus",
+  course: "Bachelor of Science in Computer Science",
   
-  // Short bio - FILL THIS IN (1-2 sentences about yourself)
-  short_bio: "",
+  // Short bio
+  short_bio: "I'm Lance, a Computer Science student with a strong focus on data analytics. I enjoy working with data, building dashboards, and creating projects that turn raw information into useful insights.",
   
-  // Skills - FILL THESE IN
-  primary_skills: [], // e.g., ["Excel", "Power BI", "Python", "SQL"]
-  tools: [], // e.g., ["Jupyter Notebook", "VS Code", "Git"]
-  currently_learning: [] // e.g., ["DAX", "Machine Learning"]
+  // Skills
+  primary_skills: ["Excel", "SQL", "Power BI", "Python (Pandas, Matplotlib, Seaborn)"],
+  tools: ["Jupyter Notebook", "Git", "VS Code"],
+  currently_learning: ["Advanced Data Analytics", "Data Science", "Machine Learning"],
+  
+  // Fun Facts & Hobbies
+  hobbies: [
+    "Playing online games like Mobile Legends and Minecraft",
+    "Playing chess",
+    "Watching anime (favorites: One Piece, Solo Leveling, Hunter x Hunter)",
+    "Competitive esports - represented school in Mobile Legends tournaments"
+  ],
+  
+  fun_facts: [
+    "I only focused on data analytics starting in 3rd year of college",
+    "This website was inspired by Mark Nizal's and Bryl Lim's portfolios",
+    "I practice and learned prompting with AI tools to enhance my workflow",
+    "Built with React + Vite",
+    "My favorite character is Gojo Satoru from Jujutsu Kaisen",
+    "I freelance in web development and web design while studying",
+    "I spend time exploring AI tools and data analytics just for fun",
+    "My data analytics inspiration is Alex the Analyst - I learned through his Data Analyst Bootcamp playlist on YouTube with his comprehensive roadmap",
+    "I like designing and building apps or systems for practical use, even outside school projects"
+  ]
 }
 
 // ============================================
@@ -370,7 +390,18 @@ Just ask naturally and I'll do my best to help! 😊`
     },
     
     hobbies: () => {
+      if (personalInfo.hobbies && personalInfo.hobbies.length > 0) {
+        return `Outside of data work, I enjoy:\n\n${personalInfo.hobbies.map(h => `• ${h}`).join('\n')}`
+      }
       return `I'm focused on data analytics and building projects. Check out my work in the Projects section! 📊`
+    },
+    
+    fun_facts: () => {
+      if (personalInfo.fun_facts && personalInfo.fun_facts.length > 0) {
+        const facts = personalInfo.fun_facts.slice(0, 5).map(f => `• ${f}`).join('\n')
+        return `Here are some fun facts about me:\n\n${facts}`
+      }
+      return `Ask me about my projects, skills, or data topics! 😊`
     },
     
     age: () => {

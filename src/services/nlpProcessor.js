@@ -124,8 +124,14 @@ const INTENT_PATTERNS = {
   },
   
   hobbies: {
-    keywords: ['hobbies', 'hobby', 'interests', 'fun', 'pastime', 'libangan'],
-    phrases: ['free time', 'for fun', 'ano libangan mo', 'what do you do for fun'],
+    keywords: ['hobbies', 'hobby', 'interests', 'fun', 'pastime', 'libangan', 'games', 'anime', 'chess'],
+    phrases: ['free time', 'for fun', 'ano libangan mo', 'what do you do for fun', 'what games', 'favorite anime', 'play games'],
+    weight: 10
+  },
+  
+  fun_facts: {
+    keywords: ['fun', 'fact', 'facts', 'interesting', 'trivia', 'tell me something', 'cool'],
+    phrases: ['fun facts', 'fun fact', 'something interesting', 'tell me something about', 'interesting facts', 'cool facts'],
     weight: 10
   },
   
