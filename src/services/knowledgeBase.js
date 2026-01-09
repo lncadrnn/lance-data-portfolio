@@ -1,380 +1,383 @@
 /**
- * Lance Adrian Acal - Personal Knowledge Base
- * This is the SINGLE SOURCE OF TRUTH for all portfolio-related responses.
- * The chatbot MUST answer strictly from this data for portfolio questions.
+ * Lance Adrian Acal - Portfolio Knowledge Base
+ * 
+ * This file contains ONLY:
+ * 1. Portfolio website navigation & features
+ * 2. Functions to pull data from existing data files (projects.js, certificates.js)
+ * 3. Placeholders for personal info (to be filled in by Lance)
+ * 
+ * NO made-up personal info, fun facts, or assumptions.
  */
 
-export const knowledgeBase = {
-  // Personal Information
-  about_me: {
-    name: "Lance Adrian D. Acal",
-    nickname: "Lance",
-    title: "Data Analytics Student & Aspiring Data Scientist",
-    tagline: "Turning data into insights, one dashboard at a time.",
-    bio: `I am a Computer Science student at Cavite State University – Imus, currently focused on building a strong foundation in Data Analytics as I work my way toward Data Science and eventually Machine Learning Engineering. I enjoy working with data, exploring patterns, uncovering meaningful insights, and transforming information into clear, impactful stories that help people and organizations make smarter decisions.
+import { projects } from '../data/projects'
+import { certificates } from '../data/certificates'
 
-Most of my experience is rooted in Microsoft Excel, which I confidently use for data cleaning, analysis, and basic automation. I am also continuously improving my skills in SQL for data querying and Python for analytics, especially using libraries such as Pandas, Matplotlib, and Seaborn. In addition, I work with Power BI to create data visualizations and dashboards, and while I am still learning DAX, I enjoy designing dashboards that are both insightful and visually engaging.
+// ============================================
+// PERSONAL INFO - TO BE FILLED IN BY LANCE
+// ============================================
+export const personalInfo = {
+  // Basic Info - FILL THESE IN
+  name: "Lance Adrian D. Acal",
+  nickname: "Lance",
+  
+  // Contact - FILL THESE IN
+  email: "", // e.g., "lanceadrn.acal@gmail.com"
+  github: "", // e.g., "https://github.com/lncadrnn"
+  github_username: "", // e.g., "lncadrnn"
+  linkedin: "", // e.g., "https://linkedin.com/in/lanceacal"
+  
+  // Location/Education - FILL THESE IN
+  location: "", // e.g., "Cavite, Philippines"
+  university: "", // e.g., "Cavite State University – Imus"
+  course: "", // e.g., "Bachelor of Science in Computer Science"
+  
+  // Short bio - FILL THIS IN (1-2 sentences about yourself)
+  short_bio: "",
+  
+  // Skills - FILL THESE IN
+  primary_skills: [], // e.g., ["Excel", "Power BI", "Python", "SQL"]
+  tools: [], // e.g., ["Jupyter Notebook", "VS Code", "Git"]
+  currently_learning: [] // e.g., ["DAX", "Machine Learning"]
+}
 
-Throughout my learning journey, I have worked on various mini projects, training program activities, self-made projects, dashboards, case studies, and even a capstone project to complete a data science training program and earn certification. These experiences allowed me to apply different tech skills, analyze real-world datasets, solve problems, and strengthen both my technical and analytical thinking abilities.
-
-Beyond technical skills, I value communication, clarity, and meaningful storytelling with data. I actively participate in webinars, online programs, and professional training to continuously expand my knowledge and build a strong learning portfolio. I also plan to share my journey through blogs to inspire others who are also exploring the world of data.
-
-I am continuously learning, building projects, and improving my craft to grow as a data professional. If anyone needs help analyzing datasets, creating dashboards, or understanding data for business or academic purposes, I'm always open to collaborate and help.`,
-    short_bio: "I'm a Computer Science student at Cavite State University – Imus, focused on Data Analytics and working towards Data Science. I love turning raw data into meaningful insights and creating dashboards that tell compelling stories.",
-    current_focus: "Building a strong foundation in Data Analytics while working toward Data Science and Machine Learning Engineering.",
-    values: ["Communication", "Clarity", "Meaningful data storytelling", "Continuous learning"]
-  },
-
-  // Contact Information
-  contact: {
-    email: "lanceadrn.acal@gmail.com",
-    github: "https://github.com/lncadrnn",
-    github_username: "lncadrnn",
-    linkedin: "https://linkedin.com/in/lanceacal",
-    linkedin_username: "lanceacal",
-    availability: "Open to collaboration and data-related projects!"
-  },
-
-  // Location/Demographics
-  location: {
-    city: "Cavite",
-    country: "Philippines",
-    university: "Cavite State University – Imus",
-    course: "Bachelor of Science in Computer Science",
-    year: "Currently studying"
-  },
-
-  // Skills
-  skills: {
-    primary: [
-      { name: "Microsoft Excel", level: "Confident", description: "Data cleaning, analysis, pivot tables, formulas, basic automation" },
-      { name: "Power BI", level: "Intermediate", description: "Dashboard design, data visualization, learning DAX" },
-      { name: "Python", level: "Learning", description: "Data analytics using Pandas, Matplotlib, Seaborn" },
-      { name: "SQL", level: "Learning", description: "Data querying and database management" }
-    ],
-    tools: ["Excel", "Power BI", "Python", "SQL", "Jupyter Notebook", "Git", "VS Code"],
-    libraries: ["Pandas", "Matplotlib", "Seaborn", "NumPy"],
-    concepts: [
-      "Data Cleaning & Wrangling",
-      "Exploratory Data Analysis (EDA)",
-      "Data Visualization",
-      "Dashboard Design",
-      "RFM Segmentation",
-      "Statistics (Descriptive & Inferential)",
-      "Data Storytelling"
-    ],
-    learning: ["DAX", "Machine Learning fundamentals", "Advanced Python"]
-  },
-
-  // Projects Summary (detailed projects are in projects.js)
-  projects: {
-    summary: "I have worked on various projects including Power BI dashboards, data analysis projects, Excel tools, and a data science capstone project.",
-    featured: [
-      {
-        title: "Brazilian E-Commerce Customer Segmentation (Olist)",
-        type: "Data Science Capstone",
-        tech: ["Python", "Pandas", "Matplotlib", "Seaborn", "RFM Analysis"],
-        description: "Customer segmentation using RFM analysis on 100,000+ orders to identify high-value customers and improve marketing strategies."
-      },
-      {
-        title: "Netflix Global Content Analysis",
-        type: "Analytics Dashboard",
-        tech: ["Power BI", "DAX", "Power Query", "Excel"],
-        description: "Comprehensive analysis of Netflix content across 15 countries, revealing cultural patterns in movie production and runtime."
-      },
-      {
-        title: "Financial Report Dashboard",
-        type: "BI Dashboard",
-        tech: ["Power BI", "Dashboard Design", "Power Query"],
-        description: "Executive summary dashboard showing $118M+ in revenue, segment analysis, and geographic insights."
-      },
-      {
-        title: "All-in-One Dynamic Content Calendar",
-        type: "Excel Tool",
-        tech: ["Excel", "Formulas", "Conditional Formatting"],
-        description: "A responsive calendar tool with side-by-side task list and visual calendar grid."
-      }
-    ],
-    github_link: "https://github.com/lncadrnn"
-  },
-
-  // Certificates Summary (detailed in certificates.js)
-  certificates: {
-    summary: "I have earned certifications in Data Science, Data Analytics, Python, Excel, Power BI, Statistics, and Digital Literacy from recognized programs.",
-    list: [
-      {
-        title: "Data Science Certificate",
-        issuer: "Direcho Trabaho / The Coding School",
-        date: "November 2025",
-        skills: ["Python", "Pandas", "Matplotlib", "Seaborn"]
-      },
-      {
-        title: "Data Analytics Learning Challenge",
-        issuer: "DataSense Analytics",
-        date: "May 2025",
-        skills: ["Data Analysis", "Excel", "Power BI", "Statistics"]
-      },
-      {
-        title: "Digital Literacy and AI Tools",
-        issuer: "Direcho Trabaho",
-        date: "June 2025",
-        skills: ["AI Tools", "Prompt Engineering", "Digital Literacy"]
-      },
-      {
-        title: "Business Intelligence with Power BI Desktop",
-        issuer: "DataSense Analytics",
-        date: "March 2025",
-        skills: ["Power BI", "Dashboard Design"]
-      },
-      {
-        title: "Python Fundamentals",
-        issuer: "Data Analytics Philippines",
-        date: "April 2025",
-        skills: ["Python", "Jupyter"]
-      },
-      {
-        title: "Statistics with Microsoft Excel",
-        issuer: "Data Analytics Philippines",
-        date: "April 2025",
-        skills: ["Statistics", "Excel"]
-      }
-    ],
-    achievement: "Top Student - Digital Literacy and AI Tools (Direcho Trabaho, June 2025)"
-  },
-
-  // Portfolio Website Info
-  portfolio: {
-    name: "Lance Data Portfolio",
-    description: "My personal portfolio website showcasing my data analytics projects, certifications, and skills.",
-    purpose: "To present my work, share my learning journey, and connect with others in the data field.",
-    features: [
-      "Project showcase with detailed descriptions",
-      "Certificates gallery",
-      "Skills overview",
-      "Dark/Light theme toggle",
-      "Responsive design",
-      "PWA support (installable app)",
-      "AI-powered chatbot assistant"
-    ]
-  },
-
-  // Components Used (for website tech stack questions)
-  components: {
-    frontend: {
-      framework: "React 18",
-      bundler: "Vite",
-      styling: "CSS (custom styling with CSS variables)",
-      icons: "React Icons (Feather Icons)",
-      routing: "React Router v6"
+// ============================================
+// PORTFOLIO WEBSITE INFO (FIXED - Don't change)
+// ============================================
+export const websiteInfo = {
+  name: "Lance Data Portfolio",
+  description: "A personal portfolio website showcasing data analytics projects, certifications, and skills.",
+  
+  // Main sections/pages
+  sections: {
+    home: {
+      name: "Home / About Me",
+      description: "The main landing page with profile info, skills overview, and introduction.",
+      howToNavigate: "This is the default page when you visit the website. Click 'About' in the sidebar."
     },
-    features: {
-      theme: "Dark/Light mode toggle with CSS variables",
-      responsive: "Mobile-first responsive design",
-      pwa: "Progressive Web App with service worker",
-      performance: "Optimized images, lazy loading"
+    projects: {
+      name: "Projects",
+      description: "Gallery of data analytics projects including dashboards, analyses, and tools.",
+      howToNavigate: "Click 'Projects' in the left sidebar to view all projects. Click any project card to see full details."
     },
-    deployment: "Vercel",
-    hosting: "Vercel (vercel.json configured)",
-    ai_features: {
-      chatbot: "Hybrid AI chatbot with NLP intent matching",
-      llm: "Groq API (for data-related questions only)"
+    achievements: {
+      name: "Achievements / Certificates",
+      description: "Collection of certifications and achievements in data analytics, Python, Excel, Power BI, etc.",
+      howToNavigate: "Click 'Achievements' in the left sidebar to view all certificates."
+    },
+    blogs: {
+      name: "Blogs",
+      description: "Articles and posts about data analytics topics (coming soon).",
+      howToNavigate: "Click 'Blogs' in the left sidebar."
     }
   },
-
-  // PWA Installation Steps
-  pwa_installation: {
-    description: "This website is a Progressive Web App (PWA) that you can install on your device for offline access!",
-    steps: {
-      chrome_desktop: [
-        "Open the website in Google Chrome",
-        "Look for the install icon (➕) in the address bar",
-        "Click 'Install' in the popup",
-        "The app will be added to your desktop/start menu"
-      ],
-      chrome_mobile: [
-        "Open the website in Chrome on your phone",
-        "Tap the three-dot menu (⋮)",
-        "Select 'Add to Home Screen' or 'Install App'",
-        "Tap 'Install' to confirm",
-        "The app icon will appear on your home screen"
-      ],
-      safari_ios: [
-        "Open the website in Safari on iPhone/iPad",
-        "Tap the Share button (□↑)",
-        "Scroll down and tap 'Add to Home Screen'",
-        "Tap 'Add' in the top right corner",
-        "The app will appear on your home screen"
-      ],
-      edge: [
-        "Open the website in Microsoft Edge",
-        "Click the three-dot menu (⋯)",
-        "Select 'Apps' → 'Install this site as an app'",
-        "Click 'Install' to confirm"
-      ]
+  
+  // Features
+  features: {
+    darkMode: {
+      name: "Dark/Light Mode",
+      description: "Toggle between dark and light themes for comfortable viewing.",
+      howToUse: "Click the moon/sun icon in the top-right corner of the sidebar to switch themes."
     },
-    benefits: [
-      "Access the portfolio offline",
-      "Faster loading times",
-      "App-like experience",
-      "Direct access from home screen"
-    ]
+    pwa: {
+      name: "Install as App (PWA)",
+      description: "This website can be installed as an app on your device for offline access.",
+      howToInstall: {
+        chrome_desktop: [
+          "Open the website in Google Chrome",
+          "Look for the install icon (➕) in the address bar on the right",
+          "Click 'Install' in the popup",
+          "The app will be added to your desktop/start menu"
+        ],
+        chrome_mobile: [
+          "Open the website in Chrome on your phone",
+          "Tap the three-dot menu (⋮) at the top right",
+          "Select 'Add to Home Screen' or 'Install App'",
+          "Tap 'Install' to confirm"
+        ],
+        safari_ios: [
+          "Open the website in Safari on iPhone/iPad",
+          "Tap the Share button (□↑) at the bottom",
+          "Scroll down and tap 'Add to Home Screen'",
+          "Tap 'Add' in the top right corner"
+        ],
+        edge: [
+          "Open the website in Microsoft Edge",
+          "Click the three-dot menu (⋯)",
+          "Select 'Apps' → 'Install this site as an app'",
+          "Click 'Install'"
+        ]
+      }
+    },
+    chatbot: {
+      name: "AI Chatbot Assistant",
+      description: "Ask questions about the portfolio, projects, or data analytics topics.",
+      howToUse: "Click the chat bubble icon in the bottom-right corner to open the chatbot."
+    },
+    responsiveDesign: {
+      name: "Responsive Design",
+      description: "The website adapts to all screen sizes - desktop, tablet, and mobile."
+    }
   },
-
-  // Fun Facts
-  fun_facts: [
-    "I love designing dashboards that are both insightful AND visually appealing! 🎨",
-    "I earned Top Student recognition for my AI Tools course! 🏆",
-    "I believe data storytelling is just as important as technical skills 📊",
-    "I'm always participating in webinars and training programs to learn more 📚",
-    "I built this portfolio website myself using React and Vite! 💻"
-  ],
-
-  // Hobbies/Interests
-  hobbies: [
-    "Creating data visualizations and dashboards",
-    "Learning new data tools and technologies",
-    "Participating in online training programs and webinars",
-    "Building personal projects to apply what I learn"
-  ],
-
-  // Chatbot Meta
-  chatbot: {
-    name: "Lance's Portfolio Assistant",
-    capabilities: [
-      "Answer questions about me (Lance)",
-      "Share information about my projects and skills",
-      "Explain data analytics concepts",
-      "Help you navigate this portfolio",
-      "Provide contact information"
-    ],
-    limitations: [
-      "I only answer questions about this portfolio and data-related topics",
-      "I cannot help with general knowledge or unrelated tech topics",
-      "I speak as Lance, in first person"
-    ]
+  
+  // Tech stack used to build this website
+  techStack: {
+    frontend: "React 18",
+    bundler: "Vite",
+    styling: "CSS with CSS Variables",
+    icons: "React Icons (Feather Icons)",
+    routing: "React Router v6",
+    deployment: "Vercel",
+    pwa: "Service Worker for offline support",
+    chatbot: "Hybrid AI with NLP intent matching + Groq LLM"
   }
 }
+
+// ============================================
+// HELPER FUNCTIONS TO GET DATA
+// ============================================
+
+/**
+ * Get all projects with basic info
+ */
+export function getProjectsList() {
+  return projects.map(p => ({
+    title: p.title,
+    category: p.category,
+    technologies: p.technologies,
+    date: p.date,
+    githubUrl: p.githubUrl
+  }))
+}
+
+/**
+ * Get projects by category (e.g., "Data Science", "Dashboard", "Analytics", "Tools")
+ */
+export function getProjectsByCategory(category) {
+  const categoryLower = category.toLowerCase()
+  return projects.filter(p => 
+    p.category.toLowerCase().includes(categoryLower) ||
+    p.technologies.some(t => t.toLowerCase().includes(categoryLower))
+  )
+}
+
+/**
+ * Get featured projects
+ */
+export function getFeaturedProjects() {
+  return projects
+    .filter(p => p.featured)
+    .sort((a, b) => (a.featuredOrder || 99) - (b.featuredOrder || 99))
+}
+
+/**
+ * Get all certificates with basic info
+ */
+export function getCertificatesList() {
+  return certificates.map(c => ({
+    title: c.title,
+    issuer: c.issuer,
+    date: c.date,
+    category: c.category,
+    skills: c.skills
+  }))
+}
+
+/**
+ * Get certificates by category (e.g., "Data Science", "Analytics", "Programming")
+ */
+export function getCertificatesByCategory(category) {
+  const categoryLower = category.toLowerCase()
+  return certificates.filter(c => 
+    c.category.toLowerCase().includes(categoryLower) ||
+    c.title.toLowerCase().includes(categoryLower) ||
+    c.skills.some(s => s.toLowerCase().includes(categoryLower))
+  )
+}
+
+/**
+ * Get certificates related to a specific skill/topic
+ */
+export function getCertificatesBySkill(skill) {
+  const skillLower = skill.toLowerCase()
+  return certificates.filter(c => 
+    c.skills.some(s => s.toLowerCase().includes(skillLower)) ||
+    c.title.toLowerCase().includes(skillLower) ||
+    c.description.toLowerCase().includes(skillLower)
+  )
+}
+
+// ============================================
+// RESPONSE GENERATOR
+// ============================================
 
 /**
  * Get a response from the knowledge base for a specific intent
  */
 export function getKnowledgeResponse(intent) {
-  const kb = knowledgeBase
-  
   const responses = {
-    // Greetings
+    // === GREETINGS & CONVERSATION ===
     greeting: () => {
       const greetings = [
-        `Hey there! 👋 I'm Lance. How can I help you today?`,
-        `Hi! Welcome to my portfolio! What would you like to know about me or my work?`,
-        `Hello! 👋 Feel free to ask me about my projects, skills, or anything data-related!`,
-        `Hey! Great to have you here. I'm happy to answer questions about my portfolio or data topics!`
+        `Hey there! 👋 Welcome to my portfolio! What would you like to know?`,
+        `Hi! Feel free to ask about my projects, certificates, or how to navigate this website!`,
+        `Hello! 👋 How can I help you today?`
       ]
       return greetings[Math.floor(Math.random() * greetings.length)]
     },
     
-    // Thanks
     thanks: () => {
       const replies = [
         `You're welcome! Let me know if you have more questions 😊`,
-        `No problem! Happy to help! 🙌`,
-        `Anytime! Feel free to explore more or ask anything else!`,
-        `Glad I could help! 😊`
+        `No problem! Happy to help!`,
+        `Anytime! Feel free to ask anything else!`
       ]
       return replies[Math.floor(Math.random() * replies.length)]
     },
     
-    // Help
     help: () => {
       return `Here's what you can ask me about:
 
-📌 **About Me** – Who I am, my background, education
-🛠️ **Skills** – My technical skills and tools I use
-📂 **Projects** – My data projects and portfolio work
-📜 **Certificates** – My certifications and achievements
-📧 **Contact** – How to reach me
-📊 **Data Topics** – I can explain data analytics concepts!
-📲 **PWA Install** – How to install this website as an app
+📂 **Projects** – "Show me your projects" or "Do you have data science projects?"
+📜 **Certificates** – "What certificates do you have?" or "Do you have Python certifications?"
+🧭 **Navigation** – "How do I view projects?" or "How do I install this app?"
+🌓 **Features** – "How to switch to dark mode?" or "What features does this website have?"
+📊 **Data Topics** – I can explain data analytics concepts too!
 
-Just type your question naturally, and I'll do my best to help! 😊`
+Just ask naturally and I'll do my best to help! 😊`
     },
     
-    // About
-    about: () => kb.about_me.short_bio + `\n\nCurrently, I'm ${kb.about_me.current_focus}`,
-    
-    // Name
-    name: () => `I'm ${kb.about_me.name}, but you can call me ${kb.about_me.nickname}! 😊`,
-    
-    // Location
-    location: () => `I'm based in ${kb.location.city}, ${kb.location.country}. I'm currently studying ${kb.location.course} at ${kb.location.university}.`,
-    
-    // Age/Education
-    age: () => `I'm a college student studying ${kb.location.course} at ${kb.location.university}. Still on my learning journey! 📚`,
-    education: () => `I'm currently studying ${kb.location.course} at ${kb.location.university} in ${kb.location.city}, ${kb.location.country}. I'm focused on building skills in Data Analytics and working toward Data Science.`,
-    
-    // Email
-    email: () => `You can reach me at **${kb.contact.email}** 📧\n\nFeel free to send me a message anytime!`,
-    
-    // Contact
-    contact: () => `Here's how you can reach me:\n\n📧 **Email:** ${kb.contact.email}\n🐙 **GitHub:** github.com/${kb.contact.github_username}\n💼 **LinkedIn:** linkedin.com/in/${kb.contact.linkedin_username}\n\n${kb.contact.availability}`,
-    
-    // GitHub
-    github: () => `You can find my projects and code on GitHub!\n\n🔗 **GitHub:** ${kb.contact.github}\n👤 **Username:** ${kb.contact.github_username}\n\nFeel free to check out my repositories and star any projects you find useful! ⭐`,
-    
-    // LinkedIn
-    linkedin: () => `Connect with me on LinkedIn!\n\n🔗 **LinkedIn:** ${kb.contact.linkedin}\n\nI'd love to connect and expand our professional networks! 🤝`,
-    
-    // Skills
-    skills: () => {
-      const primarySkills = kb.skills.primary.map(s => `• **${s.name}** (${s.level}): ${s.description}`).join('\n')
-      const tools = kb.skills.tools.join(', ')
-      
-      return `Here are my main skills:\n\n${primarySkills}\n\n🛠️ **Tools I use:** ${tools}\n\n📚 **Currently learning:** ${kb.skills.learning.join(', ')}`
-    },
-    
-    // Projects
+    // === PROJECTS ===
     projects: () => {
-      const projectList = kb.projects.featured.map(p => 
-        `📂 **${p.title}**\n   ${p.type} | ${p.tech.join(', ')}\n   ${p.description}`
+      const projectList = getProjectsList()
+      const formatted = projectList.map(p => 
+        `• **${p.title}** (${p.category})\n  Tech: ${p.technologies.slice(0, 3).join(', ')}`
       ).join('\n\n')
       
-      return `Here are some of my featured projects:\n\n${projectList}\n\n🔗 See more on my GitHub: ${kb.projects.github_link}`
+      return `Here are my projects:\n\n${formatted}\n\n💡 Click on "Projects" in the sidebar to see full details and descriptions!`
     },
     
-    // Certificates
+    // === CERTIFICATES ===
     certificates: () => {
-      const certList = kb.certificates.list.slice(0, 4).map(c => 
-        `📜 **${c.title}**\n   ${c.issuer} | ${c.date}`
+      const certList = getCertificatesList()
+      const formatted = certList.slice(0, 6).map(c => 
+        `• **${c.title}**\n  Issuer: ${c.issuer} | ${c.date}`
       ).join('\n\n')
       
-      return `Here are some of my certifications:\n\n${certList}\n\n🏆 **Achievement:** ${kb.certificates.achievement}\n\nCheck out the Achievements section for the full list!`
+      return `Here are some of my certificates:\n\n${formatted}\n\n📜 Check out the "Achievements" section in the sidebar for the complete list!`
     },
     
-    // Experience
-    experience: () => `While I'm still a student, I've gained hands-on experience through:\n\n• Training programs and bootcamps\n• Personal data projects and case studies\n• A capstone project for my Data Science certification\n• Building dashboards and analysis reports\n\nI'm actively looking for opportunities to apply my skills in real-world settings! 🚀`,
-    
-    // PWA Installation
-    pwa: () => {
-      return `${kb.pwa_installation.description}\n\n**For Chrome (Desktop):**\n${kb.pwa_installation.steps.chrome_desktop.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n**For iPhone (Safari):**\n${kb.pwa_installation.steps.safari_ios.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n**Benefits:** ${kb.pwa_installation.benefits.join(', ')}`
+    // === WEBSITE NAVIGATION ===
+    portfolio: () => {
+      const w = websiteInfo
+      return `${w.description}\n\n**Main Sections:**\n• **Home/About** – Profile and introduction\n• **Projects** – Data analytics projects gallery\n• **Achievements** – Certificates and recognitions\n• **Blogs** – Articles (coming soon)\n\nUse the sidebar on the left to navigate between sections!`
     },
     
-    // Portfolio
-    portfolio: () => `${kb.portfolio.description}\n\n**Features:**\n${kb.portfolio.features.map(f => `• ${f}`).join('\n')}\n\nFeel free to explore and let me know what you think! 😊`,
-    
-    // Components/Tech Stack
     components: () => {
-      const c = kb.components
-      return `Here's the tech stack I used to build this portfolio:\n\n**Frontend:**\n• Framework: ${c.frontend.framework}\n• Bundler: ${c.frontend.bundler}\n• Styling: ${c.frontend.styling}\n• Icons: ${c.frontend.icons}\n• Routing: ${c.frontend.routing}\n\n**Features:**\n• Theme: ${c.features.theme}\n• PWA: ${c.features.pwa}\n• Deployment: ${c.deployment}\n\n**AI Features:**\n• ${c.ai_features.chatbot}\n• LLM: ${c.ai_features.llm}`
+      const tech = websiteInfo.techStack
+      return `This portfolio was built with:\n\n• **Framework:** ${tech.frontend}\n• **Bundler:** ${tech.bundler}\n• **Styling:** ${tech.styling}\n• **Icons:** ${tech.icons}\n• **Routing:** ${tech.routing}\n• **Deployment:** ${tech.deployment}\n• **Chatbot:** ${tech.chatbot}`
     },
     
-    // Hobbies
-    hobbies: () => `Here's what I enjoy doing:\n\n${kb.hobbies.map(h => `• ${h}`).join('\n')}\n\n${kb.fun_facts[Math.floor(Math.random() * kb.fun_facts.length)]}`,
+    pwa: () => {
+      const pwa = websiteInfo.features.pwa
+      const chromeSteps = pwa.howToInstall.chrome_desktop.map((s, i) => `${i + 1}. ${s}`).join('\n')
+      const mobileSteps = pwa.howToInstall.chrome_mobile.map((s, i) => `${i + 1}. ${s}`).join('\n')
+      
+      return `${pwa.description}\n\n**On Desktop (Chrome):**\n${chromeSteps}\n\n**On Mobile (Chrome):**\n${mobileSteps}\n\n💡 Once installed, you can access the portfolio even offline!`
+    },
     
-    // Default fallback
-    default: () => `I'm not sure I understood that. Try asking about my projects, skills, certificates, or how to contact me! 😊`
+    // === PERSONAL INFO (uses placeholders if not filled) ===
+    about: () => {
+      if (personalInfo.short_bio) {
+        return personalInfo.short_bio
+      }
+      return `I'm ${personalInfo.name}. Check out my projects and certificates in the sidebar to learn more about what I do! 😊`
+    },
+    
+    name: () => `I'm ${personalInfo.name}! You can call me ${personalInfo.nickname}. 😊`,
+    
+    email: () => {
+      if (personalInfo.email) {
+        return `You can reach me at **${personalInfo.email}** 📧`
+      }
+      return `My contact info isn't set up in the chatbot yet, but you can find it on my profile page!`
+    },
+    
+    contact: () => {
+      const parts = []
+      if (personalInfo.email) parts.push(`📧 **Email:** ${personalInfo.email}`)
+      if (personalInfo.github) parts.push(`🐙 **GitHub:** ${personalInfo.github}`)
+      if (personalInfo.linkedin) parts.push(`💼 **LinkedIn:** ${personalInfo.linkedin}`)
+      
+      if (parts.length > 0) {
+        return `Here's how you can reach me:\n\n${parts.join('\n')}`
+      }
+      return `My contact details are on the profile page. Check the "About" section in the sidebar!`
+    },
+    
+    github: () => {
+      if (personalInfo.github) {
+        return `Check out my GitHub: ${personalInfo.github} 🐙`
+      }
+      return `My GitHub link is on my profile page. Click "About" in the sidebar to find it!`
+    },
+    
+    linkedin: () => {
+      if (personalInfo.linkedin) {
+        return `Connect with me on LinkedIn: ${personalInfo.linkedin} 💼`
+      }
+      return `My LinkedIn is on my profile page. Check the "About" section!`
+    },
+    
+    location: () => {
+      if (personalInfo.location && personalInfo.university) {
+        return `I'm based in ${personalInfo.location}, studying at ${personalInfo.university}.`
+      }
+      return `You can find my location info on my profile page in the "About" section.`
+    },
+    
+    education: () => {
+      if (personalInfo.university && personalInfo.course) {
+        return `I'm studying ${personalInfo.course} at ${personalInfo.university}.`
+      }
+      return `Check out my profile page for education details!`
+    },
+    
+    skills: () => {
+      if (personalInfo.primary_skills.length > 0) {
+        return `My main skills include: **${personalInfo.primary_skills.join(', ')}**\n\nCheck the "About" section for the full skills overview!`
+      }
+      return `You can see my skills on the profile page. Click "About" in the sidebar to view them with icons!`
+    },
+    
+    experience: () => {
+      return `Check out my "Projects" and "Achievements" sections to see what I've worked on! The projects showcase my hands-on experience with data analytics.`
+    },
+    
+    hobbies: () => {
+      return `I'm focused on data analytics and building projects. Check out my work in the Projects section! 📊`
+    },
+    
+    age: () => {
+      return `I don't share my age here, but feel free to check out my projects and certificates! 😊`
+    },
+    
+    // === DEFAULT ===
+    default: () => {
+      return `I'm not sure about that. Try asking about my projects, certificates, or how to navigate this website! 😊`
+    }
   }
   
   return responses[intent] ? responses[intent]() : responses.default()
 }
 
-export default knowledgeBase
+export default {
+  personalInfo,
+  websiteInfo,
+  getProjectsList,
+  getProjectsByCategory,
+  getFeaturedProjects,
+  getCertificatesList,
+  getCertificatesByCategory,
+  getCertificatesBySkill,
+  getKnowledgeResponse
+}

@@ -1,205 +1,192 @@
 /**
- * NLP Intent Normalization Layer
- * Maps user input to canonical intents using synonyms, Tagalog/Taglish phrases,
- * and fuzzy matching for misspellings.
+ * NLP Intent Normalization Layer v2
+ * Robust keyword-based intent detection with scoring system.
+ * No loose fuzzy matching - uses exact keywords and explicit misspellings.
  */
 
-// Synonym dictionaries for intent mapping
-const INTENT_SYNONYMS = {
-  // Contact-related
-  email: [
-    'email', 'e-mail', 'emali', 'emal', 'mail', 'gmail', 'koreo', 'address',
-    'send message', 'message you', 'email address', 'email mo', 'email niya',
-    'pano kita macon', 'paano kita macocontact', 'pano ka macocontact',
-    'how to reach', 'reach you', 'reach out', 'contact email'
-  ],
-  contact: [
-    'contact', 'kontact', 'kontak', 'macontact', 'makontak', 'reach',
-    'get in touch', 'touch base', 'connect', 'communication', 'message',
-    'pano ka kontakin', 'paano kita mareach', 'how to contact',
-    'contact info', 'contact information', 'contact details',
-    'socials', 'social media', 'linkedin', 'github account'
-  ],
-  github: [
-    'github', 'git hub', 'git', 'repository', 'repo', 'repos', 'repositories',
-    'source code', 'code repo', 'github link', 'github mo', 'github niya'
-  ],
-  linkedin: [
-    'linkedin', 'linked in', 'linkdin', 'professional profile',
-    'linkedin mo', 'linkedin niya', 'linkedin link'
-  ],
+// Intent patterns with keywords and their weights
+// Higher weight = stronger signal for that intent
+const INTENT_PATTERNS = {
+  // === PORTFOLIO INTENTS (Rule-based responses) ===
   
-  // About/Personal
-  about: [
-    'about', 'about you', 'about lance', 'who are you', 'who is lance',
-    'sino ka', 'sino si lance', 'introduce', 'introduction', 'tell me about',
-    'background', 'bio', 'biography', 'profile', 'yourself',
-    'kwento mo', 'tungkol sayo', 'about mo', 'ikaw ba', 'sino ba ikaw'
-  ],
-  name: [
-    'name', 'pangalan', 'full name', 'your name', 'pangalan mo',
-    'ano pangalan mo', 'what is your name', 'ano name mo'
-  ],
-  location: [
-    'location', 'where', 'saan', 'address', 'city', 'country', 'lugar',
-    'nasaan ka', 'saan ka', 'where are you', 'where do you live',
-    'taga saan', 'tagasaan ka', 'based', 'from where'
-  ],
-  age: [
-    'age', 'old', 'birthday', 'birthdate', 'born', 'ilang taon',
-    'edad', 'how old', 'when were you born', 'kailan birthday mo'
-  ],
-  education: [
-    'education', 'school', 'university', 'college', 'course', 'degree',
-    'study', 'studying', 'student', 'eskwela', 'paaralan', 'kurso',
-    'ano course mo', 'saan ka nag aaral', 'where do you study',
-    'what course', 'academic', 'academics'
-  ],
+  projects: {
+    keywords: ['project', 'projects', 'portfolio', 'work', 'works', 'made', 'built', 'created', 'gawa', 'ginawa'],
+    phrases: ['show me', 'tell me about', 'what are your', 'ano projects', 'mga projects', 'your projects', 'show projects'],
+    weight: 10
+  },
   
-  // Skills
-  skills: [
-    'skills', 'skill', 'abilities', 'expertise', 'proficiency',
-    'tech stack', 'technologies', 'tools', 'what can you do',
-    'ano alam mo', 'ano skills mo', 'mga skills', 'kakayahan',
-    'capable', 'proficient', 'good at', 'stack', 'skils', 'skilz'
-  ],
+  skills: {
+    keywords: ['skill', 'skills', 'abilities', 'expertise', 'stack', 'tools', 'technologies', 'proficient', 'capable'],
+    phrases: ['tech stack', 'what can you do', 'ano alam mo', 'ano skills mo', 'mga skills', 'good at', 'what tools'],
+    weight: 10
+  },
   
-  // Projects
-  projects: [
-    'projects', 'project', 'works', 'work', 'portfolio projects',
-    'made', 'created', 'built', 'gawa', 'ginawa', 'mga projects',
-    'ano projects mo', 'saan projects mo', 'show projects',
-    'what have you made', 'what did you build', 'mga gawa'
-  ],
+  contact: {
+    keywords: ['contact', 'reach', 'connect', 'message', 'socials'],
+    phrases: ['contact info', 'contact you', 'reach you', 'get in touch', 'how to contact', 'contact details', 'pano kontakin'],
+    weight: 10
+  },
   
-  // Certificates
-  certificates: [
-    'certificates', 'certificate', 'certifications', 'certification',
-    'credentials', 'badges', 'awards', 'sertipiko', 'mga certificate',
-    'ano certificates mo', 'certified', 'accredited', 'certs'
-  ],
+  email: {
+    keywords: ['email', 'e-mail', 'gmail', 'mail'],
+    phrases: ['email address', 'your email', 'email mo', 'send email'],
+    weight: 12  // Higher weight to prioritize over contact
+  },
   
-  // Experience
-  experience: [
-    'experience', 'work experience', 'job', 'career', 'employment',
-    'work history', 'professional experience', 'trabaho', 'karanasan',
-    'nag work ka ba', 'may experience ka ba', 'internship'
-  ],
+  github: {
+    keywords: ['github', 'repo', 'repository', 'repositories'],
+    phrases: ['github link', 'github account', 'source code', 'github mo', 'your github'],
+    weight: 12
+  },
   
-  // PWA Installation
-  pwa: [
-    'pwa', 'install', 'app', 'download', 'progressive web app',
-    'install app', 'add to home', 'homescreen', 'offline',
-    'pano iinstall', 'paano mag install', 'how to install',
-    'install this', 'download app', 'install website'
-  ],
+  linkedin: {
+    keywords: ['linkedin'],
+    phrases: ['linkedin profile', 'linkedin link', 'linkedin mo', 'your linkedin'],
+    weight: 12
+  },
   
-  // Portfolio/Website
-  portfolio: [
-    'portfolio', 'website', 'site', 'web', 'this website',
-    'your website', 'portfolio site', 'ano to', 'what is this',
-    'about this site', 'about website'
-  ],
-  components: [
-    'components', 'component', 'tech used', 'technologies used',
-    'built with', 'made with', 'what did you use', 'stack used',
-    'framework', 'library', 'react', 'vite', 'ano ginamit mo',
-    'paano mo ginawa', 'how did you build', 'tools used'
-  ],
+  about: {
+    keywords: ['about', 'who', 'introduce', 'introduction', 'background', 'bio', 'biography', 'yourself'],
+    phrases: ['about you', 'who are you', 'tell me about yourself', 'about lance', 'sino ka', 'sino si lance', 'tungkol sayo'],
+    weight: 8
+  },
   
-  // Fun/Personal
-  hobbies: [
-    'hobbies', 'hobby', 'interests', 'free time', 'fun', 'libangan',
-    'ano libangan mo', 'what do you do for fun', 'pastime'
-  ],
+  name: {
+    keywords: ['name', 'pangalan', 'called'],
+    phrases: ['your name', 'what is your name', 'pangalan mo', 'ano pangalan'],
+    weight: 10
+  },
   
-  // Greetings
-  greeting: [
-    'hello', 'hi', 'hey', 'hola', 'kumusta', 'musta', 'kamusta',
-    'good morning', 'good afternoon', 'good evening', 'yo', 'sup',
-    'magandang umaga', 'magandang hapon', 'magandang gabi', 'uy'
-  ],
+  location: {
+    keywords: ['location', 'where', 'saan', 'city', 'country', 'based', 'lugar', 'from'],
+    phrases: ['where are you', 'saan ka', 'where do you live', 'taga saan', 'where from', 'based in'],
+    weight: 10
+  },
   
-  // Thanks
-  thanks: [
-    'thanks', 'thank you', 'salamat', 'ty', 'thx', 'appreciate',
-    'maraming salamat', 'thank u', 'tnx'
-  ],
+  age: {
+    keywords: ['age', 'old', 'birthday', 'birthdate', 'born', 'edad'],
+    phrases: ['how old', 'ilang taon', 'when were you born', 'kailan birthday'],
+    weight: 10
+  },
   
-  // Help
-  help: [
-    'help', 'tulong', 'assist', 'how to use', 'what can you do',
-    'commands', 'options', 'ano pwede mo gawin', 'pano to gamitin'
-  ]
+  education: {
+    keywords: ['education', 'school', 'university', 'college', 'course', 'degree', 'study', 'studying', 'student'],
+    phrases: ['where do you study', 'what course', 'ano course mo', 'saan ka nag aaral', 'what school'],
+    weight: 10
+  },
+  
+  certificates: {
+    keywords: ['certificate', 'certificates', 'certification', 'certifications', 'credentials', 'badges', 'certs'],
+    phrases: ['your certificates', 'ano certificates mo', 'mga certificate', 'certifications you have'],
+    weight: 10
+  },
+  
+  experience: {
+    keywords: ['experience', 'job', 'career', 'employment', 'internship', 'trabaho'],
+    phrases: ['work experience', 'professional experience', 'have you worked', 'nag work ka ba'],
+    weight: 10
+  },
+  
+  pwa: {
+    keywords: ['install', 'pwa', 'download', 'homescreen', 'offline'],
+    phrases: ['install this', 'install app', 'how to install', 'add to home', 'download app', 'pano iinstall'],
+    weight: 10
+  },
+  
+  portfolio: {
+    keywords: ['website', 'site', 'portfolio'],
+    phrases: ['this website', 'your website', 'portfolio site', 'about this site', 'ano to'],
+    weight: 8
+  },
+  
+  components: {
+    keywords: ['components', 'framework', 'library', 'react', 'vite'],
+    phrases: ['tech used', 'built with', 'made with', 'what did you use', 'how did you build', 'ano ginamit'],
+    weight: 10
+  },
+  
+  hobbies: {
+    keywords: ['hobbies', 'hobby', 'interests', 'fun', 'pastime', 'libangan'],
+    phrases: ['free time', 'for fun', 'ano libangan mo', 'what do you do for fun'],
+    weight: 10
+  },
+  
+  // === CONVERSATIONAL INTENTS ===
+  
+  greeting: {
+    keywords: ['hello', 'hi', 'hey', 'hola', 'yo', 'sup', 'uy'],
+    phrases: ['good morning', 'good afternoon', 'good evening', 'kumusta', 'musta', 'kamusta', 'magandang umaga', 'magandang hapon', 'magandang gabi'],
+    weight: 5,  // Lower weight - only match if nothing else matches
+    exactMatch: true  // Require exact word match, no substring
+  },
+  
+  thanks: {
+    keywords: ['thanks', 'thank', 'salamat', 'ty', 'thx', 'tnx', 'appreciate'],
+    phrases: ['thank you', 'maraming salamat', 'thank u'],
+    weight: 8,
+    exactMatch: true
+  },
+  
+  help: {
+    keywords: ['help', 'tulong', 'assist', 'commands', 'options'],
+    phrases: ['how to use', 'what can you do', 'ano pwede mo gawin', 'pano to gamitin', 'how does this work'],
+    weight: 8
+  }
 }
 
 // Data-related topics for LLM routing
-const DATA_TOPICS = [
-  // Core Data Topics
-  'data analytics', 'data analysis', 'data analyst', 'analytics',
-  'data science', 'data scientist', 'data engineering',
-  'machine learning', 'ml', 'ai for data', 'predictive',
-  
-  // Tools
-  'power bi', 'powerbi', 'excel', 'microsoft excel', 'spreadsheet',
-  'sql', 'mysql', 'postgresql', 'database', 'query', 'queries',
-  'python for data', 'pandas', 'numpy', 'matplotlib', 'seaborn',
-  'jupyter', 'notebook', 'tableau', 'looker',
-  
-  // Concepts
-  'data cleaning', 'data wrangling', 'etl', 'elt',
-  'data visualization', 'dashboard', 'dashboards', 'charts', 'graphs',
-  'statistics', 'statistical', 'descriptive', 'inferential',
-  'correlation', 'regression', 'hypothesis', 'probability',
-  'kpi', 'metrics', 'measures', 'dimensions',
-  'bi', 'business intelligence', 'reporting', 'reports',
-  'data modeling', 'data model', 'star schema', 'snowflake schema',
-  'dax', 'measures', 'calculated columns',
-  'pivot table', 'pivot', 'vlookup', 'xlookup', 'formulas',
-  'eda', 'exploratory data analysis', 'data exploration',
-  'rfm', 'segmentation', 'clustering', 'classification',
-  'data storytelling', 'insight', 'insights',
-  
-  // Tagalog variants
-  'ano ang data', 'tungkol sa data', 'paano mag analyze',
-  'explain data', 'what is data', 'define data'
-]
+const DATA_TOPICS = {
+  keywords: [
+    'analytics', 'analysis', 'analyst', 'data', 'dataset', 'datasets',
+    'science', 'scientist', 'engineering',
+    'machine learning', 'ml', 'ai', 'predictive',
+    'powerbi', 'excel', 'spreadsheet', 'sql', 'mysql', 'postgresql', 'database', 'query',
+    'pandas', 'numpy', 'matplotlib', 'seaborn', 'jupyter', 'tableau', 'looker',
+    'cleaning', 'wrangling', 'etl', 'elt',
+    'visualization', 'dashboard', 'dashboards', 'chart', 'charts', 'graph', 'graphs',
+    'statistics', 'statistical', 'descriptive', 'inferential',
+    'correlation', 'regression', 'hypothesis', 'probability',
+    'kpi', 'metrics', 'measures', 'dimensions',
+    'bi', 'reporting', 'reports',
+    'modeling', 'model', 'schema',
+    'dax', 'pivot', 'vlookup', 'xlookup', 'formulas',
+    'eda', 'exploration', 'rfm', 'segmentation', 'clustering', 'classification',
+    'storytelling', 'insight', 'insights'
+  ],
+  phrases: [
+    'data analytics', 'data analysis', 'data analyst', 'data science', 'data scientist',
+    'data engineering', 'machine learning', 'power bi', 'microsoft excel',
+    'data cleaning', 'data wrangling', 'data visualization', 'business intelligence',
+    'data modeling', 'data model', 'star schema', 'snowflake schema',
+    'pivot table', 'exploratory data analysis', 'data storytelling',
+    'what is data', 'explain data', 'define data', 'difference between',
+    'how to analyze', 'how does'
+  ]
+}
 
 // Out of scope keywords (triggers refusal)
-const OUT_OF_SCOPE_KEYWORDS = [
-  // CS topics not covered
-  'automata', 'operating system', 'os', 'compiler', 'compilers',
-  'networking', 'network', 'tcp', 'ip', 'http', 'protocols',
-  'algorithm complexity', 'big o', 'turing machine',
-  'assembly', 'low level', 'kernel', 'memory management',
-  'distributed systems', 'microservices', 'kubernetes', 'docker',
-  'cybersecurity', 'cryptography', 'encryption', 'hacking',
-  'blockchain', 'cryptocurrency', 'bitcoin', 'ethereum',
-  'game development', 'unity', 'unreal', 'game engine',
-  'mobile development', 'ios', 'android', 'flutter', 'swift',
-  'embedded systems', 'arduino', 'raspberry pi', 'iot',
-  
-  // General knowledge/trivia
-  'capital of', 'president of', 'history of', 'when did',
-  'how many kilometers', 'distance', 'population', 'country',
-  'planet', 'solar system', 'space', 'universe', 'physics',
-  'chemistry', 'biology', 'medicine', 'health', 'disease',
-  'recipe', 'cook', 'food', 'restaurant', 'movie', 'music',
-  'sports', 'basketball', 'football', 'celebrity', 'actor',
-  'news', 'politics', 'election', 'government',
-  'weather', 'climate', 'temperature',
-  
-  // Inappropriate
-  'hack', 'crack', 'pirate', 'illegal', 'cheat',
-  'adult', 'explicit', 'violence'
-]
+const OUT_OF_SCOPE = {
+  keywords: [
+    'automata', 'compiler', 'compilers', 'kernel',
+    'tcp', 'udp', 'protocols', 'networking',
+    'blockchain', 'cryptocurrency', 'bitcoin', 'ethereum', 'nft',
+    'unity', 'unreal', 'godot', 'gamedev',
+    'flutter', 'swift', 'kotlin',
+    'arduino', 'raspberry', 'iot', 'embedded',
+    'kubernetes', 'microservices',
+    'cryptography', 'encryption', 'hacking', 'cybersecurity',
+    'hack', 'crack', 'pirate', 'illegal', 'cheat'
+  ],
+  phrases: [
+    'operating system', 'big o', 'turing machine', 'memory management',
+    'distributed systems', 'game development', 'mobile development',
+    'capital of', 'president of', 'history of', 'how many kilometers',
+    'solar system', 'recipe for', 'how to cook'
+  ]
+}
 
 /**
  * Normalize text for matching
- * - Lowercase
- * - Remove punctuation
- * - Trim whitespace
- * - Normalize multiple spaces
  */
 function normalizeText(text) {
   return text
@@ -210,188 +197,133 @@ function normalizeText(text) {
 }
 
 /**
- * Calculate Levenshtein distance for fuzzy matching
- */
-function levenshteinDistance(str1, str2) {
-  const m = str1.length
-  const n = str2.length
-  const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0))
-  
-  for (let i = 0; i <= m; i++) dp[i][0] = i
-  for (let j = 0; j <= n; j++) dp[0][j] = j
-  
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (str1[i - 1] === str2[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1]
-      } else {
-        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
-      }
-    }
-  }
-  
-  return dp[m][n]
-}
-
-/**
- * Check if a word matches a target with fuzzy tolerance
- */
-function fuzzyMatch(word, target, threshold = 2) {
-  if (word === target) return true
-  if (Math.abs(word.length - target.length) > threshold) return false
-  return levenshteinDistance(word, target) <= threshold
-}
-
-/**
- * Check if input contains any phrase from a list (with fuzzy matching)
- */
-function containsPhrase(normalizedInput, phrases) {
-  for (const phrase of phrases) {
-    const normalizedPhrase = normalizeText(phrase)
-    
-    // Exact substring match
-    if (normalizedInput.includes(normalizedPhrase)) {
-      return true
-    }
-    
-    // Word-level fuzzy match for single words
-    const inputWords = normalizedInput.split(' ')
-    const phraseWords = normalizedPhrase.split(' ')
-    
-    if (phraseWords.length === 1 && phraseWords[0].length > 3) {
-      for (const word of inputWords) {
-        if (fuzzyMatch(word, phraseWords[0])) {
-          return true
-        }
-      }
-    }
-  }
-  return false
-}
-
-/**
- * Detect simple math expressions
+ * Check if input is a simple math expression
  */
 function isSimpleMath(input) {
-  const normalizedInput = normalizeText(input)
-  
-  // Pattern for basic arithmetic: "1 + 1", "10 * 5", "what is 5 + 3", etc.
+  const normalized = normalizeText(input)
   const mathPatterns = [
     /^\d+\s*[\+\-\*\/x×÷]\s*\d+$/,
-    /^what\s+is\s+\d+\s*[\+\-\*\/x×÷]\s*\d+$/,
-    /^calculate\s+\d+\s*[\+\-\*\/x×÷]\s*\d+$/,
-    /^compute\s+\d+\s*[\+\-\*\/x×÷]\s*\d+$/,
-    /^\d+\s+(plus|minus|times|divided by|multiplied by)\s+\d+$/,
-    /^ano\s+(ang|yung)?\s*\d+\s*[\+\-\*\/x×÷]\s*\d+$/
+    /^what\s+is\s+\d+\s*[\+\-\*\/x×÷]\s*\d+/,
+    /^calculate\s+\d+\s*[\+\-\*\/x×÷]\s*\d+/,
+    /^\d+\s+(plus|minus|times|divided\s*by|multiplied\s*by)\s+\d+$/
   ]
-  
-  return mathPatterns.some(pattern => pattern.test(normalizedInput))
+  return mathPatterns.some(p => p.test(normalized))
 }
 
 /**
  * Evaluate simple math expression
  */
 function evaluateMath(input) {
-  const normalizedInput = normalizeText(input)
+  const normalized = normalizeText(input)
+  const numbers = normalized.match(/\d+/g)
   
-  // Extract numbers and operator
-  const match = normalizedInput.match(/(\d+)\s*[\+\-\*\/x×÷]|plus|minus|times|divided|multiplied)\s*(\d+)/)
+  if (!numbers || numbers.length < 2) return null
   
-  if (!match) {
-    // Try direct extraction
-    const numbers = normalizedInput.match(/\d+/g)
-    const operators = normalizedInput.match(/[\+\-\*\/x×÷]|plus|minus|times|divided|multiplied/g)
-    
-    if (numbers && numbers.length >= 2 && operators) {
-      const a = parseInt(numbers[0])
-      const b = parseInt(numbers[1])
-      const op = operators[0]
-      
-      switch(op) {
-        case '+':
-        case 'plus':
-          return a + b
-        case '-':
-        case 'minus':
-          return a - b
-        case '*':
-        case 'x':
-        case '×':
-        case 'times':
-        case 'multiplied':
-          return a * b
-        case '/':
-        case '÷':
-        case 'divided':
-          return b !== 0 ? a / b : null
-        default:
-          return null
-      }
-    }
-  }
+  const a = parseInt(numbers[0])
+  const b = parseInt(numbers[1])
+  
+  if (normalized.includes('+') || normalized.includes('plus')) return a + b
+  if (normalized.includes('-') || normalized.includes('minus')) return a - b
+  if (normalized.includes('*') || normalized.includes('×') || /\bx\b/.test(normalized) || normalized.includes('times') || normalized.includes('multiplied')) return a * b
+  if (normalized.includes('/') || normalized.includes('÷') || normalized.includes('divided')) return b !== 0 ? a / b : null
   
   return null
 }
 
 /**
- * Check if input is about data-related topics (for LLM routing)
+ * Calculate intent score for a given input
+ */
+function scoreIntent(normalizedInput, intentConfig) {
+  const { keywords = [], phrases = [], weight = 10, exactMatch = false } = intentConfig
+  let score = 0
+  const inputWords = normalizedInput.split(' ')
+  
+  // Check phrase matches (higher priority)
+  for (const phrase of phrases) {
+    if (normalizedInput.includes(phrase)) {
+      score += weight * 2  // Phrases are worth more
+    }
+  }
+  
+  // Check keyword matches
+  for (const keyword of keywords) {
+    if (exactMatch) {
+      // Exact word match only
+      if (inputWords.includes(keyword)) {
+        score += weight
+      }
+    } else {
+      // Word boundary match (keyword must be a complete word)
+      const regex = new RegExp(`\\b${keyword}\\b`, 'i')
+      if (regex.test(normalizedInput)) {
+        score += weight
+      }
+    }
+  }
+  
+  return score
+}
+
+/**
+ * Check if input matches data topics
  */
 function isDataRelated(normalizedInput) {
-  return DATA_TOPICS.some(topic => normalizedInput.includes(topic))
+  // Check phrases first
+  for (const phrase of DATA_TOPICS.phrases) {
+    if (normalizedInput.includes(phrase)) {
+      return true
+    }
+  }
+  
+  // Check keywords with word boundary
+  for (const keyword of DATA_TOPICS.keywords) {
+    const regex = new RegExp(`\\b${keyword}\\b`, 'i')
+    if (regex.test(normalizedInput)) {
+      return true
+    }
+  }
+  
+  return false
 }
 
 /**
  * Check if input is out of scope
  */
 function isOutOfScope(normalizedInput) {
-  return OUT_OF_SCOPE_KEYWORDS.some(keyword => normalizedInput.includes(keyword))
+  // Check phrases
+  for (const phrase of OUT_OF_SCOPE.phrases) {
+    if (normalizedInput.includes(phrase)) {
+      return true
+    }
+  }
+  
+  // Check keywords with word boundary
+  for (const keyword of OUT_OF_SCOPE.keywords) {
+    const regex = new RegExp(`\\b${keyword}\\b`, 'i')
+    if (regex.test(normalizedInput)) {
+      return true
+    }
+  }
+  
+  return false
 }
 
 /**
- * Main NLP intent classification function
- * Returns: { type: 'math'|'portfolio'|'data'|'greeting'|'thanks'|'help'|'outofscope'|'unknown', intent: string|null, mathResult: number|null }
+ * Main intent classification function
  */
 export function classifyIntent(userInput) {
   const normalizedInput = normalizeText(userInput)
   
   // Level 1: Check for simple math
   if (isSimpleMath(userInput)) {
-    const result = evaluateMath(userInput)
     return {
       type: 'math',
       intent: 'math',
-      mathResult: result
+      mathResult: evaluateMath(userInput)
     }
   }
   
-  // Check for greetings first (quick response)
-  if (containsPhrase(normalizedInput, INTENT_SYNONYMS.greeting)) {
-    return {
-      type: 'greeting',
-      intent: 'greeting',
-      mathResult: null
-    }
-  }
-  
-  // Check for thanks
-  if (containsPhrase(normalizedInput, INTENT_SYNONYMS.thanks)) {
-    return {
-      type: 'thanks',
-      intent: 'thanks',
-      mathResult: null
-    }
-  }
-  
-  // Check for help
-  if (containsPhrase(normalizedInput, INTENT_SYNONYMS.help)) {
-    return {
-      type: 'help',
-      intent: 'help',
-      mathResult: null
-    }
-  }
-  
-  // Level 4: Check if explicitly out of scope BEFORE data topics
+  // Level 4: Check if explicitly out of scope FIRST
   if (isOutOfScope(normalizedInput)) {
     return {
       type: 'outofscope',
@@ -400,14 +332,31 @@ export function classifyIntent(userInput) {
     }
   }
   
-  // Level 2: Check for portfolio intents
-  for (const [intent, synonyms] of Object.entries(INTENT_SYNONYMS)) {
-    if (['greeting', 'thanks', 'help'].includes(intent)) continue
+  // Level 2 & Conversational: Score all portfolio intents
+  const intentScores = {}
+  for (const [intentName, config] of Object.entries(INTENT_PATTERNS)) {
+    const score = scoreIntent(normalizedInput, config)
+    if (score > 0) {
+      intentScores[intentName] = score
+    }
+  }
+  
+  // Find best matching intent
+  const sortedIntents = Object.entries(intentScores)
+    .sort((a, b) => b[1] - a[1])  // Sort by score descending
+  
+  if (sortedIntents.length > 0) {
+    const [bestIntent, bestScore] = sortedIntents[0]
     
-    if (containsPhrase(normalizedInput, synonyms)) {
+    // Only accept if score is meaningful
+    if (bestScore >= 5) {
+      // Determine type based on intent
+      const conversationalIntents = ['greeting', 'thanks', 'help']
+      const type = conversationalIntents.includes(bestIntent) ? bestIntent : 'portfolio'
+      
       return {
-        type: 'portfolio',
-        intent: intent,
+        type,
+        intent: bestIntent,
         mathResult: null
       }
     }
@@ -422,33 +371,20 @@ export function classifyIntent(userInput) {
     }
   }
   
-  // Check for question patterns that might indicate data topic
-  const questionPatterns = [
-    /what is|what are|define|explain|difference|differentiate|compare|how does|how do/,
-    /ano ang|ano ba|paano|ipaliwanag|explain/
-  ]
+  // Check if it looks like a question that might be data-related
+  const questionWords = ['what', 'how', 'why', 'explain', 'define', 'difference', 'compare', 'ano', 'paano', 'bakit']
+  const hasQuestionWord = questionWords.some(w => normalizedInput.startsWith(w) || normalizedInput.includes(` ${w} `))
   
-  const hasQuestionPattern = questionPatterns.some(p => p.test(normalizedInput))
-  
-  // If it's a question but not matched, check if it could be data-related
-  if (hasQuestionPattern) {
-    // Check for data-adjacent keywords
-    const dataAdjacentKeywords = [
-      'analyst', 'scientist', 'data', 'analysis', 'analytics',
-      'visualization', 'chart', 'graph', 'report', 'bi',
-      'statistic', 'model', 'predict', 'trend'
-    ]
-    
-    if (dataAdjacentKeywords.some(kw => normalizedInput.includes(kw))) {
-      return {
-        type: 'data',
-        intent: 'data_question',
-        mathResult: null
-      }
+  if (hasQuestionWord && normalizedInput.length > 20) {
+    // Longer questions might be data-related, let LLM try
+    return {
+      type: 'data',
+      intent: 'data_question',
+      mathResult: null
     }
   }
   
-  // Unknown - could be out of scope or needs clarification
+  // Unknown
   return {
     type: 'unknown',
     intent: null,
