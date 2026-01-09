@@ -1,20 +1,69 @@
 import { useState, useRef, useEffect, useContext } from 'react'
 import { ThemeContext } from '../../App'
+import { getChatbotResponse, getWelcomeMessage } from '../../services/chatbotService'
 import chatbotIcon from '../../assets/icons/chatbot-icon.png'
 import './Chatbot.css'
+
+/**
+ * Parse markdown-style formatting to JSX
+ * Supports: **bold**, line breaks, bullet points
+ */
+const parseFormattedText = (text) => {
+  if (!text) return null
+  
+  // Split by double newlines for paragraphs
+  const paragraphs = text.split(/\n\n+/)
+  
+  return paragraphs.map((paragraph, pIndex) => {
+    // Split by single newlines for lines within paragraph
+    const lines = paragraph.split('\n')
+    
+    return (
+      <span key={pIndex}>
+        {pIndex > 0 && <><br /><br /></>}
+        {lines.map((line, lIndex) => {
+          // Check if it's a bullet point
+          const isBullet = /^[•\-\*]\s/.test(line.trim())
+          const cleanLine = isBullet ? line.trim().replace(/^[•\-\*]\s/, '') : line
+          
+          // Parse bold text (**text**)
+          const parts = cleanLine.split(/(\*\*[^*]+\*\*)/g)
+          const formattedParts = parts.map((part, i) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+              return <strong key={i}>{part.slice(2, -2)}</strong>
+            }
+            return part
+          })
+          
+          return (
+            <span key={lIndex}>
+              {lIndex > 0 && <br />}
+              {isBullet && <span style={{ marginRight: '8px' }}>•</span>}
+              {formattedParts}
+            </span>
+          )
+        })}
+      </span>
+    )
+  })
+}
 
 const Chatbot = () => {
   const { darkMode } = useContext(ThemeContext)
   const [isOpen, setIsOpen] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hi! 👋 I'm Lance's assistant. How can I help you today?",
-      sender: 'bot',
-      timestamp: new Date()
-    }
-  ])
+  const [messages, setMessages] = useState(() => {
+    const welcome = getWelcomeMessage()
+    return [
+      {
+        id: 1,
+        text: welcome.text,
+        sender: 'bot',
+        type: welcome.type,
+        timestamp: new Date()
+      }
+    ]
+  })
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef(null)
 
@@ -23,13 +72,15 @@ const Chatbot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isTyping])
 
-  const handleSendMessage = () => {
-    if (inputValue.trim() === '') return
+  const handleSendMessage = async () => {
+    if (inputValue.trim() === '' || isTyping) return
 
+    const userText = inputValue.trim()
+    
     // Add user message
     const userMessage = {
       id: Date.now(),
-      text: inputValue,
+      text: userText,
       sender: 'user',
       timestamp: new Date()
     }
@@ -38,17 +89,33 @@ const Chatbot = () => {
     setInputValue('')
     setIsTyping(true)
 
-    // Simulate bot response (replace with actual API call later)
-    setTimeout(() => {
+    try {
+      // Get response from chatbot service (handles NLP + routing + LLM)
+      const response = await getChatbotResponse(userText)
+      
       setIsTyping(false)
+      
       const botMessage = {
         id: Date.now() + 1,
-        text: "Thanks for reaching out! This chatbot is currently under development. Feel free to explore my portfolio in the meantime! 🚀",
+        text: response.text,
         sender: 'bot',
+        type: response.type,
         timestamp: new Date()
       }
       setMessages(prev => [...prev, botMessage])
-    }, 1200)
+    } catch (error) {
+      console.error('Chatbot error:', error)
+      setIsTyping(false)
+      
+      const errorMessage = {
+        id: Date.now() + 1,
+        text: "Oops! Something went wrong. Try again in a moment! 😅",
+        sender: 'bot',
+        type: 'error',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+    }
   }
 
   const handleKeyPress = (e) => {
@@ -60,6 +127,8 @@ const Chatbot = () => {
 
   const handleQuickAction = (text) => {
     setInputValue(text)
+    // Optional: auto-send the quick action
+    // setTimeout(() => handleSendMessage(), 100)
   }
 
   return (
@@ -117,7 +186,12 @@ const Chatbot = () => {
                 className={`message ${message.sender}`}
               >
                 <div className="message-content">
-                  <p>{message.text}</p>
+                  <div className="message-text">
+                    {message.sender === 'bot' 
+                      ? parseFormattedText(message.text)
+                      : <p>{message.text}</p>
+                    }
+                  </div>
                   <span className="message-time">
                     {message.timestamp.toLocaleTimeString([], {
                       hour: '2-digit',
@@ -142,13 +216,16 @@ const Chatbot = () => {
           {/* Quick Actions */}
           <div className="quick-actions">
             <button className="quick-action-btn" onClick={() => handleQuickAction("Tell me about your projects")}>
-              Projects
+              📂 Projects
             </button>
             <button className="quick-action-btn" onClick={() => handleQuickAction("What are your skills?")}>
-              Skills
+              🛠️ Skills
             </button>
             <button className="quick-action-btn" onClick={() => handleQuickAction("How can I contact you?")}>
-              Contact
+              📧 Contact
+            </button>
+            <button className="quick-action-btn" onClick={() => handleQuickAction("What is data analytics?")}>
+              📊 Data
             </button>
           </div>
 
